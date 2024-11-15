@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Inicio skills</title>
     <link rel='stylesheet' href='/css/style.css' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script type="module" src="/js/main.js"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <p>Skills / Sistemas Web (2024-2025)</p>
 
-    <p>By:</p>
-    <ul>
-      <li>Juan Pablo Zambrano</li>
-      <li>Leslie Sánchez</li>
-      <li>Marta Zulaica </li>
-    </ul>
+     <div class="container text-center">
+      <h1><%= title %></h1>
+      <p>Bienvenido a <%= title %></p>
+      
+        <p>Hola, </p>
+        <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+
+        <a href="/login" class="btn btn-primary">Iniciar sesión</a>
+
+    </div>
 
   </body>
 </html>
