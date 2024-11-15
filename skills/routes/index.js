@@ -30,4 +30,11 @@ router.get('/skills', (req, res) => {
   res.render('skills', {competencias});
 });
 
+router.get('/leaderboard', (req, res) => {
+  const badgesPath = path.join(__dirname, '../badges.json');
+  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
+  res.render('leaderboard', { badges });
+});
+
+
 module.exports = router;
