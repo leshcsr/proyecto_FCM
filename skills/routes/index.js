@@ -11,5 +11,8 @@ router.get('/login', (req, res) => {
   res.render('login', { title: 'Iniciar Sesión' });
 });
 
+router.get('/skills', (req, res) => {
+  res.render('skills');
+});
 
 module.exports = router;
