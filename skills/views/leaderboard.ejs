@@ -46,7 +46,7 @@
     <!-- Medallas se insertarán aquí dinámicamente -->
     <% badges.forEach(badge => { %>
       <div class="badge">
-        <img src="/badges/<%= badge.png %>" alt="<%= badge.rango %>">
+        <img src="/badges/<%= badges.png %>" alt="<%= badge.rango %>">
         <h3><%= badge.rango %></h3>
         <p><%= badge.bitpoints_min %> - <%= badge.bitpoints_max %> puntos</p>
       </div>

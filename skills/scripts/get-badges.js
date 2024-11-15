@@ -19,24 +19,22 @@ const BADGES_DIR = path.join(__dirname, '../public/badges');
 
     // Crear el array de medallas
     let badges = [];
-    $('.markdown-body ul li').each((index, element) => {
-      const text = $(element).text().trim();
-      const png = $(element).find('img').attr('src');
-
-      // Parsear rango y bitpoints
-      const match = text.match(/(.+?):\s+(\d+)-(\d+)/);
-      if (match) {
-        const rango = match[1].trim();
-        const bitpoints_min = parseInt(match[2], 10);
-        const bitpoints_max = parseInt(match[3], 10);
-        const badgeData = {
-          rango,
-          bitpoints_min,
-          bitpoints_max,
-          png: png ? png.replace('large', 'min') : null, // Usar la versión pequeña
-        };
-        badges.push(badgeData);
-      }
+    $('.markdown-body tbody tr').each((index, element) => {
+        const columns = $(element).find('td');
+  
+        // Extraer información relevante
+        const rango = $(columns[2]).text().trim();
+        const bitpoints = parseInt($(columns[3]).text().trim(), 10);
+        const png = $(columns[1]).find('img').attr('src');
+  
+        if (rango && !isNaN(bitpoints) && png) {
+          badges.push({
+            rango,
+            bitpoints_min: badges.length > 0 ? badges[badges.length - 1].bitpoints_max + 1 : 0, // Rango inferior
+            bitpoints_max: bitpoints,
+            png,
+          });
+        }
     });
 
     // Guardar las medallas en un archivo JSON

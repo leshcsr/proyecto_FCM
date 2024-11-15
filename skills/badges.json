@@ -1,1 +1,140 @@
-[]
+[
+  {
+    "rango": "Observador",
+    "bitpoints_min": 0,
+    "bitpoints_max": 0,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/00-observador.png"
+  },
+  {
+    "rango": "Aspirante a Cadete",
+    "bitpoints_min": 1,
+    "bitpoints_max": 2,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/01-Aspirante-cadete.png"
+  },
+  {
+    "rango": "Cadete",
+    "bitpoints_min": 3,
+    "bitpoints_max": 5,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/02-cadete.png"
+  },
+  {
+    "rango": "Cadete nivel-1",
+    "bitpoints_min": 6,
+    "bitpoints_max": 15,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/03-cadete-N1.png"
+  },
+  {
+    "rango": "Cadete nivel-2",
+    "bitpoints_min": 16,
+    "bitpoints_max": 25,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/04-cadete-N2.png"
+  },
+  {
+    "rango": "Cadete nivel-3",
+    "bitpoints_min": 26,
+    "bitpoints_max": 40,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/05-cadete-N3.png"
+  },
+  {
+    "rango": "Aspirante a Padawan",
+    "bitpoints_min": 41,
+    "bitpoints_max": 60,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/06-Aspirante-padawan.png"
+  },
+  {
+    "rango": "Aspirante a Padawan Nivel 1",
+    "bitpoints_min": 61,
+    "bitpoints_max": 80,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/07-Aspirante-padawan-N1.png"
+  },
+  {
+    "rango": "Aspirante a Padawan Nivel 2",
+    "bitpoints_min": 81,
+    "bitpoints_max": 100,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/08-Aspirante-padawan-N2.png"
+  },
+  {
+    "rango": "Aspirante a Padawan Nivel 3",
+    "bitpoints_min": 101,
+    "bitpoints_max": 120,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/09-Aspirante-padawan-N3.png"
+  },
+  {
+    "rango": "Padawan",
+    "bitpoints_min": 121,
+    "bitpoints_max": 150,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/10-Padawan.png"
+  },
+  {
+    "rango": "Padawan Nivel 1",
+    "bitpoints_min": 151,
+    "bitpoints_max": 180,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/11-Padawan-N1.png"
+  },
+  {
+    "rango": "Padawan Nivel 2",
+    "bitpoints_min": 181,
+    "bitpoints_max": 210,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/12-Padawan-N2.png"
+  },
+  {
+    "rango": "Padawan Nivel 3",
+    "bitpoints_min": 211,
+    "bitpoints_max": 240,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/13-Padawan-N3.png"
+  },
+  {
+    "rango": "Aspirante a Jedi",
+    "bitpoints_min": 241,
+    "bitpoints_max": 270,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/14-Aspirante-jedi.png"
+  },
+  {
+    "rango": "Aspirante a Jedi Nivel 1",
+    "bitpoints_min": 271,
+    "bitpoints_max": 300,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/15-Aspirante-jedi-N1.png"
+  },
+  {
+    "rango": "Aspirante a Jedi Nivel 2",
+    "bitpoints_min": 301,
+    "bitpoints_max": 330,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/16-Aspirante-jedi-N2.png"
+  },
+  {
+    "rango": "Aspirante a Jedi Nivel 3",
+    "bitpoints_min": 331,
+    "bitpoints_max": 360,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/17-Aspirante-jedi-N3.png"
+  },
+  {
+    "rango": "Jedi",
+    "bitpoints_min": 361,
+    "bitpoints_max": 400,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/18-Jedi.png"
+  },
+  {
+    "rango": "Jedi Nivel 1",
+    "bitpoints_min": 401,
+    "bitpoints_max": 440,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/19-Jedi-N1.png"
+  },
+  {
+    "rango": "Jedi Nivel 2",
+    "bitpoints_min": 441,
+    "bitpoints_max": 480,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/20-Jedi-N2.png"
+  },
+  {
+    "rango": "Jedi Nivel 3",
+    "bitpoints_min": 481,
+    "bitpoints_max": 520,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/21-Jedi-N3.png"
+  },
+  {
+    "rango": "Caballero Jedi",
+    "bitpoints_min": 521,
+    "bitpoints_max": 600,
+    "png": "https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/raw/master/rangos/png/22-Caballero-Jedi.png"
+  }
+]
