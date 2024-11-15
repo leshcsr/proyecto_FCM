@@ -1,410 +1,342 @@
 [
   {
     "id": 1,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon1.svg",
-    "description": "Descripción de la competencia"
+    "text": "Light up an LED for the first time",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon1.svg"
   },
   {
     "id": 2,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon2.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to use wire strippers",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon2.svg"
   },
   {
     "id": 3,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon3.svg",
-    "description": "Descripción de la competencia"
+    "text": "Complete an electronics kit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon3.svg"
   },
   {
     "id": 4,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to Solder",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg"
   },
   {
     "id": 5,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon5.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to use a breadboard",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon5.svg"
   },
   {
     "id": 6,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon6.svg",
-    "description": "Descripción de la competencia"
+    "text": "Get a circuit wrong and tryagain",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon6.svg"
   },
   {
     "id": 7,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon7.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn Ohm’s Law",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon7.svg"
   },
   {
     "id": 8,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon8.svg",
-    "description": "Descripción de la competencia"
+    "text": "Fix something something that’s broken",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon8.svg"
   },
   {
     "id": 9,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
-    "description": "Descripción de la competencia"
+    "text": "Measure voltage with a multimeter",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
   },
   {
     "id": 10,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to read a schematic",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg"
   },
   {
     "id": 11,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon11.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to read a datasheet",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon11.svg"
   },
   {
     "id": 12,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to control the brightness of an LED",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg"
   },
   {
     "id": 13,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to desolder a through holecomponent",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg"
   },
   {
     "id": 14,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make something that makes noise",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg"
   },
   {
     "id": 15,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg",
-    "description": "Descripción de la competencia"
+    "text": "Turn a  breadboard circuit into a  schematic",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg"
   },
   {
     "id": 16,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
-    "description": "Descripción de la competencia"
+    "text": "Measure current with a  multimeter",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
   },
   {
     "id": 17,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a voltage divider to lower  the voltage  for a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg"
   },
   {
     "id": 18,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon18.svg",
-    "description": "Descripción de la competencia"
+    "text": "Turn something  on using  a sensor",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon18.svg"
   },
   {
     "id": 19,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a diode protect your  circuit from  reverse voltages",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg"
   },
   {
     "id": 20,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make an oscillator thatmakes noise",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg"
   },
   {
     "id": 21,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a relay to switchsomething on ata higher voltage",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg"
   },
   {
     "id": 22,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon22.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a  capacitor rocket (too much voltage)",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon22.svg"
   },
   {
     "id": 23,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon23.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn to  solder surfcace mount parts",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon23.svg"
   },
   {
     "id": 24,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon24.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a   555 timer in a circuit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon24.svg"
   },
   {
     "id": 25,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a sound  louder with anamplifier",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg"
   },
   {
     "id": 26,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use  addressable  RGB LEDs in a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg"
   },
   {
     "id": 27,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon27.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a  project  with a  Raspberry Pi",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon27.svg"
   },
   {
     "id": 28,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon28.svg",
-    "description": "Descripción de la competencia"
+    "text": "Let the smoke out  accidentally",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon28.svg"
   },
   {
     "id": 29,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon29.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use fritzing or TinkerCAD  to create a   circuit diagram",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon29.svg"
   },
   {
     "id": 30,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon30.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make something  with Arduino",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon30.svg"
   },
   {
     "id": 31,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon31.svg",
-    "description": "Descripción de la competencia"
+    "text": "Let the smoke out of an Arduino  accidentally",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon31.svg"
   },
   {
     "id": 32,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
-    "description": "Descripción de la competencia"
+    "text": "Measure frequency with a  multimeter",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
   },
   {
     "id": 33,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use an Op-Amp  in  a circuit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg"
   },
   {
     "id": 34,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a crowbarcircuit to protect against over voltage",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg"
   },
   {
     "id": 35,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a surgediode to protect a circuit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg"
   },
   {
     "id": 36,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon36.svg",
-    "description": "Descripción de la competencia"
+    "text": "Makesomething for a friend",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon36.svg"
   },
   {
     "id": 37,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon37.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a motorcontroller with a H Bridge",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon37.svg"
   },
   {
     "id": 38,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon38.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make acounter with logic gates",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon38.svg"
   },
   {
     "id": 39,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon39.svg",
-    "description": "Descripción de la competencia"
+    "text": "Apply solderpaste to a PCB with a stencil",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon39.svg"
   },
   {
     "id": 40,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg",
-    "description": "Descripción de la competencia"
+    "text": "Teach afriend an electronics skill",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg"
   },
   {
     "id": 41,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon41.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make somethingwith a 7 segment display",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon41.svg"
   },
   {
     "id": 42,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon42.svg",
-    "description": "Descripción de la competencia"
+    "text": "Measurevoltage with an oscilloscope",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon42.svg"
   },
   {
     "id": 43,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon43.svg",
-    "description": "Descripción de la competencia"
+    "text": "Measurecapacitor equivalent series resistance",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon43.svg"
   },
   {
     "id": 44,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon44.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make anInternet of Things  (IoT) project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon44.svg"
   },
   {
     "id": 45,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon45.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make something with solar panels",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon45.svg"
   },
   {
     "id": 46,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg",
-    "description": "Descripción de la competencia"
+    "text": "Look at an  audio inputon an oscilloscope",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg"
   },
   {
     "id": 47,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a  regulatedpower supply",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg"
   },
   {
     "id": 48,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon48.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a MOSFET  instead of a relayin a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon48.svg"
   },
   {
     "id": 49,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon49.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make your  ownUSB cable",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon49.svg"
   },
   {
     "id": 50,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon50.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use an LED  matrix ina project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon50.svg"
   },
   {
     "id": 51,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg",
-    "description": "Descripción de la competencia"
+    "text": "Filter   unwanted noisefrom a signal",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg"
   },
   {
     "id": 52,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use a freqency   analyserfor a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
   },
   {
     "id": 53,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg",
-    "description": "Descripción de la competencia"
+    "text": "Order a PCB withyour design",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg"
   },
   {
     "id": 54,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon54.svg",
-    "description": "Descripción de la competencia"
+    "text": "Repair a broken traceon a PCB",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon54.svg"
   },
   {
     "id": 55,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use automaticgain control",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg"
   },
   {
     "id": 56,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a PID circuitwith Op-Amps",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg"
   },
   {
     "id": 57,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg",
-    "description": "Descripción de la competencia"
+    "text": "Teach a class onElectronics",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg"
   },
   {
     "id": 58,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg",
-    "description": "Descripción de la competencia"
+    "text": "Learn PCB DesignSoftware",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg"
   },
   {
     "id": 59,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon59.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use an e-paper displayin a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon59.svg"
   },
   {
     "id": 60,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon60.svg",
-    "description": "Descripción de la competencia"
+    "text": "Build a Radio Frequency(RF)Project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon60.svg"
   },
   {
     "id": 61,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon61.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make an open sourceproject",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon61.svg"
   },
   {
     "id": 62,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon62.svg",
-    "description": "Descripción de la competencia"
+    "text": "Use capacitive touch in a PCBdesign",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon62.svg"
   },
   {
     "id": 63,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon63.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make something with PCB Art",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon63.svg"
   },
   {
     "id": 64,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon64.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make an electronic sculpture",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon64.svg"
   },
   {
     "id": 65,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg",
-    "description": "Descripción de la competencia"
+    "text": "Make a switch mode power supply",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg"
   },
   {
     "id": 66,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon66.svg",
-    "description": "Descripción de la competencia"
+    "text": "Release a tutorial on a project you've made",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon66.svg"
   },
   {
     "id": 67,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon67.svg",
-    "description": "Descripción de la competencia"
+    "text": "Create an FPGA Project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon67.svg"
   },
   {
     "id": 68,
-    "text": "",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon68.svg",
-    "description": "Descripción de la competencia"
+    "text": "Write your own C/C++ library for a sensor from scratch",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon68.svg"
   }
 ]
