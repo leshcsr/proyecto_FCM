@@ -28,6 +28,8 @@
 </head>
 <body>
     <h1>Skills</h1>
+    <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+
 
     <div id="skills-container">
         <% competencias.forEach(skill => { %>
@@ -57,9 +59,8 @@
         <% }); %>
       </div>
 
-      <div>
-        <a href="/leaderboard">Consulta los puntos para cada medalla</a>
-
+      <div class="align-self-center">
+        <a href="/leaderboard" class="btn btn-warning">Consulta los puntos para cada medalla</a>
       </div>
         
 
