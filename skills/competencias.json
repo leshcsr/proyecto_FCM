@@ -2,341 +2,409 @@
   {
     "id": 1,
     "text": "Light up an LED for the first time",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon1.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon1.svg",
+    "description": "Learn the basics of connecting an LED and powering it to emit light."
   },
   {
     "id": 2,
     "text": "Learn to use wire strippers",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon2.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon2.svg",
+    "description": "Master the skill of stripping insulation from wires safely and effectively."
   },
   {
     "id": 3,
     "text": "Complete an electronics kit",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon3.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon3.svg",
+    "description": "Build confidence by assembling a beginner-friendly electronics kit."
   },
   {
     "id": 4,
     "text": "Learn to Solder",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg",
+    "description": "Develop the essential skill of soldering components onto circuit boards."
   },
   {
     "id": 5,
     "text": "Learn to use a breadboard",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon5.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon5.svg",
+    "description": "Understand how to use a breadboard to prototype and test circuits."
   },
   {
     "id": 6,
-    "text": "Get a circuit wrong and tryagain",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon6.svg"
+    "text": "Get a circuit wrong and try again",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon6.svg",
+    "description": "Embrace learning by troubleshooting and fixing a non-functional circuit."
   },
   {
     "id": 7,
     "text": "Learn Ohm’s Law",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon7.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon7.svg",
+    "description": "Understand the relationship between voltage, current, and resistance."
   },
   {
     "id": 8,
-    "text": "Fix something something that’s broken",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon8.svg"
+    "text": "Fix something that’s broken",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon8.svg",
+    "description": "Apply your skills to repair a simple electronic device."
   },
   {
     "id": 9,
     "text": "Measure voltage with a multimeter",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
+    "description": "Learn how to use a multimeter to measure voltage in a circuit."
   },
   {
     "id": 10,
     "text": "Learn to read a schematic",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg",
+    "description": "Understand the symbols and layout of electronic circuit diagrams."
   },
   {
     "id": 11,
     "text": "Learn to read a datasheet",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon11.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon11.svg",
+    "description": "Discover how to interpret the specifications and capabilities of components."
   },
   {
     "id": 12,
     "text": "Learn to control the brightness of an LED",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg",
+    "description": "Experiment with resistors or PWM to adjust LED brightness."
   },
   {
     "id": 13,
-    "text": "Learn to desolder a through holecomponent",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg"
+    "text": "Learn to desolder a through-hole component",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon4.svg",
+    "description": "Master the technique of safely removing soldered components from a PCB."
   },
   {
     "id": 14,
     "text": "Make something that makes noise",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg",
+    "description": "Create a circuit that generates sound, such as a buzzer or simple tone."
   },
   {
     "id": 15,
-    "text": "Turn a  breadboard circuit into a  schematic",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg"
+    "text": "Turn a breadboard circuit into a schematic",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg",
+    "description": "Translate your prototype into a professional-looking circuit diagram."
   },
   {
     "id": 16,
-    "text": "Measure current with a  multimeter",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
+    "text": "Measure current with a multimeter",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
+    "description": "Learn how to measure the flow of current in a circuit using a multimeter."
   },
   {
     "id": 17,
-    "text": "Make a voltage divider to lower  the voltage  for a project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg"
+    "text": "Make a voltage divider to lower the voltage for a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg",
+    "description": "Design and implement a voltage divider circuit for your needs."
   },
   {
     "id": 18,
-    "text": "Turn something  on using  a sensor",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon18.svg"
+    "text": "Turn something on using a sensor",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon18.svg",
+    "description": "Use a sensor to trigger or control another device in a circuit."
   },
   {
     "id": 19,
-    "text": "Use a diode protect your  circuit from  reverse voltages",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg"
+    "text": "Use a diode to protect your circuit from reverse voltages",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg",
+    "description": "Learn how to prevent damage to your circuit using a diode."
   },
   {
     "id": 20,
-    "text": "Make an oscillator thatmakes noise",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg"
+    "text": "Make an oscillator that makes noise",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg",
+    "description": "Build a simple oscillator circuit that generates an audible tone."
   },
   {
     "id": 21,
-    "text": "Use a relay to switchsomething on ata higher voltage",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg"
+    "text": "Use a relay to switch something on at a higher voltage",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg",
+    "description": "Control high-voltage devices using a low-voltage relay circuit."
   },
   {
     "id": 22,
-    "text": "Make a  capacitor rocket (too much voltage)",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon22.svg"
+    "text": "Make a capacitor rocket (too much voltage)",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon22.svg",
+    "description": "Experiment with capacitors and observe their behavior under high voltage."
   },
   {
     "id": 23,
-    "text": "Learn to  solder surfcace mount parts",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon23.svg"
+    "text": "Learn to solder surface-mount parts",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon23.svg",
+    "description": "Practice the advanced skill of soldering tiny surface-mounted components."
   },
   {
     "id": 24,
-    "text": "Use a   555 timer in a circuit",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon24.svg"
+    "text": "Use a 555 timer in a circuit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon24.svg",
+    "description": "Integrate a versatile 555 timer IC into your project for timing applications."
   },
   {
     "id": 25,
-    "text": "Make a sound  louder with anamplifier",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg"
+    "text": "Make a sound louder with an amplifier",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon14.svg",
+    "description": "Design a simple amplifier circuit to boost audio signals."
   },
   {
     "id": 26,
-    "text": "Use  addressable  RGB LEDs in a project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg"
+    "text": "Use addressable RGB LEDs in a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon12.svg",
+    "description": "Add vibrant, customizable lighting to your projects with addressable LEDs."
   },
   {
     "id": 27,
-    "text": "Make a  project  with a  Raspberry Pi",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon27.svg"
+    "text": "Make a project with a Raspberry Pi",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon27.svg",
+    "description": "Create a project using the versatile Raspberry Pi for various applications like automation, home security, and more."
   },
   {
     "id": 28,
-    "text": "Let the smoke out  accidentally",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon28.svg"
+    "text": "Let the smoke out accidentally",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon28.svg",
+    "description": "A term used in electronics to describe the moment when a component fails, often releasing smoke and causing permanent damage."
   },
   {
     "id": 29,
-    "text": "Use fritzing or TinkerCAD  to create a   circuit diagram",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon29.svg"
+    "text": "Use fritzing or TinkerCAD to create a circuit diagram",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon29.svg",
+    "description": "Use tools like Fritzing or TinkerCAD to design circuit diagrams, which help visualize and plan electronics projects."
   },
   {
     "id": 30,
-    "text": "Make something  with Arduino",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon30.svg"
+    "text": "Make something with Arduino",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon30.svg",
+    "description": "Build a project with an Arduino board, a popular microcontroller platform for creating interactive devices."
   },
   {
     "id": 31,
-    "text": "Let the smoke out of an Arduino  accidentally",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon31.svg"
+    "text": "Let the smoke out of an Arduino accidentally",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon31.svg",
+    "description": "The unfortunate event when an Arduino board is damaged due to incorrect connections or overheating, releasing smoke."
   },
   {
     "id": 32,
-    "text": "Measure frequency with a  multimeter",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
+    "text": "Measure frequency with a multimeter",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
+    "description": "Use a multimeter to measure the frequency of an electrical signal, a useful tool in troubleshooting circuits."
   },
   {
     "id": 33,
-    "text": "Use an Op-Amp  in  a circuit",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg"
+    "text": "Use an Op-Amp in a circuit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg",
+    "description": "Incorporate an operational amplifier (Op-Amp) in your circuit designs to amplify signals and control various parameters."
   },
   {
     "id": 34,
-    "text": "Use a crowbarcircuit to protect against over voltage",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg"
+    "text": "Use a crowbar circuit to protect against over voltage",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon17.svg",
+    "description": "Design and implement a crowbar circuit to protect sensitive electronics from voltage spikes or surges."
   },
   {
     "id": 35,
-    "text": "Use a surgediode to protect a circuit",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg"
+    "text": "Use a surge diode to protect a circuit",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon19.svg",
+    "description": "Integrate surge diodes in your circuit to prevent damage from sudden voltage spikes by directing excess current away from sensitive components."
   },
   {
     "id": 36,
-    "text": "Makesomething for a friend",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon36.svg"
+    "text": "Make something for a friend",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon36.svg",
+    "description": "Design and build a personalized electronics project as a gift for a friend, adding a creative and thoughtful touch."
   },
   {
     "id": 37,
-    "text": "Make a motorcontroller with a H Bridge",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon37.svg"
+    "text": "Make a motor controller with a H Bridge",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon37.svg",
+    "description": "Use an H-Bridge circuit to control the direction and speed of motors in robotics or other automated projects."
   },
   {
     "id": 38,
-    "text": "Make acounter with logic gates",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon38.svg"
+    "text": "Make a counter with logic gates",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon38.svg",
+    "description": "Create a digital counter using logic gates, a fundamental project in learning digital electronics and binary operations."
   },
   {
     "id": 39,
-    "text": "Apply solderpaste to a PCB with a stencil",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon39.svg"
+    "text": "Apply solder paste to a PCB with a stencil",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon39.svg",
+    "description": "Use solder paste and a stencil to apply a precise amount of paste to a printed circuit board (PCB) before soldering components."
   },
   {
     "id": 40,
-    "text": "Teach afriend an electronics skill",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg"
+    "text": "Teach a friend an electronics skill",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg",
+    "description": "Share your knowledge by teaching a friend a useful electronics skill, such as soldering, circuit design, or microcontroller programming."
   },
   {
     "id": 41,
-    "text": "Make somethingwith a 7 segment display",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon41.svg"
+    "text": "Make something with a 7 segment display",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon41.svg",
+    "description": "Design and build a project using a 7-segment display to show numbers or letters in various applications like clocks or counters."
   },
   {
     "id": 42,
-    "text": "Measurevoltage with an oscilloscope",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon42.svg"
+    "text": "Measure voltage with an oscilloscope",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon42.svg",
+    "description": "Use an oscilloscope to measure and visualize voltage changes over time in your circuits, ideal for debugging and signal analysis."
   },
   {
     "id": 43,
-    "text": "Measurecapacitor equivalent series resistance",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon43.svg"
+    "text": "Measure capacitor equivalent series resistance",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon43.svg",
+    "description": "Use specialized tools to measure the equivalent series resistance (ESR) of a capacitor, crucial for assessing its health and performance."
   },
   {
     "id": 44,
-    "text": "Make anInternet of Things  (IoT) project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon44.svg"
+    "text": "Make an Internet of Things (IoT) project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon44.svg",
+    "description": "Build an IoT project that connects devices to the internet, enabling remote monitoring, automation, and data collection."
   },
   {
     "id": 45,
     "text": "Make something with solar panels",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon45.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon45.svg",
+    "description": "Design and create a project powered by solar panels, a sustainable solution for low-energy applications like garden lights or small devices."
   },
   {
     "id": 46,
-    "text": "Look at an  audio inputon an oscilloscope",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg"
+    "text": "Look at an audio input on an oscilloscope",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg",
+    "description": "Use an oscilloscope to visualize audio signals, helping analyze waveforms and troubleshoot audio circuits."
   },
   {
     "id": 47,
-    "text": "Make a  regulatedpower supply",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg"
+    "text": "Make a regulated power supply",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg",
+    "description": "Design and build a power supply that maintains a constant output voltage despite fluctuations in input or load."
   },
   {
     "id": 48,
-    "text": "Use a MOSFET  instead of a relayin a project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon48.svg"
+    "text": "Use a MOSFET instead of a relay in a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon48.svg",
+    "description": "Replace a mechanical relay with a MOSFET for faster switching and improved reliability in your projects."
   },
   {
     "id": 49,
-    "text": "Make your  ownUSB cable",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon49.svg"
+    "text": "Make your own USB cable",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon49.svg",
+    "description": "Create a custom USB cable tailored to your specific needs, such as unique lengths or connector types."
   },
   {
     "id": 50,
-    "text": "Use an LED  matrix ina project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon50.svg"
+    "text": "Use an LED matrix in a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon50.svg",
+    "description": "Incorporate an LED matrix into your project to display patterns, animations, or text in a dynamic way."
   },
   {
     "id": 51,
-    "text": "Filter   unwanted noisefrom a signal",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg"
+    "text": "Filter unwanted noise from a signal",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon46.svg",
+    "description": "Use filters to remove electrical noise from signals, improving the clarity and accuracy of your circuits."
   },
   {
     "id": 52,
-    "text": "Use a freqency   analyserfor a project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg"
+    "text": "Use a frequency analyzer for a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon9.svg",
+    "description": "Employ a frequency analyzer to study and optimize the frequency components of signals in your electronics project."
   },
   {
     "id": 53,
-    "text": "Order a PCB withyour design",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg"
+    "text": "Order a PCB with your design",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg",
+    "description": "Turn your circuit design into a professional PCB by sending it to a manufacturing service for production."
   },
   {
     "id": 54,
-    "text": "Repair a broken traceon a PCB",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon54.svg"
+    "text": "Repair a broken trace on a PCB",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon54.svg",
+    "description": "Fix a damaged PCB trace using techniques like soldering a jumper wire or applying conductive ink."
   },
   {
     "id": 55,
-    "text": "Use automaticgain control",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg"
+    "text": "Use automatic gain control",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon10.svg",
+    "description": "Implement automatic gain control (AGC) in your circuit to maintain a consistent signal amplitude despite variations in input."
   },
   {
     "id": 56,
-    "text": "Make a PID circuitwith Op-Amps",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg"
+    "text": "Make a PID circuit with Op-Amps",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon33.svg",
+    "description": "Build a Proportional-Integral-Derivative (PID) controller using Op-Amps for precise control in systems like robotics."
   },
   {
     "id": 57,
-    "text": "Teach a class onElectronics",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg"
+    "text": "Teach a class on Electronics",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon40.svg",
+    "description": "Share your expertise by teaching a group the fundamentals of electronics, inspiring others to explore the field."
   },
   {
     "id": 58,
-    "text": "Learn PCB DesignSoftware",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg"
+    "text": "Learn PCB Design Software",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon47.svg",
+    "description": "Master PCB design software like Eagle, KiCad, or Altium to create professional-grade circuit boards."
   },
   {
     "id": 59,
-    "text": "Use an e-paper displayin a project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon59.svg"
+    "text": "Use an e-paper display in a project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon59.svg",
+    "description": "Incorporate an e-paper display into your project for low-power, high-contrast text or graphics, ideal for portable devices."
   },
   {
     "id": 60,
-    "text": "Build a Radio Frequency(RF)Project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon60.svg"
+    "text": "Build a Radio Frequency (RF) Project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon60.svg",
+    "description": "Design and construct a project that uses RF technology, such as wireless communication systems or remote controls."
   },
   {
     "id": 61,
-    "text": "Make an open sourceproject",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon61.svg"
+    "text": "Make an open source project",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon61.svg",
+    "description": "Develop a project and share it openly with the community, allowing others to learn from and improve upon your work."
   },
   {
     "id": 62,
-    "text": "Use capacitive touch in a PCBdesign",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon62.svg"
+    "text": "Use capacitive touch in a PCB design",
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon62.svg",
+    "description": "Incorporate capacitive touch technology into your PCB design for sleek, buttonless user interfaces."
   },
   {
     "id": 63,
     "text": "Make something with PCB Art",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon63.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon63.svg",
+    "description": "Create a visually striking PCB design, blending functionality with artistic elements to produce a unique project."
   },
   {
     "id": 64,
     "text": "Make an electronic sculpture",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon64.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon64.svg",
+    "description": "Combine electronics and creativity to design a sculpture that integrates lights, motors, or interactive elements."
   },
   {
     "id": 65,
     "text": "Make a switch mode power supply",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon21.svg",
+    "description": "Design a switch mode power supply (SMPS) for efficient power conversion and regulation in electronic devices."
   },
   {
     "id": 66,
     "text": "Release a tutorial on a project you've made",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon66.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon66.svg",
+    "description": "Share your knowledge by creating a tutorial to guide others in replicating or learning from your project."
   },
   {
     "id": 67,
     "text": "Create an FPGA Project",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon67.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon67.svg",
+    "description": "Develop a project using a Field-Programmable Gate Array (FPGA) for high-speed and flexible digital logic design."
   },
   {
     "id": 68,
     "text": "Write your own C/C++ library for a sensor from scratch",
-    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon68.svg"
+    "icon": "https://tinkererway.dev/web_skill_trees_resources/svg/electronics_icons/icon68.svg",
+    "description": "Challenge yourself by coding a custom C/C++ library to interface with a sensor, optimizing for your specific application."
   }
 ]
