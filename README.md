@@ -10,3 +10,16 @@
 - Iniciamos la aplicacion con `cross-env "DEBUG=skills:*" npm start`
 - En nuestro navegador vamos a la direccion `http://localhost:'puerto'/`
 
+# Proyecto 
+
+Este proyecto corre en [http://localhost:3000/](http://localhost:3000/).  
+Para iniciarlo, utiliza uno de los siguientes comandos:
+
+- `npm run dev`
+- `node app.js`
+
+## Autores
+
+- Leslie Sanchez  
+- Marta Zulaica  
+- Juan Pablo Zambrano  
