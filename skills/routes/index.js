@@ -36,5 +36,18 @@ router.get('/leaderboard', (req, res) => {
   res.render('leaderboard', { badges });
 });
 
+router.get('/skills/:id', (req, res) => {
+  const skillId = parseInt(req.params.id, 10);
+  const competencias = JSON.parse(fs.readFileSync('competencias.json', 'utf8'));
+  const skill = competencias.find(c => c.id === skillId);
+
+  if (skill) {
+    res.render('detail', { skill });
+  } else {
+    res.status(404).send('Skill no encontrado');
+  }
+});
+
+
 
 module.exports = router;
