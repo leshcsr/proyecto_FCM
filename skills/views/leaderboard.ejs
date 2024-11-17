@@ -27,8 +27,8 @@
       box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     }
     .badge img {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       margin-bottom: 10px;
     }
     .badge h3 {
@@ -47,16 +47,15 @@
   <a href="/skills" class="btn btn-secondary">Volver</a>
 
 
-  <div class="badge-container">
-    <!-- Medallas se insertarán aquí dinámicamente -->
+  <div class="badge-container ">
     <% badges.forEach(badge => { %>
-      <div class="badge">
-        <img src="/badges/<%= badge.png.split('/').pop() %>" alt="<%= badge.rango %>">
+      <div class="badge card">
+        <img class="card-img-top" src="/badges/<%= badge.png.split('/').pop() %>" alt="<%= badge.rango %>">
         <h3><%= badge.rango %></h3>
         <p><%= badge.bitpoints_min %> - <%= badge.bitpoints_max %> puntos</p>
       </div>
     <% }); %>
-</div>
+    </div>
 <br>
 <a href="/skills" class="btn btn-secondary">Volver</a>
 
