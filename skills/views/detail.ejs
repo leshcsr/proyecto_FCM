@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         .skill-detail {
         text-align: center;
@@ -19,24 +20,79 @@
         margin-top: 10px;
         font-size: 16px;
         }
+        .task {
+        margin-bottom: 10px;
+        }
 
+        .task input[type="checkbox"] {
+        margin-right: 10px;
+        }
+
+        #tasks-form {
+        margin-top: 20px;
+        }
+        #evidencia-form {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="skill-detail">
+    <div class="skill-detail"> <!--Div container skill-->
         <h1>Skill: <%= skill.text %></h1>
         <img src="<%= skill.icon %>" alt="<%= skill.title %>">
+        
+        <h2>Skill score:  <%= skill.score %></h2>
+        <h3>Descripción:</h3>
         <p><%= skill.description %></p>
 
-
-
-        <form action="">
-            <label for="evidencia">Sube tu evidencia:</label>
+        <h3>Tasks to Complete</h3>
+        <form id="tasks-form">
+            <% skill.tasks.forEach((task, index) => { %>
+                <div class="task">
+                    <input type="checkbox" id="task-<%= index %>" name="task-<%= index %>" value="<%= task %>">
+                    <label for="task-<%= index %>"><%= task %></label>
+                </div>
+            <% }); %>
             <br>
-            <textarea id="evidencia" name="evidencia" rows="4" cols="50" placeholder="Escribe aquí..."></textarea><br><br>
-            <button type="submit">Enviar</button>
         </form>
 
-      </div>      
+        <div id="evidencia-form">
+            <form action="">
+                <label for="evidencia">Sube tu evidencia:</label>
+                <br>
+                <textarea id="evidencia" name="evidencia" rows="4" cols="50" placeholder="Escribe aquí..."></textarea><br><br>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+
+      </div>   <!--End Div container skill-->   
+
+      <script>
+        // Función para verificar si todos los checkboxes están seleccionados
+        function areAllTasksChecked() {
+            const checkboxes = document.querySelectorAll('#tasks-form input[type="checkbox"]');
+            return Array.from(checkboxes).every(checkbox => checkbox.checked);
+        }
+
+        // Añadir evento de cambio para los checkboxes
+        const checkboxes = document.querySelectorAll('#tasks-form input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                if (areAllTasksChecked()) {
+                    showConfetti();
+                    document.getElementById('evidencia-form').style.display = 'block';
+                }
+            });
+        });
+
+        function showConfetti() {
+            confetti({
+                particleCount: 300,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+
 </body>
 </html>
