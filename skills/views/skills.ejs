@@ -10,25 +10,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/6.0.0-beta3/css/all.min.css">
     <style>
       .hexagon {
-  fill: none; /* Fondo transparente */
-  stroke: blue; /* Borde azul */
-  stroke-width: 2; /* Ancho del borde */
-}
-#skills-container {
-  display: flex;
-  flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila si no caben */
-  gap: 10px; /* Espacio entre hexágonos */
-  justify-content: center; /* Centra los elementos horizontalmente */
-}
+      fill: none;
+      stroke: blue;
+      stroke-width: 2;
+    }
+    #skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center; 
+    }
 .svg-wrapper {
-  flex: 0 0 125px; /* Cada hexágono ocupa un ancho fijo */
+  flex: 0 0 125px; 
   position: relative;
  }
  .svg-wrapper:hover {
   transform: scale(1.2);
 }
 .svg-wrapper:hover .icon-wrapper {
-  display: block; /* Mostrar los íconos cuando se pasa el cursor sobre .svg-wrapper */
+  display: block; 
 }
 #skill-description {
   margin-top: 20px;
@@ -73,8 +73,9 @@
                 <% } %>
               </text>
     
-              <!-- Imagen de la habilidad -->
+              <!-- Imagen de la skill -->
               <image x="35%" y="60%" width="30" height="30" href="<%= skill.icon %>"></image>
+              <!-- Iconos de la skill -->
               <image x="75%" y="80%" width="20" height="20" href="/assets/editar.png" class="icon-wrapper"></image>
               <image x="10%" y="80%" width="20" height="20" href="/assets/libro.png" class="icon-wrapper" data-id="<%= skill.id %>" ></image>
             </svg>
@@ -89,7 +90,6 @@
   <!-- Contenedor de descripción -->
   <div id="skill-description" class="yellow-border">
     <p id="skill-description-text"></p>
-
   </div>
 
 
@@ -113,17 +113,14 @@
       if (descriptionContainer && descriptionText && skills.length > 0) {
       skills.forEach(skill => {
         skill.addEventListener('mouseover', () => {
-          // Obtiene la descripción del skill
           const description = skill.getAttribute('data-description');
           
-          // Muestra la descripción
           descriptionText.textContent = description;
-          descriptionContainer.style.display = 'block'; // Muestra el contenedor
+          descriptionContainer.style.display = 'block'; 
         });
 
         skill.addEventListener('mouseout', () => {
-          // Oculta la descripción cuando el ratón se mueve fuera
-          descriptionContainer.style.display = 'none'; // Oculta el contenedor
+          descriptionContainer.style.display = 'none';
         });
       });
     } else {

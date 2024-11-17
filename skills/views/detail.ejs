@@ -68,13 +68,11 @@
       </div>   <!--End Div container skill-->   
 
       <script>
-        // Función para verificar si todos los checkboxes están seleccionados
         function areAllTasksChecked() {
             const checkboxes = document.querySelectorAll('#tasks-form input[type="checkbox"]');
             return Array.from(checkboxes).every(checkbox => checkbox.checked);
         }
 
-        // Añadir evento de cambio para los checkboxes
         const checkboxes = document.querySelectorAll('#tasks-form input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
