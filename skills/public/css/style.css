@@ -30,3 +30,35 @@ ul li {
   font-size: 18px;
   margin: 10px 0;
 }
+.hexagon {
+  fill: none;
+  stroke: blue;
+  stroke-width: 2;
+}
+#skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center; 
+}
+.svg-wrapper {
+flex: 0 0 125px; 
+position: relative;
+}
+.svg-wrapper:hover {
+transform: scale(1.2);
+}
+.svg-wrapper:hover .icon-wrapper {
+display: block; 
+}
+#skill-description {
+margin-top: 20px;
+padding: 10px;
+border: 2px solid yellow;
+text-align: center;
+}
+.icon-wrapper {
+position: absolute;
+cursor: pointer;
+display: none;
+}
