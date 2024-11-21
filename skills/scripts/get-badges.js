@@ -6,23 +6,19 @@ const cheerio = require('cheerio');
 const URL = 'https://github.com/Obijuan/digital-electronics-with-open-FPGAs-tutorial/wiki#listado-de-rangos';
 const BADGES_DIR = path.join(__dirname, '../public/badges');
 
-// Crear la carpeta badges/ si no existe
 //if (!fs.existsSync(BADGES_DIR)) {
 //  fs.mkdirSync(BADGES_DIR);
 //}
 
 (async () => {
   try {
-    // Descargar contenido de la página
     const response = await axios.get(URL);
     const $ = cheerio.load(response.data);
-
-    // Crear el array de medallas
     let badges = [];
+
     $('.markdown-body tbody tr').each((index, element) => {
         const columns = $(element).find('td');
   
-        // Extraer información relevante
         const rango = $(columns[2]).text().trim();
         const bitpoints = parseInt($(columns[3]).text().trim(), 10);
         const png = $(columns[1]).find('img').attr('src');
@@ -37,12 +33,10 @@ const BADGES_DIR = path.join(__dirname, '../public/badges');
         }
     });
 
-    // Guardar las medallas en un archivo JSON
     const badgesPath = path.join(__dirname, '../badges.json');
     fs.writeFileSync(badgesPath, JSON.stringify(badges, null, 2));
     console.log('Medallas extraídas y guardadas en badges.json');
 
-    // Descargar las imágenes de las medallas
     for (const badge of badges) {
       if (badge.png) {
         const imagePath = path.join(BADGES_DIR, path.basename(badge.png));
