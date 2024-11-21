@@ -1,42 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <style>
-        .skill-detail {
-        text-align: center;
-        margin-top: 20px;
-        }
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
 
-        .skill-detail img {
-        width: 50px;
-        height: 50px;
-        }
 
-        .skill-detail p {
-        margin-top: 10px;
-        font-size: 16px;
-        }
-        .task {
-        margin-bottom: 10px;
-        }
 
-        .task input[type="checkbox"] {
-        margin-right: 10px;
-        }
-
-        #tasks-form {
-        margin-top: 20px;
-        }
-        #evidencia-form {
-            display: none;
-        }
-    </style>
-</head>
-<body>
     <div class="skill-detail"> <!--Div container skill-->
         <h1>Skill: <%= skill.text %></h1>
         <img src="<%= skill.icon %>" alt="<%= skill.title %>">
