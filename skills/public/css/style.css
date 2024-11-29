@@ -62,7 +62,6 @@ position: absolute;
 cursor: pointer;
 display: none;
 }
-
 .badge-container {
   display: flex;
   flex-wrap: wrap;
