@@ -1,0 +1,101 @@
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
+
+<div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
+    <h1 class="mb-4">Crear Nueva Skill</h1>
+    <form id="skillForm">
+        <!-- Text -->
+        <div class="mb-3">
+            <label for="text" class="form-label">Nombre de la Skill</label>
+            <input type="text" class="form-control" id="text" name="text" required placeholder="Ejemplo: Light up an LED for the first time">
+        </div>
+
+        <!-- Icon -->
+        <div class="mb-3">
+            <label for="icon" class="form-label">Enlace del Icono</label>
+            <input type="url" class="form-control" id="icon" name="icon" required placeholder="Ejemplo: https://example.com/icon.svg">
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required placeholder="Describe la skill..."></textarea>
+        </div>
+
+        <!-- Score -->
+        <div class="mb-3">
+            <label for="score" class="form-label">Puntuación</label>
+            <input type="number" class="form-control" id="score" name="score" required min="1" placeholder="Ejemplo: 1">
+        </div>
+
+        <!-- Tasks -->
+        <div class="mb-3">
+            <label class="form-label">Tareas</label>
+            <div id="tasksContainer">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" name="tasks[]" required placeholder="Ejemplo: Identify the positive (anode) and negative (cathode) leads of the LED">
+                    <button type="button" class="btn btn-outline-danger remove-task" disabled>-</button>
+                </div>
+            </div>
+            <button type="button" id="addTaskButton" class="btn btn-outline-primary mt-2">Agregar Tarea</button>
+            <div id="taskLimitMessage" class="text-danger mt-2 d-none">Se alcanzó el límite máximo de 5 tareas.</div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-success">Crear Skill</button>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tasksContainer = document.getElementById('tasksContainer');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const taskLimitMessage = document.getElementById('taskLimitMessage');
+        const maxTasks = 5;
+
+        addTaskButton.addEventListener('click', () => {
+            const taskCount = tasksContainer.childElementCount;
+
+            if (taskCount >= maxTasks) {
+                taskLimitMessage.classList.remove('d-none');
+                return;
+            }
+
+            const taskGroup = document.createElement('div');
+            taskGroup.classList.add('input-group', 'mb-2');
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control';
+            input.name = 'tasks[]';
+            input.required = true;
+            input.placeholder = 'Ejemplo: Nueva tarea';
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-outline-danger remove-task';
+            removeButton.textContent = '-';
+
+            removeButton.addEventListener('click', () => {
+                tasksContainer.removeChild(taskGroup);
+            });
+
+            taskGroup.appendChild(input);
+            taskGroup.appendChild(removeButton);
+            tasksContainer.appendChild(taskGroup);
+        });
+
+        // Prevent removing the initial task
+        tasksContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('remove-task')) {
+                if (tasksContainer.childElementCount === 1) {
+                    event.target.disabled = true;
+                }
+            }
+        });
+    });
+</script>
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->

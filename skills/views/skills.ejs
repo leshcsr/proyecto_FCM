@@ -2,9 +2,12 @@
 <%- include('partials/header') %>
 <!--Header-->
 
+<div class="container mt-4"> <!--Contendor Principal-->
 
   <h1>Skills</h1>
-  <br> <br>
+  <div class="text-end mb-3">
+    <a href="/skill/add" type="button" class="btn btn-outline-primary">Añadir nueva skill</a>
+  </div>
 
   <div id="skills-container">
     <% competencias.forEach(skill => { %>
@@ -44,6 +47,8 @@
   <div id="skill-description" class="yellow-border">
     <p id="skill-description-text"></p>
   </div>
+
+</div> <!--Contendor Principal-->
 
 
 
