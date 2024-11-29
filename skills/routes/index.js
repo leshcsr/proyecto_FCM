@@ -12,6 +12,9 @@ router.get('/', (req, res) => {
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Iniciar Sesión' });
 });
+router.get('/signin', (req, res) => {
+  res.render('signin', { title: 'Registrate' });
+});
 
 router.get('/skills', (req, res) => {
   let competenciasPath = path.join(__dirname, '../competencias.json');
