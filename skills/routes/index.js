@@ -42,6 +42,20 @@ router.get('/leaderboard', (req, res) => {
   res.render('leaderboard', { badges });
 });
 
+router.get('/leaderboard/:rango', (req, res) => {
+  const rango = req.params.rango;
+  const badgesPath = path.join(__dirname, '../badges.json');
+
+  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
+  const badge = badges.find(b => b.rango === rango);
+
+  if (badge) {
+    res.render('edit-badge', { badge });
+  } else {
+    res.status(404).send('Medalla no encontrada');
+  }
+});
+
 router.get('/skills/:id', (req, res) => {
   const skillId = parseInt(req.params.id, 10);
   const competencias = JSON.parse(fs.readFileSync('competencias.json', 'utf8'));
