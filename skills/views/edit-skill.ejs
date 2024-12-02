@@ -11,11 +11,22 @@
         <input type="text" class="form-control" id="text" name="text" value="<%= skill.text %>" required>
       </div>
       
-      <!-- Skill Icon -->
-      <div class="mb-3">
-        <label for="icon" class="form-label">Enlace del Icono</label>
-        <input type="url" class="form-control" id="icon" name="icon" value="<%= skill.icon %>" required>
+      <div class="mb-3 row align-items-center">
+        <!-- Preview of Icon -->
+        <div class="col-md-4 text-center">
+          <label class="form-label">Vista Previa del Icono</label>
+          <div>
+            <img src="<%= skill.icon %>" alt="Skill Icon" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
+          </div>
+        </div>
+      
+        <!-- Skill Icon -->
+        <div class="col-md-8">
+          <label for="icon" class="form-label">Enlace del Icono</label>
+          <input type="url" class="form-control" id="icon" name="icon" value="<%= skill.icon %>" required>
+        </div>
       </div>
+      
 
       <!-- Description -->
       <div class="mb-3">
