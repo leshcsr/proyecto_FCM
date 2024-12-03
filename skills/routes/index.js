@@ -39,6 +39,12 @@ router.get('/leaderboard', (req, res) => {
   res.render('leaderboard', { badges });
 });
 
+router.get('/aboutus', (req, res) => {
+  const badgesPath = path.join(__dirname, '../badges.json');
+  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
+  res.render('aboutus', { badges });
+});
+
 router.get('/skills/:id', (req, res) => {
   const skillId = parseInt(req.params.id, 10);
   const competencias = JSON.parse(fs.readFileSync('competencias.json', 'utf8'));
