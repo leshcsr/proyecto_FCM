@@ -15,6 +15,9 @@ router.get('/login', (req, res) => {
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
 });
+router.get('/skill/add', (req, res) => {
+  res.render('add-skill', { title: 'New Skill' });
+});
 
 router.get('/skills', (req, res) => {
   let competenciasPath = path.join(__dirname, '../competencias.json');
@@ -39,6 +42,20 @@ router.get('/leaderboard', (req, res) => {
   res.render('leaderboard', { badges });
 });
 
+router.get('/leaderboard/:rango', (req, res) => {
+  const rango = req.params.rango;
+  const badgesPath = path.join(__dirname, '../badges.json');
+
+  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
+  const badge = badges.find(b => b.rango === rango);
+
+  if (badge) {
+    res.render('edit-badge', { badge });
+  } else {
+    res.status(404).send('Medalla no encontrada');
+  }
+});
+
 router.get('/aboutus', (req, res) => {
   const badgesPath = path.join(__dirname, '../badges.json');
   const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
@@ -57,6 +74,17 @@ router.get('/skills/:id', (req, res) => {
   }
 });
 
+router.get('/skills/:id/edit', (req, res) => {
+  const skillId = parseInt(req.params.id, 10);
+  const competencias = JSON.parse(fs.readFileSync('competencias.json', 'utf8'));
+  const skill = competencias.find(c => c.id === skillId);
+
+  if (skill) {
+    res.render('edit-skill', { skill });
+  } else {
+    res.status(404).send('Skill no encontrado');
+  }
+});
 
 
 module.exports = router;

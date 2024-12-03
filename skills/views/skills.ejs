@@ -2,15 +2,17 @@
 <%- include('partials/header') %>
 <!--Header-->
 
+<div class="container mt-4"> <!--Contendor Principal-->
 
   <h1>Skills</h1>
-
-  <br> <br>
+  <div class="text-end mb-3">
+    <a href="/skill/add" type="button" class="btn btn-outline-primary">Añadir nueva skill</a>
+  </div>
 
   <div id="skills-container">
     <% competencias.forEach(skill => { %>
       <div class="svg-wrapper" data-id="<%= skill.id %>" data-description="<%= skill.description %>" data-custom="false">
-          <svg width="100" height="100" viewBox="0 0 100 100">
+            <svg width="100" height="100" viewBox="0 0 100 100">
               <!-- Hexágono -->
               <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" class="hexagon"></polygon>
               
@@ -30,7 +32,7 @@
               <!-- Imagen de la skill -->
               <image x="35%" y="60%" width="30" height="30" href="<%= skill.icon %>"></image>
               <!-- Iconos de la skill -->
-              <image x="75%" y="80%" width="20" height="20" href="/assets/editar.png" class="icon-wrapper"></image>
+              <image x="75%" y="80%" width="20" height="20" href="/assets/editar.png" class="icon-wrapper"  onclick="window.location.href='/skills/<%= skill.id %>/edit';"></image>
               <image x="10%" y="80%" width="20" height="20" href="/assets/libro.png" class="icon-wrapper" data-id="<%= skill.id %>" ></image>
             </svg>
             <div class="icon-wrapper" style="display: none;">
@@ -45,6 +47,8 @@
   <div id="skill-description" class="yellow-border">
     <p id="skill-description-text"></p>
   </div>
+
+</div> <!--Contendor Principal-->
 
 
 

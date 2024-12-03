@@ -3,15 +3,6 @@ const mongoose = require('mongoose');
 const uri = "mongodb+srv://usersistemasweb:Lsm9WyqtPMpMwH@swdatabase.ajvml.mongodb.net/swdatabase?retryWrites=true&w=majority";
 //const uri = "mongodb+srv://usersistemasweb:Lsm9WyqtPMpMwH@swdatabase.ajvml.mongodb.net/swdatabase?retryWrites=true&w=majority";
 
-const clientOptions = { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true, 
-    serverApi: { 
-      version: '1', 
-      strict: true, 
-      deprecationErrors: true,
-    } };
-
 async function connectDB() {
   try {
     // Create a Mongoose client with a MongoClientOptions object to set the Stable API version

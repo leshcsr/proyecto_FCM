@@ -1,0 +1,121 @@
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
+
+<div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
+    <h1>Editar Skill</h1>
+    <form action="/skills/<%= skill.id %>?_method=PUT" method="POST">
+      <!-- Skill Name -->
+      <div class="mb-3">
+        <label for="text" class="form-label">Nombre de la Skill</label>
+        <input type="text" class="form-control" id="text" name="text" value="<%= skill.text %>" required>
+      </div>
+      
+      <div class="mb-3 row align-items-center">
+        <!-- Preview of Icon -->
+        <div class="col-md-4 text-center">
+          <label class="form-label">Vista Previa del Icono</label>
+          <div>
+            <img src="<%= skill.icon %>" alt="Skill Icon" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
+          </div>
+        </div>
+      
+        <!-- Skill Icon -->
+        <div class="col-md-8">
+          <label for="icon" class="form-label">Enlace del Icono</label>
+          <input type="url" class="form-control" id="icon" name="icon" value="<%= skill.icon %>" required>
+        </div>
+      </div>
+      
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required><%= skill.description %></textarea>
+      </div>
+
+      <!-- Tasks -->
+      <div class="mb-3">
+        <label class="form-label">Tareas</label>
+        <div id="tasksContainer">
+          <% skill.tasks.forEach((task, index) => { %>
+            <div class="input-group mb-2">
+              <input type="text" class="form-control" name="tasks[]" value="<%= task %>" required placeholder="Ejemplo: Identify the positive (anode) and negative (cathode) leads of the LED">
+              <button type="button" class="btn btn-outline-danger remove-task" <%= skill.tasks.length === 1 ? 'disabled' : '' %>>-</button>
+            </div>
+          <% }); %>
+        </div>
+        <button type="button" id="addTaskButton" class="btn btn-outline-primary mt-2">Agregar Tarea</button>
+        <div id="taskLimitMessage" class="text-danger mt-2 d-none">Se alcanzó el límite máximo de 5 tareas.</div>
+      </div>      
+
+      <!-- Score -->
+      <div class="mb-3">
+        <label for="score" class="form-label">Puntuación</label>
+        <input type="number" class="form-control" id="score" name="score" value="<%= skill.score %>" required min="1">
+      </div>
+
+      <a class="btn btn-danger" href="/skills">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tasksContainer = document.getElementById('tasksContainer');
+      const addTaskButton = document.getElementById('addTaskButton');
+      const taskLimitMessage = document.getElementById('taskLimitMessage');
+  
+      const updateRemoveButtons = () => {
+        const removeButtons = tasksContainer.querySelectorAll('.remove-task');
+        removeButtons.forEach(button => button.disabled = tasksContainer.children.length <= 1);
+      };
+  
+      const checkTaskLimit = () => {
+        const taskCount = tasksContainer.children.length;
+        if (taskCount >= 5) {
+          addTaskButton.disabled = true;
+          taskLimitMessage.classList.remove('d-none');
+        } else {
+          addTaskButton.disabled = false;
+          taskLimitMessage.classList.add('d-none');
+        }
+      };
+  
+      // Agregar tarea
+      addTaskButton.addEventListener('click', () => {
+        if (tasksContainer.children.length < 5) {
+          const newTaskGroup = document.createElement('div');
+          newTaskGroup.className = 'input-group mb-2';
+          newTaskGroup.innerHTML = `
+            <input type="text" class="form-control" name="tasks[]" required placeholder="Ejemplo: Nueva tarea">
+            <button type="button" class="btn btn-outline-danger remove-task">-</button>
+          `;
+          tasksContainer.appendChild(newTaskGroup);
+          updateRemoveButtons();
+          checkTaskLimit();
+        }
+      });
+  
+      // Eliminar tarea
+      tasksContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('remove-task')) {
+          const taskGroup = event.target.closest('.input-group');
+          taskGroup.remove();
+          updateRemoveButtons();
+          checkTaskLimit();
+        }
+      });
+  
+      // Inicializar botones y límite
+      updateRemoveButtons();
+      checkTaskLimit();
+    });
+  </script>
+  
+
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->
