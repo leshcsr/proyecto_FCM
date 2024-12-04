@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
-const mongoose = require('mongoose');
 const Skill = require('../models/skillmodel');
+const Badge = require('../models/badgemodel');
+
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -83,11 +84,15 @@ router.post('/skill/add', async (req, res) => {
       resources:['No hay recursos'] });
     await newSkill.save();
     
-    res.status(201).json({ message: 'Skill creada exitosamente' });
+    //res.status(201).json({ message: 'Skill creada exitosamente' });
     res.redirect('/skills');
   } catch (err) {
-    console.error("Error al agregar la habilidad:", err);
-    res.status(500).send("Error del servidor");
+    if (err.name === 'ValidationError') {
+      res.status(400).json({ message: 'Datos inválidos', errors: err.errors });
+    } else {
+      console.error('Error al agregar la habilidad:', err);
+      res.status(500).send('Error del servidor');
+    }
   }
 });
 
@@ -95,23 +100,29 @@ router.post('/skill/add', async (req, res) => {
 
 /*Badges*/
 
-router.get('/badges', (req, res) => {
-  const badgesPath = path.join(__dirname, '../badges.json');
-  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
-  res.render('badges', { badges });
+router.get('/badges', async (req, res) => {
+  try {
+    const badges = await Badge.find(); 
+    res.render('badges', { badges });
+  } catch (err) {
+    console.error('Error al obtener las badges:', err);
+    res.status(500).send('Error del servidor');
+  }
 });
 
-router.get('/badges/:rango', (req, res) => {
+router.get('/badges/:rango', async (req, res) => {
   const rango = req.params.rango;
-  const badgesPath = path.join(__dirname, '../badges.json');
 
-  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
-  const badge = badges.find(b => b.rango === rango);
-
-  if (badge) {
-    res.render('edit-badge', { badge });
-  } else {
-    res.status(404).send('Medalla no encontrada');
+  try {
+    const badge = await Badge.findOne({ rango });
+    if (badge) {
+      res.render('edit-badge', { badge });
+    } else {
+      res.status(404).send('Medalla no encontrada');
+    }
+  } catch (err) {
+    console.error('Error al obtener la badge:', err);
+    res.status(500).send('Error del servidor');
   }
 });
 

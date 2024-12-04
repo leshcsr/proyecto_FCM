@@ -18,7 +18,7 @@ const skillSchema = new mongoose.Schema({
     minlength: 10, 
     maxlength: 300 
   },
-  tasks: [{ 
+  tasks: { 
     type: [String], 
     validate: {
       validator: function (value) {
@@ -27,7 +27,7 @@ const skillSchema = new mongoose.Schema({
       message: 'Debe haber entre 1 y 5 tareas.'
     },
     required: true 
-  }],
+  },
   score: { 
     type: Number, 
     default: 1,
