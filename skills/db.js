@@ -1,7 +1,10 @@
 
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://usersistemasweb:Lsm9WyqtPMpMwH@swdatabase.ajvml.mongodb.net/swdatabase?retryWrites=true&w=majority";
-//const uri = "mongodb+srv://usersistemasweb:Lsm9WyqtPMpMwH@swdatabase.ajvml.mongodb.net/swdatabase?retryWrites=true&w=majority";
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const uri = process.env.MONGO_URI;
 
 async function connectDB() {
   try {

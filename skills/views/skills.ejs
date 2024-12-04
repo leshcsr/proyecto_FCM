@@ -10,7 +10,8 @@
   </div>
 
   <div id="skills-container">
-    <% competencias.forEach(skill => { %>
+    
+    <% skills.forEach(skill => { %>
       <div class="svg-wrapper" data-id="<%= skill.id %>" data-description="<%= skill.description %>" data-custom="false">
             <svg width="100" height="100" viewBox="0 0 100 100">
               <!-- Hexágono -->
@@ -18,9 +19,18 @@
               
               <!-- Texto de la habilidad -->
               <text x="50%" y="20%" text-anchor="middle" fill="black">
-                <% if (skill.textLines) { %>
-                  <% skill.textLines.forEach((line, index) => { %>
-                    <tspan x="50%" dy="<%= index === 0 ? '1.2em' : '1.4em' %>" font-size="8px">
+                <% if (skill.text) { %>
+                  <% 
+                    let lines = [];
+                    let line = skill.text;
+                    while (line.length > 15) {
+                      lines.push(line.slice(0, 15)); // Primer 15 caracteres
+                      line = line.slice(15); // Resto del texto
+                    }
+                    lines.push(line); // Agregar el resto del texto si queda
+                  %>
+                  <% lines.forEach((line, index) => { %>
+                    <tspan x="50%" dy="1.2em"  font-size="8px">
                       <%= line %>
                     </tspan>
                   <% }); %>
@@ -28,6 +38,7 @@
                   <tspan x="50%" dy="1.2em" font-weight="bold">Sin texto</tspan>
                 <% } %>
               </text>
+              
     
               <!-- Imagen de la skill -->
               <image x="35%" y="60%" width="30" height="30" href="<%= skill.icon %>"></image>
@@ -54,11 +65,26 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      const skillsContainer = document.getElementById('skills-container');
+      if (!skillsContainer) {
+        console.error('No se encontró el contenedor de habilidades.');
+        return;
+      }
+
       const icons = document.querySelectorAll('.icon-wrapper');
-      
       const skills = document.querySelectorAll('.svg-wrapper');
+      console.log("eee:", skills);
+      if (skills.length === 0) {
+        console.error('No se encontraron elementos .svg-wrapper.');
+        return;
+      }
+
       const descriptionContainer = document.getElementById('skill-description');
       const descriptionText = document.getElementById('skill-description-text');
+      if (!descriptionContainer || !descriptionText) {
+        console.error('No se pudieron encontrar los elementos de descripción');
+        return;
+      }
 
       icons.forEach(icon => {
         icon.addEventListener('click', () => {

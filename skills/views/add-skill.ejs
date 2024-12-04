@@ -94,6 +94,41 @@
                 }
             }
         });
+
+        const skillForm = document.getElementById('skillForm');
+        skillForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Evitar el envío tradicional del formulario
+
+            // Obtener los datos del formulario
+            const formData = new FormData(skillForm);
+            const skillData = {
+                text: formData.get('text'),
+                icon: formData.get('icon'),
+                description: formData.get('description'),
+                score: parseInt(formData.get('score')),
+                tasks: formData.getAll('tasks[]'),
+            };
+
+            try {
+                const response = await fetch('/skill/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(skillData), // Convertir los datos a JSON
+                });
+
+                if (response.ok) {
+                    window.location.href = '/skills'; // Redirigir a la lista de skills
+                } else {
+                    alert('Hubo un error al crear la skill');
+                }
+            } catch (error) {
+                console.error('Error al enviar los datos:', error);
+                alert('Error en la conexión');
+            }
+        });
+
     });
 </script>
 
