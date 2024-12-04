@@ -93,15 +93,15 @@ router.post('/skill/add', async (req, res) => {
 
 
 
-/*LEADERBOARD*/
+/*Badges*/
 
-router.get('/leaderboard', (req, res) => {
+router.get('/badges', (req, res) => {
   const badgesPath = path.join(__dirname, '../badges.json');
   const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
-  res.render('leaderboard', { badges });
+  res.render('badges', { badges });
 });
 
-router.get('/leaderboard/:rango', (req, res) => {
+router.get('/badges/:rango', (req, res) => {
   const rango = req.params.rango;
   const badgesPath = path.join(__dirname, '../badges.json');
 
