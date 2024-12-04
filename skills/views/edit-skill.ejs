@@ -83,7 +83,6 @@
         }
       };
   
-      // Agregar tarea
       addTaskButton.addEventListener('click', () => {
         if (tasksContainer.children.length < 5) {
           const newTaskGroup = document.createElement('div');
@@ -98,7 +97,6 @@
         }
       });
   
-      // Eliminar tarea
       tasksContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('remove-task')) {
           const taskGroup = event.target.closest('.input-group');
@@ -108,12 +106,10 @@
         }
       });
   
-      // Inicializar botones y límite
       updateRemoveButtons();
       checkTaskLimit();
     });
   </script>
-  
 
 
 <!--Footer-->

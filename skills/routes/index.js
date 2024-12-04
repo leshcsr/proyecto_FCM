@@ -30,7 +30,7 @@ router.get('/skills', async (req, res) => {
 
     skills.forEach(skill => {
       if (typeof skill.textLines === 'string') {
-        skill.textLines = [skill.textLines]; // Convierte a arreglo si es una cadena
+        skill.textLines = [skill.textLines];
       }
     });
     res.render('skills', {skills});
