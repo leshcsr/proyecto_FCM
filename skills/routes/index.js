@@ -30,7 +30,7 @@ router.get('/skills', async (req, res) => {
 
     skills.forEach(skill => {
       if (typeof skill.textLines === 'string') {
-        skill.textLines = [skill.textLines]; // Convierte a arreglo si es una cadena
+        skill.textLines = [skill.textLines];
       }
     });
     res.render('skills', {skills});
@@ -49,7 +49,7 @@ router.get('/skills/:id', async (req, res) => {
     } else {
       res.status(404).send('Skill no encontrado');
     }
-  }catch{
+  }catch(err){
     console.error("Error al obtener la habilidad:", err);
     res.status(500).send("Error del servidor");
   } 
@@ -64,9 +64,29 @@ router.get('/skills/:id/edit', async (req, res) => {
     } else {
       res.status(404).send('Skill no encontrado');
     }
-  }catch{
+  }catch(err){
     console.error("Error al obtener la habilidad para edición:", err);
     res.status(500).send("Error del servidor");
+  }
+});
+
+
+router.put('/skills/:id', async (req, res) => {
+  const skillId = req.params.id;
+  const { text, icon, description, tasks, score } = req.body;
+
+  try {
+    const updatedData = { text, icon, description, tasks, score };
+
+    const updatedSkill = await Skill.findByIdAndUpdate(skillId, updatedData, { new: true, runValidators: true });
+    if (updatedSkill) {
+      res.status(200).json({ message: 'Skill actualizada exitosamente' });
+    } else {
+      res.status(404).json({ message: 'Habilidad no encontrada' });
+    }
+  } catch (err) {
+    console.error('Error al actualizar la habilidad:', err);
+    res.status(500).send('Error del servidor');
   }
 });
 
@@ -84,7 +104,6 @@ router.post('/skill/add', async (req, res) => {
       resources:['No hay recursos'] });
     await newSkill.save();
     
-    //res.status(201).json({ message: 'Skill creada exitosamente' });
     res.redirect('/skills');
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -93,6 +112,23 @@ router.post('/skill/add', async (req, res) => {
       console.error('Error al agregar la habilidad:', err);
       res.status(500).send('Error del servidor');
     }
+  }
+});
+
+router.delete('/skills/:id', async (req, res) => {
+  const skillId = req.params.id;
+
+  try {
+      const deletedSkill = await Skill.findByIdAndDelete(skillId);
+
+      if (deletedSkill) {
+          res.status(200).json({ message: 'Skill eliminada exitosamente' });
+      } else {
+          res.status(404).json({ message: 'Skill no encontrada' });
+      }
+  } catch (err) {
+      console.error('Error al eliminar la skill:', err);
+      res.status(500).json({ message: 'Error del servidor' });
   }
 });
 
