@@ -82,7 +82,7 @@
 
         // Validar URL
         const validateUrl = (input, errorMsg) => {
-            const urlPattern = /^(https?:\/\/)?([\w\-])+\.{1}([a-z]{2,63})([\/\w\-\.]*)*\/?$/;
+            const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
             if (input.value && !urlPattern.test(input.value)) {
                 input.classList.add('is-invalid');
                 input.nextElementSibling.textContent = errorMsg;

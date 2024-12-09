@@ -115,6 +115,24 @@ router.post('/skill/add', async (req, res) => {
   }
 });
 
+router.delete('/skills/:id', async (req, res) => {
+  const skillId = req.params.id;
+
+  try {
+      const deletedSkill = await Skill.findByIdAndDelete(skillId);
+
+      if (deletedSkill) {
+          res.status(200).json({ message: 'Skill eliminada exitosamente' });
+      } else {
+          res.status(404).json({ message: 'Skill no encontrada' });
+      }
+  } catch (err) {
+      console.error('Error al eliminar la skill:', err);
+      res.status(500).json({ message: 'Error del servidor' });
+  }
+});
+
+
 
 /*Badges*/
 
