@@ -49,7 +49,7 @@ router.get('/skills/:id', async (req, res) => {
     } else {
       res.status(404).send('Skill no encontrado');
     }
-  }catch{
+  }catch(err){
     console.error("Error al obtener la habilidad:", err);
     res.status(500).send("Error del servidor");
   } 
@@ -64,7 +64,7 @@ router.get('/skills/:id/edit', async (req, res) => {
     } else {
       res.status(404).send('Skill no encontrado');
     }
-  }catch{
+  }catch(err){
     console.error("Error al obtener la habilidad para edición:", err);
     res.status(500).send("Error del servidor");
   }
@@ -75,17 +75,14 @@ router.put('/skills/:id', async (req, res) => {
   const skillId = req.params.id;
   const { text, icon, description, tasks, score } = req.body;
 
-  console.log('Datos recibidos en el servidor:', req.body);
-
   try {
     const updatedData = { text, icon, description, tasks, score };
 
     const updatedSkill = await Skill.findByIdAndUpdate(skillId, updatedData, { new: true, runValidators: true });
     if (updatedSkill) {
-      //res.status(201).json({ message: 'Skill actualizada exitosamente' });
-      res.redirect('/skills'); // Redirige a la lista de habilidades después de actualizar
+      res.status(200).json({ message: 'Skill actualizada exitosamente' });
     } else {
-      res.status(404).send('Habilidad no encontrada');
+      res.status(404).json({ message: 'Habilidad no encontrada' });
     }
   } catch (err) {
     console.error('Error al actualizar la habilidad:', err);
@@ -107,7 +104,6 @@ router.post('/skill/add', async (req, res) => {
       resources:['No hay recursos'] });
     await newSkill.save();
     
-    //res.status(201).json({ message: 'Skill creada exitosamente' });
     res.redirect('/skills');
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -118,7 +114,6 @@ router.post('/skill/add', async (req, res) => {
     }
   }
 });
-
 
 
 /*Badges*/

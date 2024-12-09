@@ -4,17 +4,19 @@
 
 <div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
     <h1>Editar Skill</h1>
-    <form action="/skills/<%= skill.id %>" method="PUT">
+    <form action="/skills/<%= skill.id %>" id="skillForm">
+      <input type="hidden" name="skillId" value="<%= skill.id %>">
+
       <!-- Skill Name -->
       <div class="mb-3">
         <label for="text" class="form-label">Nombre de la Skill</label>
         <input type="text" class="form-control" id="text" name="text" value="<%= skill.text %>" required>
+        <div class="invalid-feedback">El nombre debe tener entre 2 y 60 caracteres.</div>
       </div>
       
       <div class="mb-3 row align-items-center">
         <!-- Preview of Icon -->
         <div class="col-md-4 text-center">
-          <label class="form-label">Vista Previa del Icono</label>
           <div>
             <img src="<%= skill.icon %>" alt="Skill Icon" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
           </div>
@@ -23,8 +25,9 @@
         <!-- Skill Icon -->
         <div class="col-md-8">
           <label for="icon" class="form-label">Enlace del Icono</label>
-          <input type="url" class="form-control" id="icon" name="icon" value="<%= skill.icon %>" required>
+          <input type="url" class="form-control" id="icon" name="icon" value="<%= skill.icon %>">
         </div>
+        <div class="invalid-feedback">Por favor, ingresa una URL válida.</div>
       </div>
       
 
@@ -32,6 +35,7 @@
       <div class="mb-3">
         <label for="description" class="form-label">Descripción</label>
         <textarea class="form-control" id="description" name="description" rows="3" required><%= skill.description %></textarea>
+        <div class="invalid-feedback">La descripción debe tener entre 10 y 300 caracteres.</div>
       </div>
 
       <!-- Tasks -->
@@ -53,8 +57,10 @@
       <div class="mb-3">
         <label for="score" class="form-label">Puntuación</label>
         <input type="number" class="form-control" id="score" name="score" value="<%= skill.score %>" required min="1">
+        <div class="invalid-feedback">La puntuación debe estar entre 1 y 5.</div>
       </div>
 
+      <!--Submit-->
       <a class="btn btn-danger" href="/skills">Cancelar</a>
       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
@@ -62,10 +68,114 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+      const skillForm = document.getElementById('skillForm');
+
       const tasksContainer = document.getElementById('tasksContainer');
       const addTaskButton = document.getElementById('addTaskButton');
       const taskLimitMessage = document.getElementById('taskLimitMessage');
-  
+      const textInput = document.getElementById('text');
+      const iconInput = document.getElementById('icon');
+      const descriptionInput = document.getElementById('description');
+      const scoreInput = document.getElementById('score');
+
+      // Validar longitud de texto
+      const validateLength = (input, min, max, errorMsg) => {
+            if (input.value.length < min || input.value.length > max) {
+                input.classList.add('is-invalid');
+                input.nextElementSibling.textContent = errorMsg;
+                return false;
+            } else {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+                return true;
+            }
+       };
+
+      // Validar URL
+      const validateUrl = (input, errorMsg) => {
+          const urlPattern = /^(https?:\/\/)?([\w\-])+\.{1}([a-z]{2,63})([\/\w\-\.]*)*\/?$/;
+          if (input.value && !urlPattern.test(input.value)) {
+              input.classList.add('is-invalid');
+              input.nextElementSibling.textContent = errorMsg;
+              return false;
+          } else {
+              input.classList.remove('is-invalid');
+              input.classList.add('is-valid');
+              return true;
+          }
+       };
+
+        // Validar puntuación
+        const validateNumber = (input, min, max, errorMsg) => {
+          const value = parseFloat(input.value);
+          if (isNaN(value) || value < min || value > max) {
+              input.classList.add('is-invalid');
+              input.nextElementSibling.textContent = errorMsg;
+              return false;
+          } else {
+              input.classList.remove('is-invalid');
+              input.classList.add('is-valid');
+              return true;
+          }
+      };
+
+      // Validar tareas
+      const validateTasks = () => {
+          let isValid = true;
+          const taskInputs = tasksContainer.querySelectorAll('input[name="tasks[]"]');
+          taskInputs.forEach((taskInput) => {
+              if (!validateLength(taskInput, 1, 300, 'Cada tarea debe tener entre 1 y 300 caracteres.')) {
+                  isValid = false;
+              }
+          });
+          return isValid;
+      };
+
+      // Validaciones
+      textInput.addEventListener('input', () => validateLength(textInput, 2, 60, 'El nombre debe tener entre 2 y 60 caracteres.'));
+      iconInput.addEventListener('input', () => validateUrl(iconInput, 'Por favor, ingresa una URL válida.'));
+      descriptionInput.addEventListener('input', () => validateLength(descriptionInput, 10, 300, 'La descripción debe tener entre 10 y 300 caracteres.'));
+      scoreInput.addEventListener('input', () => validateNumber(scoreInput, 1, 5, 'La puntuación debe estar entre 1 y 5.'));
+
+      // Agregar nuevas tareas
+      addTaskButton.addEventListener('click', () => {
+          const taskCount = tasksContainer.childElementCount;
+
+          if (taskCount >= maxTasks) {
+              taskLimitMessage.classList.remove('d-none');
+              return;
+          }
+
+          const taskGroup = document.createElement('div');
+          taskGroup.classList.add('input-group', 'mb-2');
+
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'form-control';
+          input.name = 'tasks[]';
+          input.required = true;
+          input.placeholder = 'Ejemplo: Nueva tarea';
+          input.maxLength = 300;
+
+          input.addEventListener('input', () => validateLength(input, 1, 300, 'Cada tarea debe tener entre 1 y 300 caracteres.'));
+
+          const removeButton = document.createElement('button');
+          removeButton.type = 'button';
+          removeButton.className = 'btn btn-outline-danger remove-task';
+          removeButton.textContent = '-';
+
+          removeButton.addEventListener('click', () => {
+              tasksContainer.removeChild(taskGroup);
+              taskLimitMessage.classList.add('d-none');
+          });
+
+            taskGroup.appendChild(input);
+            taskGroup.appendChild(removeButton);
+            tasksContainer.appendChild(taskGroup);
+       });
+
+
+
       const updateRemoveButtons = () => {
         const removeButtons = tasksContainer.querySelectorAll('.remove-task');
         removeButtons.forEach(button => button.disabled = tasksContainer.children.length <= 1);
@@ -107,6 +217,53 @@
   
       updateRemoveButtons();
       checkTaskLimit();
+
+      // Validar formulario completo
+      skillForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const isTextValid = validateLength(textInput, 2, 60, 'El nombre debe tener entre 2 y 60 caracteres.');
+            const isIconValid = validateUrl(iconInput, 'Por favor, ingresa una URL válida.');
+            const isDescriptionValid = validateLength(descriptionInput, 10, 300, 'La descripción debe tener entre 10 y 300 caracteres.');
+            const isScoreValid = validateNumber(scoreInput, 1, 5, 'La puntuación debe estar entre 1 y 5.');
+            const areTasksValid = validateTasks();
+
+            if (isTextValid && isIconValid && isDescriptionValid && isScoreValid && areTasksValid) {
+                const formData = new FormData(skillForm);
+                const skillData = {
+                    text: formData.get('text'),
+                    icon: formData.get('icon') || null,
+                    description: formData.get('description'),
+                    score: parseInt(formData.get('score')),
+                    tasks: formData.getAll('tasks[]'),
+                };
+                const skillId = formData.get('skillId');
+
+                try {
+                    const response = await fetch(`/skills/${skillId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(skillData),
+                    });
+
+                    if (response.ok) {
+                      const result = await response.json();
+                      alert(result.message);
+                      window.location.href = `/skills/${skillId}`;
+                    } else {
+                        const error = await response.json();
+                        alert(`Error: ${error.message || 'No se pudo actualizar la skill'}`);
+                    }
+                } catch (error) {
+                    console.error('Error al enviar los datos:', error);
+                    alert('Error en la conexión');
+                }
+            } else {
+                alert('Por favor, corrige los errores antes de enviar.');
+            }
+        });
     });
   </script>
 
