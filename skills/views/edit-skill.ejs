@@ -4,7 +4,7 @@
 
 <div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
     <h1>Editar Skill</h1>
-    <form action="/skills/<%= skill.id %>?_method=PUT" method="POST">
+    <form action="/skills/<%= skill.id %>" method="PUT">
       <!-- Skill Name -->
       <div class="mb-3">
         <label for="text" class="form-label">Nombre de la Skill</label>
@@ -58,7 +58,6 @@
       <a class="btn btn-danger" href="/skills">Cancelar</a>
       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
-
 </div>
 
 <script>

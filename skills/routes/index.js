@@ -70,6 +70,29 @@ router.get('/skills/:id/edit', async (req, res) => {
   }
 });
 
+
+router.put('/skills/:id', async (req, res) => {
+  const skillId = req.params.id;
+  const { text, icon, description, tasks, score } = req.body;
+
+  console.log('Datos recibidos en el servidor:', req.body);
+
+  try {
+    const updatedData = { text, icon, description, tasks, score };
+
+    const updatedSkill = await Skill.findByIdAndUpdate(skillId, updatedData, { new: true, runValidators: true });
+    if (updatedSkill) {
+      //res.status(201).json({ message: 'Skill actualizada exitosamente' });
+      res.redirect('/skills'); // Redirige a la lista de habilidades después de actualizar
+    } else {
+      res.status(404).send('Habilidad no encontrada');
+    }
+  } catch (err) {
+    console.error('Error al actualizar la habilidad:', err);
+    res.status(500).send('Error del servidor');
+  }
+});
+
 router.post('/skill/add', async (req, res) => {
   const { text, icon, description, tasks, score, resources } = req.body;
 
