@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const badgeSchema = new mongoose.Schema({
-  rango: { 
+   rango: { 
     type: String, 
     required: true, 
     minlength: 2, 

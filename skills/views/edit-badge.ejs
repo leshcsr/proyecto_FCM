@@ -5,29 +5,48 @@
 <div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
     <h1>Editar medalla</h1>
 
-    <form action="/leaderboard/<%= badge.rango %>" method="POST">
+    <form action="/leaderboard/<%= badge.rango %>" method="POST">      
+
+      <div class="mb-3">
+        <label for="text" class="form-label">Nombre de la medalla</label>
+        <input type="text" class="form-control" id="name" name="nombre" value="<%= badge.rango %>" required>
+      </div>
+     
         <div class="mb-3">
-          <label for="rango" class="form-label">Rango</label>
-          <input type="text" id="rango" name="rango" class="form-control" value="<%= badge.rango %>" readonly>
+          <label for="text" class="form-label">Rango</label>
+          <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
+          <div id="nameError" class="invalid-feedback" style="display: none;">El rango no puede estar vacío.</div>
         </div>
+
         <div class="mb-3">
           <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
           <input type="number" id="bitpoints_min" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
         </div>
+
         <div class="mb-3">
           <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
           <input type="number" id="bitpoints_max" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
         </div>
-        <div class="mb-3">
-          <label for="png" class="form-label">Enlace de la Imagen</label>
-          <input type="url" id="png" name="png" class="form-control" value="<%= badge.png %>" required>
+
+        <div class="mb-3 row align-items-center">
+          <!--Imagen -->
+          <div class="col-md-8">
+            <label for="icon" class="form-label">Enlace de la Imagen</label>
+            <input type="url" class="form-control" id="icon" name="icon" value="<%= badge.png %>">
+          </div>
+          <div class="invalid-feedback">Por favor, ingresa una URL válida.</div>
         </div>
+
         <div class="text-center">
             <a class="btn btn-danger" href="/badges">Cancelar</a>
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </div>
       </form>
 </div>
+
+
+
+ 
 
 <!--Footer-->
 <%- include('partials/footer') %>
