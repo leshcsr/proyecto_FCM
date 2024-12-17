@@ -162,6 +162,23 @@ router.get('/badges/:rango', async (req, res) => {
   }
 });
 
+router.delete('/badges/:rango', async (req, res) => {
+  const rango = req.params.rango;
+
+  try {
+      const deletedBadge = await Badge.findByIdAndDelete(rango);
+
+      if (deletedBbadge) {
+          res.status(200).json({ message: 'Medalla eliminada exitosamente' });
+      } else {
+          res.status(404).json({ message: 'Medalla no encontrada' });
+      }
+  } catch (err) {
+      console.error('Error al eliminar la medalla:', err);
+      res.status(500).json({ message: 'Error del servidor' });
+  }
+});
+
 /*ABOUT US*/
 router.get('/aboutus', (req, res) => {
   const badgesPath = path.join(__dirname, '../badges.json');

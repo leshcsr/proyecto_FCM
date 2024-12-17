@@ -48,13 +48,12 @@
 </div>
 
 <script>
-  const deleteButtonBadges =  document.getElementById('deleteBadgeButton');
-  deleteButtonBadges.addEventListener('click', async(event) => {
-    event.preventDefault();
-    //confirmar antes de eliminar
+  const deleteButton =  document.getElementById('deleteBadgeButton');
+  deleteButton.addEventListener('click', async(event) => {
+   
     if (confirm('¿Estás seguro de que deseas eliminar esta medalla?')){
       // Obtener el ID desde el atributo data-badge-id
-      const badgeId = deleteButtonBadges.getAttribute('data-badge-id');
+      const badgeId = '/badges/<%= badges.rango %>';
       try{
         const response = await fetch(`/badges/${badgeId}`,{
           method: 'DELETE',
