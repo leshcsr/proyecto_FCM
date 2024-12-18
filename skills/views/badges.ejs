@@ -33,9 +33,7 @@
           <td><%= badge.bitpoints_max %></td>
           <td>
             <a href="/badges/<%= badge.rango %>" class="btn btn-primary btn-sm">Editar</a>
-            <a href="#" id="deleteBadgeButton" data-badge-id="<%= badge.rango %>" class="btn btn-danger btn-sm">Eliminar</a>
-           <!-- <button type="button" id="deleteBadgeButton" class="btn btn-danger">Eliminar</button> -->
-
+            <button class="delete-badge-button btn btn-danger btn-sm" data-badge-id="<%= badge.rango %>">Eliminar</button>
           </td>
         </tr>
       <% }); %>
@@ -48,30 +46,30 @@
 </div>
 
 <script>
-  const deleteButton =  document.getElementById('deleteBadgeButton');
-  deleteButton.addEventListener('click', async(event) => {
-   
-    if (confirm('¿Estás seguro de que deseas eliminar esta medalla?')){
-      // Obtener el ID desde el atributo data-badge-id
-      const badgeId = '/badges/<%= badges.rango %>';
-      try{
-        const response = await fetch(`/badges/${badgeId}`,{
-          method: 'DELETE',
-        });
-
-        if (response.ok){
-          const result = await response.json();
-          alert(result.message); 
-          window.location.href='/badges';//redirige pagina medallas
-        } else {
-          const error = await response.json();
-          alert(`Error: ${error.message || 'No se pudo eliminar la medalla'}`);
+  document.querySelectorAll('.delete-badge-button').forEach(button => {
+    button.addEventListener('click', async (event) => {
+      if (confirm('¿Estás seguro de que deseas eliminar esta medalla?')){
+        const badgeId = button.getAttribute('data-badge-id');
+        console.log('badgeId enviado:', badgeId);
+      try {
+        const response = await fetch(`/badges/${badgeId}`, {
+            method: 'DELETE',
+          });
+        
+          if (response.ok){
+            const result = await response.json();
+            alert(result.message); 
+            window.location.href = '/badges'; // Redirige página medallas
+          } else {
+            const error = await response.json();
+            alert(`Error: ${error.message || 'No se pudo eliminar la medalla'}`);
+          }
+      } catch (error) {
+          console.error('Error al intentar eliminar la medalla: ', error);
+          alert('Error en la conexión');
         }
-      } catch(error){
-        console.error('Error al intentar eliminar la medalla: ', error);
-        alert('Error en la conexión');
       }
-    } 
+    });
   });
 </script>
 

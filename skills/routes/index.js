@@ -148,7 +148,6 @@ router.get('/badges', async (req, res) => {
 
 router.get('/badges/:rango', async (req, res) => {
   const rango = req.params.rango;
-
   try {
     const badge = await Badge.findOne({ rango });
     if (badge) {
@@ -162,20 +161,19 @@ router.get('/badges/:rango', async (req, res) => {
   }
 });
 
-router.delete('/badges/:rango', async (req, res) => {
-  const rango = req.params.rango;
-
+router.delete('/badges/:rango', async(req, res) => {
+  const {rango} = req.params;
   try {
-      const deletedBadge = await Badge.findByIdAndDelete(rango);
-
-      if (deletedBbadge) {
-          res.status(200).json({ message: 'Medalla eliminada exitosamente' });
-      } else {
-          res.status(404).json({ message: 'Medalla no encontrada' });
-      }
-  } catch (err) {
-      console.error('Error al eliminar la medalla:', err);
-      res.status(500).json({ message: 'Error del servidor' });
+    console.log(`Intentando eliminar badge con ID: ${rango}`);
+    const deletedBadge = await Badge.findOneAndDelete({ rango });
+    if (!deletedBadge){
+      console.error(`No se encontró una medalla con rango: ${rango}`);
+      return res.status(400).json({ message: 'No se encontró la medalla para eliminar' });
+    }
+    res.status(200).json({message: 'Medalla eliminada correctamente'});
+  } catch (error) {
+    console.error('Error eliminando la medalla: ', error);
+    res.status(500).json({message: 'Error interno del servidor'});
   }
 });
 

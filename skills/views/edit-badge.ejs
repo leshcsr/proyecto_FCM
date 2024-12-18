@@ -9,7 +9,7 @@
 
       <div class="mb-3">
         <label for="text" class="form-label">Nombre de la medalla</label>
-        <input type="text" class="form-control" id="name" name="nombre" value="<%= badge.rango %>" required>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="<%= badge.rango %>" required>
         <div class="invalid-feedback">El nombre no puede estar vacío.</div>
       </div>
      
@@ -133,7 +133,7 @@
           bitpoints_max: parseInt(formData.get('bitpoints_max'), 10),
           icon: formData.get('icon') || null,
         };
-        const badgeId = formData.get('badgeId');
+        const badgeId = formData.get('badgeRango');
 
         try {
           const response = await fetch(`/badges/${badgeId}`, {
