@@ -1,108 +1,126 @@
-<!--Header-->
+<!-- Header -->
 <%- include('partials/header') %>
-<!--Header-->
+<!-- Header -->
 
-<div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
-    <h1>Editar medalla</h1>
+<div class="container mt-4" style="max-width: 600px;">
+  <h1>Editar medalla</h1>
 
-    <form action="/leaderboard/<%= badge.rango %>" method="POST" onsubmit="return validarFormulario(event)">
-      
-      <div class="mb-3">
-        <label for="text" class="form-label">Nombre de la medalla</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" value="<%= badge.rango %>" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="text" class="form-label">Rango</label>
-        <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
-        <input type="number" id="bitpointsMin" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
-        <input type="number" id="bitpointsMax" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
-      </div>
-
-      <div class="mb-3 row align-items-center">
-        <div class="col-md-8">
-          <label for="icon" class="form-label">Enlace de la Imagen</label>
-          <input type="url" id="enlaceImagen" name="png" class="form-control" value="<%= badge.png %>" required>
-        </div>
-      </div>
-
-      <div class="text-center">
-        <a class="btn btn-danger" href="/badges">Cancelar</a>
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  <form id="editarMedallaForm" action="/leaderboard/<%= badge.rango %>" method="POST" onsubmit="return validarFormulario(event)">
+    <div class="mb-3">
+      <label for="text" class="form-label">Nombre de la medalla</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" value="<%= badge.rango %>" required>
     </div>
 
-    </form>
+    <div class="mb-3">
+      <label for="text" class="form-label">Rango</label>
+      <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
+    </div>
 
+    <div class="mb-3">
+      <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
+      <input type="number" id="bitpointsMin" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
+      <input type="number" id="bitpointsMax" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
+    </div>
+
+    <div class="mb-3 row align-items-center">
+      <div class="col-md-8">
+        <label for="icon" class="form-label">Enlace de la Imagen</label>
+        <input type="url" id="enlaceImagen" name="png" class="form-control" value="<%= badge.png %>" required>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <a class="btn btn-danger" href="/badges">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+  </form>
 </div>
 
+<!-- Mensaje de éxito (inicialmente oculto) -->
+<div id="successMessage" class="alert alert-success mt-4" style="display: none;">
+  <h3>Medalla guardada correctamente</h3>
+  <button class="btn btn-success" onclick="cerrarMensaje()">Aceptar</button>
+</div>
+
+<!-- Footer -->
+<%- include('partials/footer') %>
+<!-- Footer -->
+
+<!-- Estilos para mostrar el mensaje de éxito en el centro de la pantalla -->
+<style>
+  /* Estilos del mensaje de éxito */
+  #successMessage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Asegura que el mensaje esté sobre el contenido */
+    width: 80%; /* Puedes ajustar el tamaño */
+    max-width: 600px; /* Limitar el tamaño máximo */
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Para que el botón tenga un espacio adecuado */
+  #successMessage button {
+    margin-top: 20px;
+  }
+</style>
+
 <script>
-  function validarFormulario(event){
+  function validarFormulario(event) {
     const bitpointsMin = parseInt(document.getElementById('bitpointsMin').value, 10);
     const bitpointsMax = parseInt(document.getElementById('bitpointsMax').value, 10);
     const enlaceImagen = document.getElementById('enlaceImagen').value.trim();
-    const urlRegex = /^https?:\/\/.+\.(png|jpg|jpeg|svg)$/i;
 
-    //points positivos
-    if (bitpointsMin < 0 || bitpointsMax <0){
+    // Validación de los puntos
+    if (bitpointsMin < 0 || bitpointsMax < 0) {
       alert('Los Bitpoints deben ser números positivos.');
       event.preventDefault();
       return false;
     }
 
-    //maximos no menor que los minimos
-    if (bitpointsMax < bitpointsMin){
+    // Validar que los puntos máximos no sean menores que los mínimos
+    if (bitpointsMax < bitpointsMin) {
       alert('Bitpoints máximos no pueden ser menores que los mínimos.');
       event.preventDefault();
       return false;
     }
 
-      // Validar URL
-      const validateUrl = (input, errorMsg) => {
-      const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
-      if (input.value && !urlPattern.test(input.value)) {
-            input.classList.add('is-invalid');
-            input.nextElementSibling.textContent = errorMsg;
-            return false;
-        } else {
-            input.classList.remove('is-invalid');
-            input.classList.add('is-valid');
-            return true;
-        }
-      };
+    // Detener el formulario de enviar de manera tradicional
+    event.preventDefault();
 
-    // Enviar datos al servidor
-    try {
-        const response = await fetch("/api/badges", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            rango,
-            bitpoints_min: bitpointsMin,
-            bitpoints_max: bitpointsMax,
-            png: enlaceImagen,
-          }),
-        });
+    // Hacer la petición AJAX para guardar los cambios
+    const formData = new FormData(event.target);
+    fetch(event.target.action, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.text())
+      .then(data => {
+        // Mostrar mensaje de éxito
+        document.getElementById('successMessage').style.display = 'block';
 
-
-    return true;
-
+        // Puedes actualizar el formulario o hacer cualquier otra cosa aquí
+        document.getElementById('nombre').value = document.getElementById('rango').value; // ejemplo de actualización
+        document.getElementById('bitpointsMin').value = bitpointsMin;
+        document.getElementById('bitpointsMax').value = bitpointsMax;
+        document.getElementById('enlaceImagen').value = enlaceImagen;
+      })
+      .catch(error => {
+        alert('Hubo un error al guardar los cambios. Por favor, intente de nuevo.');
+        console.error(error);
+      });
   }
-  
-    
 
+  // Función para cerrar el mensaje de éxito
+  function cerrarMensaje() {
+    document.getElementById('successMessage').style.display = 'none';
+  }
 </script>
-
-
-<!--Footer-->
-<%- include('partials/footer') %>
-<!--Footer-->
