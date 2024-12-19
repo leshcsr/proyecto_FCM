@@ -5,169 +5,80 @@
 <div class="container mt-4" style="max-width: 600px;"> <!--Contendor Principal-->
     <h1>Editar medalla</h1>
 
-    <form action="/leaderboard/<%= badge.rango %>" method="POST">      
-
+    <form action="/leaderboard/<%= badge.rango %>" method="POST" onsubmit="return validarFormulario(event)">
+      
       <div class="mb-3">
         <label for="text" class="form-label">Nombre de la medalla</label>
         <input type="text" class="form-control" id="nombre" name="nombre" value="<%= badge.rango %>" required>
-        <div class="invalid-feedback">El nombre no puede estar vacío.</div>
       </div>
-     
-        <div class="mb-3">
-          <label for="text" class="form-label">Rango</label>
-          <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
-          <div class="invalid-feedback">El rango no puede estar vacío.</div>
-        </div>
 
-        <div class="mb-3">
-          <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
-          <input type="number" id="bitpoints_min" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
-          <div class="invalid-feedback">El valor debe ser un número entero positivo.</div>
-        </div>
+      <div class="mb-3">
+        <label for="text" class="form-label">Rango</label>
+        <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
+      </div>
 
-        <div class="mb-3">
-          <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
-          <input type="number" id="bitpoints_max" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
-          <div class="invalid-feedback">El valor máximo debe ser mayor o igual al mínimo.</div>
-        </div>
+      <div class="mb-3">
+        <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
+        <input type="number" id="bitpointsMin" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
+      </div>
 
-        <div class="mb-3 row align-items-center">
-          <!--Imagen -->
-          <div class="col-md-8">
-            <label for="icon" class="form-label">Enlace de la Imagen</label>
-            <input type="url" class="form-control" id="icon" name="icon" value="<%= badge.png %>">
-            <div class="invalid-feedback">Por favor, ingresa una URL válida.</div>
-          </div>
-        </div>
+      <div class="mb-3">
+        <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
+        <input type="number" id="bitpointsMax" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
+      </div>
 
-        <div class="text-center">
-            <a class="btn btn-danger" href="/badges">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      <div class="mb-3 row align-items-center">
+        <div class="col-md-8">
+          <label for="icon" class="form-label">Enlace de la Imagen</label>
+          <input type="url" class="form-control" id="enlaceImagen" name="icon" value="<%= badge.png %>">
         </div>
-      </form>
+      </div>
+
+      <div class="text-center">
+        <a class="btn btn-danger" href="/badges">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+
+    </form>
+
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const badgeForm = document.getElementById('badgeForm');
+  function validarFormulario(event){
+    const bitpointsMin = parseInt(document.getElementById('bitpointsMin').value, 10);
+    const bitpointsMax = parseInt(document.getElementById('bitpointsMax').value, 10);
+    const enlaceImagen = document.getElementById('enlaceImagen').value.trim();
+    const urlRegex = /^https?:\/\/.+\.(png|jpg|jpeg|svg)$/i;
 
-    const nombreInput = document.getElementById('nombre');
-    const rangoInput = document.getElementById('rango');
-    const bitpointsMinInput = document.getElementById('bitpoints_min');
-    const bitpointsMaxInput = document.getElementById('bitpoints_max');
-    const iconInput = document.getElementById('icon');
-
-    // Validar que un campo no esté vacío
-    const validateNotEmpty = (input, errorMsg) => {
-      if (!input.value.trim()) {
-        input.classList.add('is-invalid');
-        input.nextElementSibling.textContent = errorMsg;
-        return false;
-      } else {
-        input.classList.remove('is-invalid');
-        input.classList.add('is-valid');
-        return true;
-      }
-    };
-
-    // Validar número entero positivo
-    const validatePositiveInteger = (input, errorMsg) => {
-      const value = parseInt(input.value, 10);
-      if (isNaN(value) || value <= 0) {
-        input.classList.add('is-invalid');
-        input.nextElementSibling.textContent = errorMsg;
-        return false;
-      } else {
-        input.classList.remove('is-invalid');
-        input.classList.add('is-valid');
-        return true;
-      }
-    };
-
-    // Validar que los límites sean correctos
-    const validateLimits = (minInput, maxInput, errorMsg) => {
-      const minValue = parseInt(minInput.value, 10);
-      const maxValue = parseInt(maxInput.value, 10);
-      if (maxValue < minValue) {
-        maxInput.classList.add('is-invalid');
-        maxInput.nextElementSibling.textContent = errorMsg;
-        return false;
-      } else {
-        maxInput.classList.remove('is-invalid');
-        maxInput.classList.add('is-valid');
-        return true;
-      }
-    };
-
-    // Validar URL
-    const validateUrl = (input, errorMsg) => {
-      const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
-      if (input.value && !urlPattern.test(input.value)) {
-        input.classList.add('is-invalid');
-        input.nextElementSibling.textContent = errorMsg;
-        return false;
-      } else {
-        input.classList.remove('is-invalid');
-        input.classList.add('is-valid');
-        return true;
-      }
-    };
-
-    // Validar formulario completo
-    badgeForm.addEventListener('submit', async (event) => {
+    //points positivos
+    if (bitpointsMin < 0 || bitpointsMax <0){
+      alert('Los Bitpoints deben ser números positivos.');
       event.preventDefault();
+      return false;
+    }
 
-      const isNombreValid = validateNotEmpty(nombreInput, 'El nombre no puede estar vacío.');
-      const isRangoValid = validateNotEmpty(rangoInput, 'El rango no puede estar vacío.');
-      const isBitpointsMinValid = validatePositiveInteger(bitpointsMinInput, 'Debe ser un número entero positivo.');
-      const isBitpointsMaxValid = validatePositiveInteger(bitpointsMaxInput, 'Debe ser un número entero positivo.');
-      const areLimitsValid = validateLimits(bitpointsMinInput, bitpointsMaxInput, 'El límite máximo debe ser mayor o igual al mínimo.');
-      const isIconValid = validateUrl(iconInput, 'Por favor, ingresa una URL válida.');
+    //maximos no menor que los minimos
+    if (bitpointsMax < bitpointsMin){
+      alert('Bitpoints máximos no pueden ser menores que los mínimos.');
+      event.preventDefault();
+      return false;
+    }
 
-      if (isNombreValid && isRangoValid && isBitpointsMinValid && isBitpointsMaxValid && areLimitsValid && isIconValid) {
-        const formData = new FormData(badgeForm);
-        const badgeData = {
-          nombre: formData.get('nombre'),
-          rango: formData.get('rango'),
-          bitpoints_min: parseInt(formData.get('bitpoints_min'), 10),
-          bitpoints_max: parseInt(formData.get('bitpoints_max'), 10),
-          icon: formData.get('icon') || null,
-        };
-        const badgeId = formData.get('badgeRango');
+    //url valida
+    if(!urlRegex.test(enlaceImagen)){
+      alert('El enlace de la imagen debe ser una URL válida');
+      event.preventDefault();
+      return false;
+    }
 
-        try {
-          const response = await fetch(`/badges/${badgeId}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(badgeData),
-          });
+    return true;
 
-          if (response.ok) {
-            const result = await response.json();
-            alert(result.message);
-            window.location.href = `/badges/${badgeId}`;
-          } else {
-            const error = await response.json();
-            alert(`Error: ${error.message || 'No se pudo actualizar la medalla'}`);
-          }
-        } catch (error) {
-          console.error('Error al enviar los datos:', error);
-          alert('Error en la conexión');
-        }
-      } else {
-        alert('Por favor, corrige los errores antes de enviar.');
-      }
-  });
-  });
+  }
+  
     
 
 </script>
 
-
-
- 
 
 <!--Footer-->
 <%- include('partials/footer') %>

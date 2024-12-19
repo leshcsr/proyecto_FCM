@@ -177,6 +177,28 @@ router.delete('/badges/:rango', async(req, res) => {
   }
 });
 
+router.put('/badges/:rango', async (req, res) => {
+  const {rango} = req.params;
+  const {png, bitpoints_min, bitpoints_max} = req.body;
+
+  try {
+    //Actualizar en la base de datos
+    const result = await Skill.db.collection('badges').updateOne(
+      {rango: rango},
+      {$set: { png, bitpoints_min, bitpoints_max }}
+    );
+
+    if (result.modifiedCount > 0){
+      res.status(200).json({message: 'Medalla actualizada exitosamente.'});
+    } else {
+      res.status(404).json({ message: 'Medalla no encontrada.' });
+    }
+  } catch (error){
+    console.error('Error al actualizar la medalla:', error);
+    res.status(500).json({ message: 'Error interno del servidor.' });
+  }
+});
+
 /*ABOUT US*/
 router.get('/aboutus', (req, res) => {
   const badgesPath = path.join(__dirname, '../badges.json');
