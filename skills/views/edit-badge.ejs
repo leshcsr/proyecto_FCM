@@ -50,24 +50,22 @@
 <%- include('partials/footer') %>
 <!-- Footer -->
 
-<!-- Estilos para mostrar el mensaje de éxito en el centro de la pantalla -->
+<!-- mensaje de éxito centro -->
 <style>
-  /* Estilos del mensaje de éxito */
   #successMessage {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9999; /* Asegura que el mensaje esté sobre el contenido */
-    width: 80%; /* Puedes ajustar el tamaño */
-    max-width: 600px; /* Limitar el tamaño máximo */
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 600px; 
     text-align: center;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   }
 
-  /* Para que el botón tenga un espacio adecuado */
   #successMessage button {
     margin-top: 20px;
   }
@@ -96,7 +94,7 @@
     // Detener el formulario de enviar de manera tradicional
     event.preventDefault();
 
-    // Hacer la petición AJAX para guardar los cambios
+    
     const formData = new FormData(event.target);
     fetch(event.target.action, {
       method: 'POST',
@@ -107,7 +105,6 @@
         // Mostrar mensaje de éxito
         document.getElementById('successMessage').style.display = 'block';
 
-        // Puedes actualizar el formulario o hacer cualquier otra cosa aquí
         document.getElementById('nombre').value = document.getElementById('rango').value; // ejemplo de actualización
         document.getElementById('bitpointsMin').value = bitpointsMin;
         document.getElementById('bitpointsMax').value = bitpointsMax;
@@ -119,8 +116,62 @@
       });
   }
 
-  // Función para cerrar el mensaje de éxito
-  function cerrarMensaje() {
-    document.getElementById('successMessage').style.display = 'none';
+  async function handleSubmit(event) {
+  event.preventDefault(); // Previene el envío tradicional del formulario
+
+  // Recoger los datos del formulario
+  const bitpointsMin = parseInt(document.getElementById('bitpointsMin').value, 10);
+  const bitpointsMax = parseInt(document.getElementById('bitpointsMax').value, 10);
+  const enlaceImagen = document.getElementById('enlaceImagen').value.trim();
+
+  validarFormulario(event);
+
+  const formData = new FormData(event.target); // Recoger los datos del formulario
+
+  try {
+    // Hacer la petición para guardar los cambios
+    const response = await fetch(event.target.action, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (response.ok) {
+      // Si la respuesta es exitosa, obtener los datos actualizados
+      const updatedBadge = await response.json(); // Los datos actualizados deben ser enviados por el servidor
+
+      // Llamar a la función para actualizar la tabla
+      actualizarTabla(updatedBadge);
+
+      // Mostrar el mensaje de éxito
+      document.getElementById('successMessage').style.display = 'block';
+    } else {
+      const error = await response.json();
+      alert(`Error: ${error.message || 'No se pudo guardar los cambios'}`);
+    }
+  } catch (error) {
+    alert('Error en la conexión');
+    console.error(error);
   }
+}
+
+function actualizarTabla(badge) {
+  // Encuentra la fila de la medalla en la tabla usando el rango de la medalla
+  const row = document.querySelector(`[data-badge-id="${badge.rango}"]`).closest('tr');
+
+  // Actualiza las celdas de la tabla con los nuevos valores
+  row.querySelector('td:nth-child(2)').textContent = badge.rango;
+  row.querySelector('td:nth-child(4)').textContent = badge.bitpoints_min;
+  row.querySelector('td:nth-child(5)').textContent = badge.bitpoints_max;
+
+  // Si la imagen se modificó, actualiza también
+  row.querySelector('td img').setAttribute('src', `/badges/${badge.png.split('/').pop()}`);
+}
+
+function cerrarMensaje() {
+  // Cerrar el mensaje de éxito
+  document.getElementById('successMessage').style.display = 'none';
+  window.location.href = '/badges'; // Redirige a la página de medallas con los datos actualizados
+}
+
+ 
 </script>

@@ -204,22 +204,26 @@ router.post('/leaderboard/:rango', async (req, res) => {
     const { rango } = req.params;
     const { bitpoints_min, bitpoints_max, png } = req.body;
 
-    // Validar que la medalla exista
     const badge = await Badge.findOne({ rango });
     if (!badge) {
-      return res.status(404).send('Medalla no encontrada');
+      return res.status(404).json({ message: 'Medalla no encontrada' });
     }
 
-    // Actualizar los datos
     badge.bitpoints_min = bitpoints_min;
     badge.bitpoints_max = bitpoints_max;
     badge.png = png;
 
-    // Guardar cambios
     await badge.save();
-    res.send('Medalla actualizada exitosamente');
+
+    // Enviar los datos actualizados de la medalla como respuesta
+    res.json({
+      rango: badge.rango,
+      bitpoints_min: badge.bitpoints_min,
+      bitpoints_max: badge.bitpoints_max,
+      png: badge.png,
+    });
   } catch (err) {
-    res.status(400).send(`Error al actualizar la medalla: ${err.message}`);
+    res.status(400).json({ message: `Error al actualizar la medalla: ${err.message}` });
   }
 });
 
