@@ -199,6 +199,30 @@ router.put('/badges/:rango', async (req, res) => {
   }
 });
 
+router.post('/leaderboard/:rango', async (req, res) => {
+  try {
+    const { rango } = req.params;
+    const { bitpoints_min, bitpoints_max, png } = req.body;
+
+    // Validar que la medalla exista
+    const badge = await Badge.findOne({ rango });
+    if (!badge) {
+      return res.status(404).send('Medalla no encontrada');
+    }
+
+    // Actualizar los datos
+    badge.bitpoints_min = bitpoints_min;
+    badge.bitpoints_max = bitpoints_max;
+    badge.png = png;
+
+    // Guardar cambios
+    await badge.save();
+    res.send('Medalla actualizada exitosamente');
+  } catch (err) {
+    res.status(400).send(`Error al actualizar la medalla: ${err.message}`);
+  }
+});
+
 /*ABOUT US*/
 router.get('/aboutus', (req, res) => {
   const badgesPath = path.join(__dirname, '../badges.json');

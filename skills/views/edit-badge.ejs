@@ -30,7 +30,7 @@
       <div class="mb-3 row align-items-center">
         <div class="col-md-8">
           <label for="icon" class="form-label">Enlace de la Imagen</label>
-          <input type="url" class="form-control" id="enlaceImagen" name="icon" value="<%= badge.png %>">
+          <input type="url" id="enlaceImagen" name="png" value="<%= badge.png %>" required>
         </div>
       </div>
 
@@ -64,12 +64,35 @@
       return false;
     }
 
-    //url valida
-    if(!urlRegex.test(enlaceImagen)){
-      alert('El enlace de la imagen debe ser una URL válida');
-      event.preventDefault();
-      return false;
-    }
+      // Validar URL
+      const validateUrl = (input, errorMsg) => {
+      const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
+      if (input.value && !urlPattern.test(input.value)) {
+            input.classList.add('is-invalid');
+            input.nextElementSibling.textContent = errorMsg;
+            return false;
+        } else {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+            return true;
+        }
+      };
+
+    // Enviar datos al servidor
+    try {
+        const response = await fetch("/api/badges", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            rango,
+            bitpoints_min: bitpointsMin,
+            bitpoints_max: bitpointsMax,
+            png: enlaceImagen,
+          }),
+        });
+
 
     return true;
 
