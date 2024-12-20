@@ -72,106 +72,31 @@
 </style>
 
 <script>
-  function validarFormulario(event) {
-    const bitpointsMin = parseInt(document.getElementById('bitpointsMin').value, 10);
-    const bitpointsMax = parseInt(document.getElementById('bitpointsMax').value, 10);
-    const enlaceImagen = document.getElementById('enlaceImagen').value.trim();
+  async function handleFormSubmit(event) {
+    event.preventDefault(); // Evitar el envío tradicional
 
-    // Validación de los puntos
-    if (bitpointsMin < 0 || bitpointsMax < 0) {
-      alert('Los Bitpoints deben ser números positivos.');
-      event.preventDefault();
-      return false;
-    }
+    const form = event.target;
+    const formData = new FormData(form);
+    const badgeId = '<%= badge._id %>';
 
-    // Validar que los puntos máximos no sean menores que los mínimos
-    if (bitpointsMax < bitpointsMin) {
-      alert('Bitpoints máximos no pueden ser menores que los mínimos.');
-      event.preventDefault();
-      return false;
-    }
-
-    // Detener el formulario de enviar de manera tradicional
-    event.preventDefault();
-
-    
-    const formData = new FormData(event.target);
-    fetch(event.target.action, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(response => response.text())
-      .then(data => {
-        // Mostrar mensaje de éxito
-        document.getElementById('successMessage').style.display = 'block';
-
-        document.getElementById('nombre').value = document.getElementById('rango').value; // ejemplo de actualización
-        document.getElementById('bitpointsMin').value = bitpointsMin;
-        document.getElementById('bitpointsMax').value = bitpointsMax;
-        document.getElementById('enlaceImagen').value = enlaceImagen;
-      })
-      .catch(error => {
-        alert('Hubo un error al guardar los cambios. Por favor, intente de nuevo.');
-        console.error(error);
+    try {
+      const response = await fetch(`/badges/${badgeId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData)),
       });
-  }
 
-  async function handleSubmit(event) {
-  event.preventDefault(); // Previene el envío tradicional del formulario
-
-  // Recoger los datos del formulario
-  const bitpointsMin = parseInt(document.getElementById('bitpointsMin').value, 10);
-  const bitpointsMax = parseInt(document.getElementById('bitpointsMax').value, 10);
-  const enlaceImagen = document.getElementById('enlaceImagen').value.trim();
-
-  validarFormulario(event);
-
-  const formData = new FormData(event.target); // Recoger los datos del formulario
-
-  try {
-    // Hacer la petición para guardar los cambios
-    const response = await fetch(event.target.action, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (response.ok) {
-      // Si la respuesta es exitosa, obtener los datos actualizados
-      const updatedBadge = await response.json(); // Los datos actualizados deben ser enviados por el servidor
-
-      // Llamar a la función para actualizar la tabla
-      actualizarTabla(updatedBadge);
-
-      // Mostrar el mensaje de éxito
-      document.getElementById('successMessage').style.display = 'block';
-    } else {
-      const error = await response.json();
-      alert(`Error: ${error.message || 'No se pudo guardar los cambios'}`);
+      if (response.ok) {
+        const data = await response.json();
+        alert('Medalla actualizada exitosamente');
+        window.location.href = '/badges'; // Redirigir a la lista de medallas
+      } else {
+        const error = await response.json();
+        alert(error.message || 'Error al actualizar la medalla');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Error del servidor');
     }
-  } catch (error) {
-    alert('Error en la conexión');
-    console.error(error);
   }
-}
-
-function actualizarTabla(badge) {
-  // Encuentra la fila de la medalla en la tabla usando el rango de la medalla
-  const row = document.querySelector(`[data-badge-id="${badge.rango}"]`).closest('tr');
-
-  // Actualiza las celdas de la tabla con los nuevos valores
-  row.querySelector('td:nth-child(2)').textContent = badge.rango;
-  row.querySelector('td:nth-child(4)').textContent = badge.bitpoints_min;
-  row.querySelector('td:nth-child(5)').textContent = badge.bitpoints_max;
-
-  // Si la imagen se modificó, actualiza también
-  row.querySelector('td img').setAttribute('src', `/badges/${badge.png.split('/').pop()}`);
-}
-
-function cerrarMensaje() {
-  // Cerrar el mensaje de éxito
-  document.getElementById('successMessage').style.display = 'none';
-  window.location.href = '/badges'; // Redirige a la página de medallas con los datos actualizados
-}
-
- 
 </script>

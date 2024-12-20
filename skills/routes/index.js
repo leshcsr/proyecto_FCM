@@ -161,6 +161,23 @@ router.get('/badges/:rango', async (req, res) => {
   }
 });
 
+
+router.get('/badges/:rango/edit', async (req, res) => {
+  const badgeRango = req.params.rango;
+  try{
+    const badges = await Skill.findById( badgeRango );
+    if (badges) {
+      res.render('edit-badge', { badges });
+    } else {
+      res.status(404).send('Medalla no encontrado');
+    }
+  }catch(err){
+    console.error("Error al obtener la habilidad para edición:", err);
+    res.status(500).send("Error del servidor");
+  }
+});
+
+
 router.delete('/badges/:rango', async(req, res) => {
   const {rango} = req.params;
   try {
@@ -177,25 +194,31 @@ router.delete('/badges/:rango', async(req, res) => {
   }
 });
 
-router.put('/badges/:rango', async (req, res) => {
-  const {rango} = req.params;
-  const {png, bitpoints_min, bitpoints_max} = req.body;
+router.put('/badges/:id', async (req, res) => {
+  const badgeId = req.params.id;
+  const { nombre, rango, bitpoints_min, bitpoints_max, png } = req.body;
+
+  // Validación extra (opcional)
+  if (bitpoints_min > bitpoints_max) {
+    return res.status(400).json({ message: 'Bitpoints mínimos no pueden ser mayores que los máximos' });
+  }
 
   try {
-    //Actualizar en la base de datos
-    const result = await Skill.db.collection('badges').updateOne(
-      {rango: rango},
-      {$set: { png, bitpoints_min, bitpoints_max }}
-    );
+    const updatedData = { nombre, rango, bitpoints_min, bitpoints_max, png };
 
-    if (result.modifiedCount > 0){
-      res.status(200).json({message: 'Medalla actualizada exitosamente.'});
+    const updatedBadge = await Badge.findByIdAndUpdate(badgeId, updatedData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (updatedBadge) {
+      res.status(200).json({ message: 'Medalla actualizada exitosamente', badge: updatedBadge });
     } else {
-      res.status(404).json({ message: 'Medalla no encontrada.' });
+      res.status(404).json({ message: 'Medalla no encontrada' });
     }
-  } catch (error){
-    console.error('Error al actualizar la medalla:', error);
-    res.status(500).json({ message: 'Error interno del servidor.' });
+  } catch (err) {
+    console.error('Error al actualizar la medalla:', err);
+    res.status(500).json({ message: 'Error del servidor' });
   }
 });
 
