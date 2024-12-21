@@ -6,10 +6,6 @@
   <h1>Editar medalla</h1>
 
   <form id="editarMedallaForm" action="/leaderboard/<%= badge.rango %>" method="POST" onsubmit="return validarFormulario(event)">
-    <div class="mb-3">
-      <label for="text" class="form-label">Nombre de la medalla</label>
-      <input type="text" class="form-control" id="nombre" name="nombre" value="<%= badge.rango %>" required>
-    </div>
 
     <div class="mb-3">
       <label for="text" class="form-label">Rango</label>
@@ -26,77 +22,57 @@
       <input type="number" id="bitpointsMax" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
     </div>
 
-    <div class="mb-3 row align-items-center">
-      <div class="col-md-8">
-        <label for="icon" class="form-label">Enlace de la Imagen</label>
-        <input type="url" id="enlaceImagen" name="png" class="form-control" value="<%= badge.png %>" required>
-      </div>
+    <div class="mb-3">
+      <label for="icon" class="form-label">Enlace de la Imagen</label>
+      <input type="url" id="enlaceImagen" name="png" class="form-control" value="<%= badge.png %>" required>
+    </div>
     </div>
 
     <div class="text-center">
       <a class="btn btn-danger" href="/badges">Cancelar</a>
       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </div>
+
+    
   </form>
+
+  <div id="alertContainer" class="mt-4" style="display: none;"></div>
+
 </div>
 
-<!-- Mensaje de éxito (inicialmente oculto) -->
-<div id="successMessage" class="alert alert-success mt-4" style="display: none;">
-  <h3>Medalla guardada correctamente</h3>
-  <button class="btn btn-success" onclick="cerrarMensaje()">Aceptar</button>
-</div>
+<script>
+  async function handleFormSubmit(event) {
+  event.preventDefault(); // Evitar el envío tradicional
+
+  const form = event.target;
+  const formData = new FormData(form);
+  const badgeId = '<%= badge._id %>';
+
+  try {
+    // Usar fetch para enviar la solicitud PUT con los datos del formulario en formato JSON
+    const response = await fetch(`/badges/${badgeId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      alert('Medalla actualizada exitosamente'); // Mostrar alerta de éxito
+      window.location.href = '/badges'; // Redirigir a la página de medallas
+    } else {
+      const error = await response.json();
+      alert(error.message || 'Error al actualizar la medalla'); // Mostrar mensaje de error
+    }
+  } catch (err) {
+    console.error('Error:', err);
+    alert('Error del servidor'); // Mostrar error de servidor si ocurre
+  }
+}
+</script>
 
 <!-- Footer -->
 <%- include('partials/footer') %>
 <!-- Footer -->
 
-<!-- mensaje de éxito centro -->
-<style>
-  #successMessage {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999; 
-    width: 80%; 
-    max-width: 600px; 
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  }
 
-  #successMessage button {
-    margin-top: 20px;
-  }
-</style>
-
-<script>
-  async function handleFormSubmit(event) {
-    event.preventDefault(); // Evitar el envío tradicional
-
-    const form = event.target;
-    const formData = new FormData(form);
-    const badgeId = '<%= badge._id %>';
-
-    try {
-      const response = await fetch(`/badges/${badgeId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(formData)),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        alert('Medalla actualizada exitosamente');
-        window.location.href = '/badges'; // Redirigir a la lista de medallas
-      } else {
-        const error = await response.json();
-        alert(error.message || 'Error al actualizar la medalla');
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Error del servidor');
-    }
-  }
-</script>

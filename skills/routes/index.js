@@ -5,7 +5,6 @@ const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
 
-
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', { title: 'Skills App' });
@@ -70,7 +69,6 @@ router.get('/skills/:id/edit', async (req, res) => {
   }
 });
 
-
 router.put('/skills/:id', async (req, res) => {
   const skillId = req.params.id;
   const { text, icon, description, tasks, score } = req.body;
@@ -133,7 +131,6 @@ router.delete('/skills/:id', async (req, res) => {
 });
 
 
-
 /*Badges*/
 
 router.get('/badges', async (req, res) => {
@@ -161,7 +158,6 @@ router.get('/badges/:rango', async (req, res) => {
   }
 });
 
-
 router.get('/badges/:rango/edit', async (req, res) => {
   const badgeRango = req.params.rango;
   try{
@@ -176,7 +172,6 @@ router.get('/badges/:rango/edit', async (req, res) => {
     res.status(500).send("Error del servidor");
   }
 });
-
 
 router.delete('/badges/:rango', async(req, res) => {
   const {rango} = req.params;
@@ -258,3 +253,4 @@ router.get('/aboutus', (req, res) => {
 });
 
 module.exports = router;
+
