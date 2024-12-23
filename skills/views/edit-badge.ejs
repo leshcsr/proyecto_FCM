@@ -5,26 +5,27 @@
 <div class="container mt-4" style="max-width: 600px;">
   <h1>Editar medalla</h1>
 
-  <form id="editarMedallaForm" action="/leaderboard/<%= badge.rango %>" method="POST" onsubmit="return validarFormulario(event)">
+  <form id="editarMedallaForm">
+    <input type="hidden" name="badgeId" value="<%= badge.id %>">
 
     <div class="mb-3">
-      <label for="text" class="form-label">Rango</label>
+      <label for="rango" class="form-label">Rango</label>
       <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
     </div>
 
     <div class="mb-3">
       <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
-      <input type="number" id="bitpointsMin" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
+      <input type="number" id="bitpoints_min" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
     </div>
 
     <div class="mb-3">
       <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
-      <input type="number" id="bitpointsMax" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
+      <input type="number" id="bitpoints_max" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
     </div>
 
     <div class="mb-3">
-      <label for="icon" class="form-label">Enlace de la Imagen</label>
-      <input type="url" id="enlaceImagen" name="png" class="form-control" value="<%= badge.png %>" required>
+      <label for="png" class="form-label">Enlace de la Imagen</label>
+      <input type="url" id="png" name="png" class="form-control" value="<%= badge.png %>" required>
     </div>
     </div>
 
@@ -32,8 +33,6 @@
       <a class="btn btn-danger" href="/badges">Cancelar</a>
       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </div>
-
-    
   </form>
 
   <div id="alertContainer" class="mt-4" style="display: none;"></div>
@@ -41,34 +40,48 @@
 </div>
 
 <script>
-  async function handleFormSubmit(event) {
-  event.preventDefault(); // Evitar el envío tradicional
+  document.addEventListener('DOMContentLoaded', () => {
+    const badgeForm = document.getElementById('editarMedallaForm');
+    
+    badgeForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const badgeData = {
+            rango: formData.get('rango'),
+            bitpoints_min: parseInt(formData.get('bitpoints_min')),
+            bitpoints_max: parseInt(formData.get('bitpoints_max')),
+            png: formData.get('png'),
+        };
+    const badgeId = formData.get('badgeId');
 
-  const form = event.target;
-  const formData = new FormData(form);
-  const badgeId = '<%= badge._id %>';
-
-  try {
-    // Usar fetch para enviar la solicitud PUT con los datos del formulario en formato JSON
+    try {
     const response = await fetch(`/badges/${badgeId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.fromEntries(formData)),
+      body: JSON.stringify(badgeData),
     });
 
     if (response.ok) {
       const data = await response.json();
       alert('Medalla actualizada exitosamente'); 
-      window.location.href = '/badges'; // Redirigir a la página de medallas
+      window.location.href = '/badges';
     } else {
       const error = await response.json();
-      alert(error.message || 'Error al actualizar la medalla'); // Mostrar mensaje de error
+      alert(error.message || 'Error al actualizar la medalla');
     }
   } catch (err) {
-    console.error('Error:', err);
-    alert('Error del servidor'); // Mostrar error de servidor si ocurre
+    console.error('Error al actualizar la medalla:', err.message);
+    if (err.name === 'ValidationError') {
+        return res.status(400).json({ message: err.message });
+    }
+    res.status(500).json({ message: 'Error del servidor' });
   }
-}
+
+  });
+
+});
+
 </script>
 
 <!-- Footer -->
