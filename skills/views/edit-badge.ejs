@@ -58,7 +58,7 @@
 
     if (response.ok) {
       const data = await response.json();
-      alert('Medalla actualizada exitosamente'); // Mostrar alerta de éxito
+      alert('Medalla actualizada exitosamente'); 
       window.location.href = '/badges'; // Redirigir a la página de medallas
     } else {
       const error = await response.json();
