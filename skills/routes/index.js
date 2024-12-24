@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
+const mongoose = require('mongoose');
+
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -143,10 +145,15 @@ router.get('/badges', async (req, res) => {
   }
 });
 
-router.get('/badges/:rango', async (req, res) => {
-  const rango = req.params.rango;
+router.get('/badges/:id', async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'ID inválido' });
+  }
+
   try {
-    const badge = await Badge.findOne({ rango });
+    const badge = await Badge.findById( id );
     if (badge) {
       res.render('edit-badge', { badge });
     } else {
@@ -155,21 +162,6 @@ router.get('/badges/:rango', async (req, res) => {
   } catch (err) {
     console.error('Error al obtener la badge:', err);
     res.status(500).send('Error del servidor');
-  }
-});
-
-router.get('/badges/:rango/edit', async (req, res) => {
-  const badgeRango = req.params.rango;
-  try{
-    const badges = await Skill.findById( badgeRango );
-    if (badges) {
-      res.render('edit-badge', { badges });
-    } else {
-      res.status(404).send('Medalla no encontrado');
-    }
-  }catch(err){
-    console.error("Error al obtener la habilidad para edición:", err);
-    res.status(500).send("Error del servidor");
   }
 });
 
@@ -191,19 +183,20 @@ router.delete('/badges/:rango', async(req, res) => {
 
 router.put('/badges/:id', async (req, res) => {
   const badgeId = req.params.id;
-  const { nombre, rango, bitpoints_min, bitpoints_max, png } = req.body;
+  const { rango, bitpoints_min, bitpoints_max, png } = req.body;
 
   // Validación extra (opcional)
   if (bitpoints_min > bitpoints_max) {
-    return res.status(400).json({ message: 'Bitpoints mínimos no pueden ser mayores que los máximos' });
+    return res.status(400).json({ message: 'Hola Bitpoints mínimos no pueden ser mayores que los máximos' });
   }
 
   try {
-    const updatedData = { nombre, rango, bitpoints_min, bitpoints_max, png };
+    const updatedData = { rango, bitpoints_min, bitpoints_max, png };
 
     const updatedBadge = await Badge.findByIdAndUpdate(badgeId, updatedData, {
       new: true,
       runValidators: true,
+      context: 'query',
     });
 
     if (updatedBadge) {
@@ -212,11 +205,14 @@ router.put('/badges/:id', async (req, res) => {
       res.status(404).json({ message: 'Medalla no encontrada' });
     }
   } catch (err) {
-    console.error('Error al actualizar la medalla:', err);
-    res.status(500).json({ message: 'Error del servidor' });
-  }
+    console.error('Error al actualizar la medalla:', err.message);
+        if (err.name === 'ValidationError') {
+            return res.status(400).json({ message: err.message });
+        }
+        res.status(500).json({ message: 'Error del servidor' });
+    }
 });
-
+/*
 router.post('/leaderboard/:rango', async (req, res) => {
   try {
     const { rango } = req.params;
@@ -243,7 +239,7 @@ router.post('/leaderboard/:rango', async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: `Error al actualizar la medalla: ${err.message}` });
   }
-});
+});*/
 
 /*ABOUT US*/
 router.get('/aboutus', (req, res) => {
@@ -252,5 +248,11 @@ router.get('/aboutus', (req, res) => {
   res.render('aboutus', { badges });
 });
 
-module.exports = router;
+/*USERS*/
+router.get('/manageusers', (req, res) => {
+  const badgesPath = path.join(__dirname, '../badges.json');
+  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
+  res.render('manageusers', { badges });
+});
 
+module.exports = router;

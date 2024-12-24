@@ -5,26 +5,30 @@
 <div class="container mt-4" style="max-width: 600px;">
   <h1>Editar medalla</h1>
 
-  <form id="editarMedallaForm" action="/leaderboard/<%= badge.rango %>" method="POST" onsubmit="return validarFormulario(event)">
+  <form action="/badges/<%= badge.rango %>" id="badgeForm">
+    <input type="hidden" name="badgeId" value="<%= badge.rango %>">
 
     <div class="mb-3">
       <label for="text" class="form-label">Rango</label>
       <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
+      <div class="invalid-feedback">El rango debe tener entre 2 y 60 caracteres.</div>
     </div>
 
     <div class="mb-3">
       <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
-      <input type="number" id="bitpointsMin" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
+      <input type="number" id="bitpoints_min" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
     </div>
 
     <div class="mb-3">
       <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
-      <input type="number" id="bitpointsMax" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
+      <input type="number" id="bitpoints_max" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
+      <div class="invalid-feedback">bitpoints_max debe ser mayor o igual a bitpoints_min</div>
     </div>
 
     <div class="mb-3">
       <label for="icon" class="form-label">Enlace de la Imagen</label>
-      <input type="url" id="enlaceImagen" name="png" class="form-control" value="<%= badge.png %>" required>
+      <input type="url" id="icon" name="icon" class="form-control" value="<%= badge.png %>" required>
+      <div class="invalid-feedback">Por favor, ingresa una URL válida.</div>
     </div>
     </div>
 
@@ -36,43 +40,90 @@
     
   </form>
 
-  <div id="alertContainer" class="mt-4" style="display: none;"></div>
-
 </div>
 
 <script>
-  async function handleFormSubmit(event) {
-  event.preventDefault(); // Evitar el envío tradicional
+  document.addEventListener('DOMContentLoaded', () => {
+    const badgeForm = document.getElementById('badgeId');
 
-  const form = event.target;
-  const formData = new FormData(form);
-  const badgeId = '<%= badge._id %>';
+    const rangoInput = document.getElementById('rango');
+    const bitpointsMinInput = document.getElementById('bitpoints_min');
+    const bitpointsMaxInput = document.getElementById('bitpoints_max');
+    const iconInput = document.getElementById('icon');
+    
+    // Validar longitud de texto
+    const validateLength = (input, min, max, errorMsg) => {
+      if (input.value.length < min || input.value.length > max) {
+        input.classList.add('is-invalid');
+        input.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        return true;
+      }
+    };
 
-  try {
-    // Usar fetch para enviar la solicitud PUT con los datos del formulario en formato JSON
-    const response = await fetch(`/badges/${badgeId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.fromEntries(formData)),
-    });
+    // Validar URL
+    const validateUrl = (input, errorMsg) => {
+      const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
+      if (input.value && !urlPattern.test(input.value)) {
+        input.classList.add('is-invalid');
+        input.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        return true;
+      }
+    };
 
-    if (response.ok) {
-      const data = await response.json();
-      alert('Medalla actualizada exitosamente'); 
-      window.location.href = '/badges'; // Redirigir a la página de medallas
-    } else {
-      const error = await response.json();
-      alert(error.message || 'Error al actualizar la medalla'); // Mostrar mensaje de error
-    }
-  } catch (err) {
-    console.error('Error:', err);
-    alert('Error del servidor'); // Mostrar error de servidor si ocurre
-  }
-}
+    //Validar Bitpoints
+    const isMinValid = validateNumber(bitpointsMinInput, 0, Infinity, 'Bitpoints mínimos deben ser un número válido.');
+    const isMaxValid = validateMax(bitpointsMaxInput, bitpointsMinInput);
+    
+    if (isMinValid && isMaxValid) {
+      this.submit(); // Enviar formulario si las validaciones pasan
+    };
+    // Validar rango general de números
+    const validateNumber = (input, min, max, errorMsg) => {
+      const value = parseFloat(input.value);
+      if (isNaN(value) || value < min || value > max) {
+        input.classList.add('is-invalid');
+        input.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        return true;
+      }
+    };
+    
+    // Validar que bitpoints_max sea mayor o igual a bitpoints_min
+    const validateMax = (maxInput, minInput) => {
+      const maxValue = parseFloat(maxInput.value);
+      const minValue = parseFloat(minInput.value);
+      
+      if (isNaN(maxValue) || maxValue < minValue) {
+        maxInput.classList.add('is-invalid');
+        maxInput.nextElementSibling.textContent = 'Bitpoints máximos deben ser mayores o iguales a Bitpoints mínimos.';
+        return false;
+      } else {
+        maxInput.classList.remove('is-invalid');
+        maxInput.classList.add('is-valid');
+        return true;
+      }
+    };
+
+    //Validaciones
+    textRango.addEventListener('input', () => validateLength(rangoInput, 2, 60, 'El nombre debe tener entre 2 y 60 caracteres.'));
+    
+
+  
+  });
+    
 </script>
 
 <!-- Footer -->
 <%- include('partials/footer') %>
 <!-- Footer -->
-
-
