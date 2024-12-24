@@ -168,7 +168,6 @@ router.get('/badges/:id', async (req, res) => {
 router.delete('/badges/:rango', async(req, res) => {
   const {rango} = req.params;
   try {
-    console.log(`Intentando eliminar badge con ID: ${rango}`);
     const deletedBadge = await Badge.findOneAndDelete({ rango });
     if (!deletedBadge){
       console.error(`No se encontró una medalla con rango: ${rango}`);
@@ -187,7 +186,7 @@ router.put('/badges/:id', async (req, res) => {
 
   // Validación extra (opcional)
   if (bitpoints_min > bitpoints_max) {
-    return res.status(400).json({ message: 'Hola Bitpoints mínimos no pueden ser mayores que los máximos' });
+    return res.status(400).json({ message: 'Bitpoints mínimos no pueden ser mayores que los máximos' });
   }
 
   try {
@@ -212,34 +211,6 @@ router.put('/badges/:id', async (req, res) => {
         res.status(500).json({ message: 'Error del servidor' });
     }
 });
-/*
-router.post('/leaderboard/:rango', async (req, res) => {
-  try {
-    const { rango } = req.params;
-    const { bitpoints_min, bitpoints_max, png } = req.body;
-
-    const badge = await Badge.findOne({ rango });
-    if (!badge) {
-      return res.status(404).json({ message: 'Medalla no encontrada' });
-    }
-
-    badge.bitpoints_min = bitpoints_min;
-    badge.bitpoints_max = bitpoints_max;
-    badge.png = png;
-
-    await badge.save();
-
-    // Enviar los datos actualizados de la medalla como respuesta
-    res.json({
-      rango: badge.rango,
-      bitpoints_min: badge.bitpoints_min,
-      bitpoints_max: badge.bitpoints_max,
-      png: badge.png,
-    });
-  } catch (err) {
-    res.status(400).json({ message: `Error al actualizar la medalla: ${err.message}` });
-  }
-});*/
 
 /*ABOUT US*/
 router.get('/aboutus', (req, res) => {
