@@ -47,6 +47,7 @@
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
+    
     const badgeData = {
             rango: formData.get('rango'),
             bitpoints_min: parseInt(formData.get('bitpoints_min')),

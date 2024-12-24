@@ -188,6 +188,14 @@ router.put('/badges/:id', async (req, res) => {
   if (bitpoints_min > bitpoints_max) {
     return res.status(400).json({ message: 'Bitpoints mínimos no pueden ser mayores que los máximos' });
   }
+  
+    // Validación de la URL (png)
+    const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)+\.(jpg|png)$/i;
+    if (png && !urlPattern.test(png)) {
+    return res.status(400).json({ message: 'El enlace de la imagen no es válido' });
+  } else {
+    console.log('URL válida:', png); 
+  }
 
   try {
     const updatedData = { rango, bitpoints_min, bitpoints_max, png };
