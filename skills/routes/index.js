@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
-const mongoose = require('mongoose');
+const { isAuthenticated } = require('../middlewares/auth');const mongoose = require('mongoose');
 
 
 /* GET home page. */
