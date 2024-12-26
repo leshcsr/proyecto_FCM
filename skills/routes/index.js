@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
-
+const { isAuthenticated } = require('../middlewares/auth');
 
 /* GET home page. */
 router.get('/', (req, res) => {
