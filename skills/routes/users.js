@@ -8,6 +8,36 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+// Route to test session, provided by claude.com
+router.get('/session-test', (req, res) => {
+    const sessionInfo = {
+        views: req.session.views ? ++req.session.views : 1,
+        sessionID: req.sessionID,
+        userSession: {
+            loggedIn: !!req.session.user,
+            userData: req.session.user ? {
+                id: req.session.user._id,
+                username: req.session.user.username,
+                email: req.session.user.email,
+                score: req.session.user.score,
+                admin: req.session.user.admin,
+                completedSkills: req.session.user.completedSkills || [],
+            } : 'No user logged in'
+        }
+    };
+    if (!req.session.views) {
+        req.session.views = 1;
+    }
+    // Format the response for better readability
+    const formattedResponse = {
+        ...sessionInfo,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+    };
+
+    res.json(formattedResponse);
+});
+
 router.post('/register', async (req, res) => {
   const { username, password, passwordConfirm, email } = req.body;
 
@@ -47,6 +77,55 @@ router.post('/register', async (req, res) => {
       console.error(err);
       res.status(500).send('Error del servidor.');
   }
+});
+
+//we have this route because when we initialize the page the component is expecting an error
+router.get('/login', (req, res) => {
+    res.render('login', { error: null });
+});
+
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        // Find user by username
+        const user = await User.findOne({ username });
+       
+        if (!user) {
+            return res.render('login', {
+                error: 'Usuario o contraseña incorrectos',
+                username: username
+            });
+        }
+        // Compare passwords
+        const isMatch = await bcrypt.compare(password, user.password);
+       
+        if (!isMatch) {
+            return res.render('login', {
+                error: 'Usuario o contraseña incorrectos',
+                username: username
+            });
+        }
+
+        // Convert user document to object and remove sensitive data
+        const userObject = user.toObject();
+        delete userObject.password;  // Remove password
+        delete userObject.__v;       // Remove version key
+
+        // Save user data in session
+        req.session.user = userObject;
+
+        // Log session data for debugging
+        console.log('Session user data:', req.session.user);
+
+        // Successful login - redirect to skills page
+        res.redirect('/skills');
+    } catch (err) {
+        console.error(err);
+        res.render('login', {
+            error: 'Error del servidor. Por favor, inténtelo de nuevo.',
+            username: username
+        });
+    }
 });
 
 module.exports = router;
