@@ -5,6 +5,7 @@ const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
 const { isAuthenticated } = require('../middlewares/auth');
+const { userInfo } = require('os');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -13,7 +14,11 @@ router.get('/', (req, res) => {
 
 /* GET Login */
 router.get('/login', (req, res) => {
-  res.render('login', { title: 'Iniciar Sesión' });
+  res.render('login', { 
+    title: 'Iniciar Sesión',
+    error: null,
+    username: ''
+  });
 });
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
