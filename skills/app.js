@@ -30,9 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   store: MongoStore.create({
     mongoUrl: process.env.MONGO_URI,
-    ttl: 24 * 60 * 60, // Session TTL (1 day)
-    autoRemove: 'native' // Enable automatic removal of expired sessions
-  }),
+    collectionName: 'sessions',
+    ttl: 24 * 60 * 60,
+    autoRemove: 'native'
+}),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,

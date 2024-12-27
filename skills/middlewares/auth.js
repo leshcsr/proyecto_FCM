@@ -1,8 +1,8 @@
 function isAuthenticated(req, res, next) {
-    if (req.session && req.session.user) {
+  if (req.session && req.session.user) {
       return next();
-    }
-    res.redirect('/login');
   }
-  
-  module.exports = { isAuthenticated };
+  res.redirect('/users/login');  // Change to match your login route
+}
+
+module.exports = { isAuthenticated };

@@ -19,15 +19,12 @@
                         type="text"
                         id="username"
                         name="username"          
-                        class="form-control <%= error ? 'is-invalid' : '' %>"
+                        class="form-control <%= locals.error ? 'is-invalid' : '' %>"
                         value="<%= locals.username || '' %>"
                         placeholder="Ingrese su usuario"
                         required>
-                    <div class="invalid-feedback">
-                        Por favor, ingrese su nombre de usuario
-                    </div>
                 </div>
-               
+                           
                 <!-- Password Field -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
@@ -35,15 +32,16 @@
                         type="password"
                         id="password"
                         name="password"
-                        class="form-control <%= error ? 'is-invalid' : '' %>"
+                        class="form-control <%= locals.error ? 'is-invalid' : '' %>"
                         placeholder="Ingrese su contraseña"
                         required>
-                    <div class="invalid-feedback">
-                        <%= error || 'Por favor, ingrese su contraseña' %>
-                    </div>
+                    <% if (locals.error) { %>
+                        <div class="invalid-feedback">
+                            <%= error %>
+                        </div>
+                    <% } %>
                 </div>
-           
-                <!-- Submit Button - Changed from anchor to button -->
+                <!-- Submit Button -->
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Ingresar</button>
                 </div>
