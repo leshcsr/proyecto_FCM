@@ -4,7 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
-const { isAuthenticated } = require('../middlewares/auth');const mongoose = require('mongoose');
+const { isAuthenticated } = require('../middlewares/auth');
+const mongoose = require('mongoose');
 
 
 /* GET home page. */
@@ -19,6 +20,45 @@ router.get('/login', (req, res) => {
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
 });
+
+/*POST manejar registro datos */
+router.post('/signin', async(req, res) => {
+  const { username, email, password } = req.body; // Obtén los datos del formulario
+
+  if (!username || !email || !password) {
+    return res.render('signin', { title: 'Registrate', error: 'Todos los campos son requeridos.' });
+  }
+
+  try {
+    // Verifica si el email ya está registrado
+    const users = await users.findOne({ email });
+    if (existingUser) {
+      return res.render('signin', { title: 'Registrate', error: 'El correo electrónico ya está registrado.' });
+    }
+
+    // Encriptar la contraseña antes de guardarla
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Crear un nuevo usuario en la base de datos
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword // Guardamos la contraseña encriptada
+    });
+
+    // Guardar el nuevo usuario
+    await newUser.save();
+
+     // Redirigir a la página de login después de registrar al usuario
+     res.redirect('/login'); // O lo que sea que el flujo de tu aplicación requiera
+
+    } catch (error) {
+      console.error(error);
+      res.render('signin', { title: 'Registrate', error: 'Hubo un error al registrar el usuario.' });
+    }
+});
+
+
 
 /*SKILLS*/
 router.get('/skill/add', (req, res) => {
