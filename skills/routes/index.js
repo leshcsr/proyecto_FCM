@@ -25,7 +25,7 @@ router.get('/signin', (req, res) => {
 });
 
 /*SKILLS*/
-router.get('/skill/add',isAuthenticated, (req, res) => {
+router.get('/skill/add',isAuthenticated, isAdmin, (req, res) => {
   res.render('add-skill', { title: 'New Skill' });
 });
 
@@ -38,7 +38,10 @@ router.get('/skills', isAuthenticated, async (req, res) => {
         skill.textLines = [skill.textLines];
       }
     });
-    res.render('skills', {skills});
+    res.render('skills', {
+      skills,
+      isAdmin: req.session.user && req.session.user.admin 
+    });
   }catch(err){
     console.error("Error al obtener las habilidades:", err);
     res.status(500).send("Error del servidor");
@@ -60,7 +63,7 @@ router.get('/skills/:id', isAuthenticated, async (req, res) => {
   } 
 });
 
-router.get('/skills/:id/edit', isAuthenticated, async (req, res) => {
+router.get('/skills/:id/edit', isAuthenticated, isAdmin, async (req, res) => {
   const skillId = req.params.id;
   try{
     const skill = await Skill.findById( skillId );
@@ -76,7 +79,7 @@ router.get('/skills/:id/edit', isAuthenticated, async (req, res) => {
 });
 
 
-router.put('/skills/:id', isAuthenticated, async (req, res) => {
+router.put('/skills/:id', isAuthenticated, isAdmin, async (req, res) => {
   const skillId = req.params.id;
   const { text, icon, description, tasks, score } = req.body;
 
@@ -95,7 +98,7 @@ router.put('/skills/:id', isAuthenticated, async (req, res) => {
   }
 });
 
-router.post('/skill/add', isAuthenticated, async (req, res) => {
+router.post('/skill/add', isAuthenticated, isAdmin, async (req, res) => {
   const { text, icon, description, tasks, score, resources } = req.body;
 
   try {
@@ -120,7 +123,7 @@ router.post('/skill/add', isAuthenticated, async (req, res) => {
   }
 });
 
-router.delete('/skills/:id', isAuthenticated, async (req, res) => {
+router.delete('/skills/:id', isAuthenticated, isAdmin, async (req, res) => {
   const skillId = req.params.id;
 
   try {

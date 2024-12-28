@@ -12,4 +12,4 @@ function isAdmin(req, res, next) {
   res.status(403).send('Acceso denegado: Solo administradores pueden realizar esta acción.');
 }
 
-module.exports = { isAuthenticated };
+module.exports = { isAuthenticated, isAdmin };
