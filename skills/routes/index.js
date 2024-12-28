@@ -4,7 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
-const { isAuthenticated } = require('../middlewares/auth');const mongoose = require('mongoose');
+const { isAuthenticated, isAdmin } = require('../middlewares/auth');
+const { userInfo } = require('os');
 
 
 /* GET home page. */
@@ -14,18 +15,22 @@ router.get('/', (req, res) => {
 
 /* GET Login */
 router.get('/login', (req, res) => {
-  res.render('login', { title: 'Iniciar Sesión' });
+  res.render('login', { 
+    title: 'Iniciar Sesión',
+    error: null,
+    username: ''
+  });
 });
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
 });
 
 /*SKILLS*/
-router.get('/skill/add', (req, res) => {
+router.get('/skill/add',isAuthenticated, isAdmin, (req, res) => {
   res.render('add-skill', { title: 'New Skill' });
 });
 
-router.get('/skills', async (req, res) => {
+router.get('/skills', isAuthenticated, async (req, res) => {
   try{
     let skills = await Skill.find();
 
@@ -34,14 +39,17 @@ router.get('/skills', async (req, res) => {
         skill.textLines = [skill.textLines];
       }
     });
-    res.render('skills', {skills});
+    res.render('skills', {
+      skills,
+      isAdmin: req.session.user && req.session.user.admin 
+    });
   }catch(err){
     console.error("Error al obtener las habilidades:", err);
     res.status(500).send("Error del servidor");
   }
 });
 
-router.get('/skills/:id', async (req, res) => {
+router.get('/skills/:id', isAuthenticated, async (req, res) => {
   const skillId = req.params.id;
   try{
     const skill = await Skill.findById( skillId );
@@ -56,7 +64,7 @@ router.get('/skills/:id', async (req, res) => {
   } 
 });
 
-router.get('/skills/:id/edit', async (req, res) => {
+router.get('/skills/:id/edit', isAuthenticated, isAdmin, async (req, res) => {
   const skillId = req.params.id;
   try{
     const skill = await Skill.findById( skillId );
@@ -71,7 +79,9 @@ router.get('/skills/:id/edit', async (req, res) => {
   }
 });
 
-router.put('/skills/:id', async (req, res) => {
+
+
+router.put('/skills/:id', isAuthenticated, isAdmin, async (req, res) => {
   const skillId = req.params.id;
   const { text, icon, description, tasks, score } = req.body;
 
@@ -90,7 +100,7 @@ router.put('/skills/:id', async (req, res) => {
   }
 });
 
-router.post('/skill/add', async (req, res) => {
+router.post('/skill/add', isAuthenticated, isAdmin, async (req, res) => {
   const { text, icon, description, tasks, score, resources } = req.body;
 
   try {
@@ -115,7 +125,7 @@ router.post('/skill/add', async (req, res) => {
   }
 });
 
-router.delete('/skills/:id', async (req, res) => {
+router.delete('/skills/:id', isAuthenticated, isAdmin, async (req, res) => {
   const skillId = req.params.id;
 
   try {
@@ -135,7 +145,7 @@ router.delete('/skills/:id', async (req, res) => {
 
 /*Badges*/
 
-router.get('/badges', async (req, res) => {
+router.get('/badges', isAuthenticated, async (req, res) => {
   try {
     const badges = await Badge.find(); 
     res.render('badges', { badges });
@@ -145,15 +155,11 @@ router.get('/badges', async (req, res) => {
   }
 });
 
-router.get('/badges/:id', async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: 'ID inválido' });
-  }
+router.get('/badges/:rango', isAuthenticated, async (req, res) => {
+  const rango = req.params.rango;
 
   try {
-    const badge = await Badge.findById( id );
+    const badge = await Badge.findOne({ rango });
     if (badge) {
       res.render('edit-badge', { badge });
     } else {
@@ -222,16 +228,12 @@ router.put('/badges/:id', async (req, res) => {
 
 /*ABOUT US*/
 router.get('/aboutus', (req, res) => {
-  const badgesPath = path.join(__dirname, '../badges.json');
-  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
-  res.render('aboutus', { badges });
+ res.render('aboutus',);
 });
 
 /*USERS*/
 router.get('/manageusers', (req, res) => {
-  const badgesPath = path.join(__dirname, '../badges.json');
-  const badges = JSON.parse(fs.readFileSync(badgesPath, 'utf8'));
-  res.render('manageusers', { badges });
+  res.render('manageusers');
 });
 
 module.exports = router;
