@@ -7,11 +7,8 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
->>>>>>> a792d3fee2922d49a13e94e2b3d615c1552e594c
     "cheerio": "^1.0.0",
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.3",
