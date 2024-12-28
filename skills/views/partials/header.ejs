@@ -20,20 +20,22 @@
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-
-                  <% if (typeof user !== 'undefined' && user) { %>
-                      <li class="nav-item">
-                          <a type="button" class="nav-link" href="/badges">Medallas</a>
-                      </li>
-                      <% if (user.admin) { %>
+            <ul class="navbar-nav ms-auto">
+  
+                <% if (typeof user !== 'undefined' && user) { %>
+                    <li class="nav-item">
+                        <a type="button" class="nav-link" href="/badges">
+                            <% if (user.admin) { %>Dashboard<% } else { %>Medallas<% } %>
+                        </a>
+                    </li>
+                    <% if (user.admin) { %>
                         <li class="nav-item">
-                            <a type="button" class="nav-link" href="manageusers">Users</a>
+                            <a type="button" class="nav-link" href="/manageusers">Users</a>
                         </li>
                     <% } %>
                     <li class="nav-item">
                         <a class="nav-link" href="/aboutus">About us</a>
-                    </li>
+                    </li>  
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold; color: #007bff;">
                             <i class="fas fa-user-circle"></i> <%= user.username %>
@@ -55,7 +57,6 @@
       </div>
   </nav>
 
-  <!-- Modal de Confirmación de Cierre de Sesión -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
