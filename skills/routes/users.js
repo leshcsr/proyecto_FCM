@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 const User = require('../models/usermodel.js');
 
 /* GET */
-
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
 
 //Debugging route to test session data
 // Route to test session, provided by claude.com
@@ -121,8 +123,8 @@ router.post('/register', async (req, res) => {
 });
 
 //we have this route because when we initialize the page the component is expecting an error
-router.get('/', (req, res) => {
-    res.redirect('/users/login');
+router.get('/login', (req, res) => {
+    res.render('login', { error: null });
 });
 
 router.post('/login', async (req, res) => {
@@ -205,7 +207,20 @@ router.get('/logout', (req, res) => {
     }
 });
 
+/*Manager users*/
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find();  // Obtener todos los usuarios desde la base de datos
 
-  
+        // Pasar los usuarios a locals para que estén disponibles en la vista
+        res.locals.users = users;
+
+        // Renderizar la vista 'users.ejs'
+        res.render('users');
+    } catch (err) {
+        console.error('Error al obtener usuarios:', err);
+        res.status(500).send('Error al obtener los usuarios.');
+    }
+});
 
 module.exports = router;
