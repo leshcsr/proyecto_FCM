@@ -92,19 +92,19 @@
             }
        };
 
-      // Validar URL
-      const validateUrl = (input, errorMsg) => {
-        const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
-        if (input.value && !urlPattern.test(input.value)) {
-              input.classList.add('is-invalid');
-              input.nextElementSibling.textContent = errorMsg;
-              return false;
-          } else {
-              input.classList.remove('is-invalid');
-              input.classList.add('is-valid');
-              return true;
-          }
-       };
+        // Validar URL
+        const validateUrl = (input, errorMsg) => {
+          const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
+          if (input.value && !urlPattern.test(input.value)) {
+                input.classList.add('is-invalid');
+                input.nextElementSibling.textContent = errorMsg;
+                return false;
+            } else {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+                return true;
+            }
+        };
 
         // Validar puntuación
         const validateNumber = (input, min, max, errorMsg) => {
