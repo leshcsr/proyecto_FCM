@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const User = require('../models/usermodel.js');
 
 /* GET */
 router.get('/', function(req, res, next) {
@@ -204,24 +203,6 @@ router.get('/logout', (req, res) => {
     } catch (err) {
         console.error('Logout error:', err);
         res.redirect('/users/login');
-    }
-});
-
-/*Manager users*/
-router.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();  // Obtener todos los usuarios desde la base de datos
-
-        console.log('Users fetched:', users); // Agregar un log para verificar que los usuarios fueron obtenidos
-
-        // Pasar los usuarios a locals para que estén disponibles en la vista
-        res.locals.users = users;
-
-        // Renderizar la vista 'users.ejs'
-        res.render('users');
-    } catch (err) {
-        console.error('Error al obtener usuarios:', err);
-        res.status(500).send('Error al obtener los usuarios.');
     }
 });
 

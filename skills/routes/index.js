@@ -5,6 +5,8 @@ const Badge = require('../models/badgemodel');
 const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 const { userInfo } = require('os');
 const skillRoutes = require('./skills');
+const User = require('../models/usermodel.js');
+
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -115,8 +117,22 @@ router.get('/aboutus', (req, res) => {
 });
 
 /*USERS*/
-router.get('/manageusers', (req, res) => {
-  res.render('manageusers');
+
+//router.get('/manageusers', (req, res) => {
+//  res.render('manageusers');
+//});
+
+router.get('/manageusers', async (req, res) => {
+    try {
+        const users = await User.find(); 
+
+        res.locals.users = users;
+
+        res.render('manageusers');
+    } catch (err) {
+        console.error('Error al obtener usuarios:', err);
+        res.status(500).send('Error al obtener los usuarios.');
+    }
 });
 
 module.exports = router;
