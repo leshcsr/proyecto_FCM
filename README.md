@@ -10,6 +10,10 @@
 - Iniciamos la aplicacion con `cross-env "DEBUG=skills:*" npm start`
 - En nuestro navegador vamos a la direccion `http://localhost:'puerto'/`
 
+# Documentación
+- Matriz del proyecto: https://docs.google.com/spreadsheets/d/1XYGWIlM8cY0Qt5JcMPM-iNuXs3zG-4VBCtqOAP8hBj8/edit?usp=sharing
+- SRS: https://docs.google.com/document/d/1LrUYePmOxdMLpMYbgdB3x1ox22T8vEBI5ydUCyKv5hw/edit?usp=sharing
+
 # Proyecto 
 
 Este proyecto corre en [http://localhost:3000/](http://localhost:3000/).  

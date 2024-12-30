@@ -5,9 +5,12 @@
 <div class="container mt-4"> <!--Contendor Principal-->
 
   <h1>Skills</h1>
-  <div class="text-end mb-3">
-    <a href="/skill/add" type="button" class="btn btn-outline-primary">Añadir nueva skill</a>
-  </div>
+  <% if (isAdmin) { %>
+    <div class="text-end mb-3">
+      <a href="/skills/add" type="button" class="btn btn-outline-primary">Añadir nueva skill</a>
+    </div>
+  <% } %>
+  
 
   <div id="skills-container">
     
@@ -43,7 +46,9 @@
               <!-- Imagen de la skill -->
               <image x="35%" y="60%" width="30" height="30" href="<%= skill.icon %>"></image>
               <!-- Iconos de la skill -->
-              <image x="75%" y="80%" width="20" height="20" href="/assets/editar.png" class="icon-wrapper"  onclick="window.location.href='/skills/<%= skill.id %>/edit';"></image>
+              <% if (isAdmin) { %>
+                <image x="75%" y="80%" width="20" height="20" href="/assets/editar.png" class="icon-wrapper"  onclick="window.location.href='/skills/<%= skill.id %>/edit';"></image>
+              <% } %>
               <image x="10%" y="80%" width="20" height="20" href="/assets/libro.png" class="icon-wrapper" data-id="<%= skill.id %>" ></image>
             </svg>
             <div class="icon-wrapper" style="display: none;">
