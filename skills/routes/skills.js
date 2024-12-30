@@ -13,4 +13,6 @@ router.post('/update-evidence', isAuthenticated, skillController.updateEvidence)
 router.put('/:id', isAuthenticated, isAdmin, skillController.updateSkill);
 router.delete('/:id', isAuthenticated, isAdmin, skillController.deleteSkill);
 
+router.post('/verify-evidence', isAuthenticated, skillController.verifySkillEvidence);
+
 module.exports = router;
