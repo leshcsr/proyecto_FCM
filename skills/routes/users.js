@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/usermodel.js');
 const Badges = require('../models/badgemodel');
+const { isAdmin, isAuthenticated } = require('../middlewares/auth.js');
 
 /* GET */
 router.get('/', function(req, res, next) {
@@ -216,7 +217,7 @@ router.get('/logout', (req, res) => {
     }
 });
 
-router.get('/leaderboard', async (req, res) => {
+router.get('/leaderboard', isAdmin, isAuthenticated, async (req, res) => {
     try {
         // Get all users and sort by score
         const users = await User.find({}).sort({ score: -1 });

@@ -62,7 +62,7 @@ router.get('/badges/:id', isAuthenticated, async (req, res) => {
   }
 });
 
-router.delete('/badges/:rango', async(req, res) => {
+router.delete('/badges/:rango', isAuthenticated, isAdmin, async(req, res) => {
   const {rango} = req.params;
   try {
     const deletedBadge = await Badge.findOneAndDelete({ rango });
@@ -77,7 +77,7 @@ router.delete('/badges/:rango', async(req, res) => {
   }
 });
 
-router.put('/badges/:id', async (req, res) => {
+router.put('/badges/:id', isAdmin, isAuthenticated, async (req, res) => {
   const badgeId = req.params.id;
   const { rango, bitpoints_min, bitpoints_max, png } = req.body;
 
