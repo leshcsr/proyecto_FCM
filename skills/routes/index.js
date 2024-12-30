@@ -45,11 +45,12 @@ router.get('/badges', isAuthenticated, async (req, res) => {
   }
 });
 
-router.get('/badges/:rango', isAuthenticated, async (req, res) => {
-  const rango = req.params.rango;
+router.get('/badges/:id', isAuthenticated, async (req, res) => {
+  const id = req.params.id;
 
   try {
-    const badge = await Badge.findOne({ rango });
+
+    const badge = await Badge.findOne({ _id: id });
     if (badge) {
       res.render('edit-badge', { badge });
     } else {
