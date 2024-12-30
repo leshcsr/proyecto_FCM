@@ -216,6 +216,8 @@ router.get('/logout', (req, res) => {
     }
 });
 
+<<<<<<< HEAD
+=======
 router.get('/leaderboard', async (req, res) => {
     try {
         // Get all users and sort by score
@@ -267,4 +269,5 @@ router.get('/leaderboard', async (req, res) => {
     }
 });
 
+>>>>>>> ee3e39f727d9675c0525f03e2458983096678668
 module.exports = router;
