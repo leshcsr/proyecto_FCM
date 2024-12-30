@@ -16,7 +16,7 @@
 
 # Proyecto 
 
-Este proyecto corre en [http://localhost:3000/](http://localhost:3000/).  
+Este proyecto corre en [http://localhost:3000/](http://localhost:3001/).  
 Para iniciarlo, utiliza uno de los siguientes comandos:
 
 - `npm run dev`
