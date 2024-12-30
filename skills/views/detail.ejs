@@ -127,7 +127,33 @@
     
         document.getElementById('evidence-form').addEventListener('submit', submitEvidence);
     </script>
-    
+
+    <!--Script para aprobar evidencias-->
+    <script>
+        async function approveEvidence(userSkillId) {
+            try {
+                const response = await fetch('/skills/verify-evidence', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userSkillId })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(data.message);
+                    location.reload(); // Reload the page to show updated status
+                } else {
+                    alert(data.error || 'Error verifying skill');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while verifying the skill');
+            }
+        }
+    </script>
     
 
 <!--Footer-->

@@ -1,5 +1,6 @@
 const Skill = require('../models/skillmodel');
 const UserSkill = require('../models/userskillmodel');
+const User = require('../models/usermodel'); 
 
 exports.renderAddSkill = (req, res) => {
   res.render('add-skill', { title: 'New Skill' });
@@ -155,4 +156,75 @@ exports.updateEvidence = async (req, res) => {
       res.status(500).json({ error: 'Ocurrió un error al actualizar la evidencia.' });
   }
 
+};
+
+// In controllers/skills.controller.js
+
+exports.verifySkillEvidence = async (req, res) => {
+  try {
+      const userSkillId = req.body.userSkillId;
+      const verifierId = req.user._id; // Current user doing the verification
+
+      // Find the UserSkill document
+      const userSkill = await UserSkill.findById(userSkillId)
+          .populate('user')
+          .populate('skill')
+          .populate('verifications');
+
+      if (!userSkill) {
+          return res.status(404).json({ error: 'Evidence submission not found' });
+      }
+
+      // Check if the verifier has already verified this skill
+      if (userSkill.verifications.some(v => v.equals(verifierId))) {
+          return res.status(400).json({ error: 'You have already verified this skill' });
+      }
+
+      // Get the verifier's user document to check if they're admin or have completed the skill
+      const verifier = await User.findById(verifierId).populate('completedSkills');
+      const hasCompletedSkill = verifier.completedSkills.some(skill => 
+          skill._id.equals(userSkill.skill._id)
+      );
+
+      if (!verifier.admin && !hasCompletedSkill) {
+          return res.status(403).json({ 
+              error: 'You must be an admin or have completed this skill to verify it' 
+          });
+      }
+
+      // Add the verification
+      userSkill.verifications.push(verifierId);
+
+      // Check if the skill should be marked as completed
+      const isNowVerified = verifier.admin || userSkill.verifications.length >= 3;
+
+      if (isNowVerified) {
+          userSkill.completed = true;
+          userSkill.completedAt = new Date();
+          userSkill.verified = true;
+
+          // Add the skill to user's completed skills and update their score
+          const skillOwner = userSkill.user;
+          if (!skillOwner.completedSkills.includes(userSkill.skill._id)) {
+              skillOwner.completedSkills.push(userSkill.skill._id);
+              skillOwner.score += userSkill.skill.score;
+              await skillOwner.save();
+          }
+      }
+
+      await userSkill.save();
+
+      res.json({
+          success: true,
+          message: isNowVerified ? 
+              'Skill has been verified and marked as completed' : 
+              'Verification added successfully',
+          verifications: userSkill.verifications.length,
+          completed: userSkill.completed
+      });
+
+  } catch (error) {
+      console.error('Error in skill verification:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
 };
