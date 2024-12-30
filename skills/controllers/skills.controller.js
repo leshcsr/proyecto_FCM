@@ -1,15 +1,14 @@
 const Skill = require('../models/skillmodel');
+const UserSkill = require('../models/userskillmodel');
 
 exports.renderAddSkill = (req, res) => {
   res.render('add-skill', { title: 'New Skill' });
 };
 
-// Obtener todas las habilidades
 exports.getAllSkills = async (req, res) => {
   try {
     const skills = await Skill.find();
 
-    // Asegurarse de que textLines sea un array
     skills.forEach(skill => {
       if (typeof skill.textLines === 'string') {
         skill.textLines = [skill.textLines];
@@ -26,7 +25,6 @@ exports.getAllSkills = async (req, res) => {
   }
 };
 
-// Obtener una habilidad específica por ID
 exports.getSkillById = async (req, res) => {
   const skillId = req.params.id;
   try {
@@ -42,7 +40,6 @@ exports.getSkillById = async (req, res) => {
   }
 };
 
-// Renderizar formulario para editar una habilidad
 exports.renderEditSkill = async (req, res) => {
   const skillId = req.params.id;
   try {
@@ -58,7 +55,6 @@ exports.renderEditSkill = async (req, res) => {
   }
 };
 
-// Crear una nueva habilidad
 exports.createSkill = async (req, res) => {
   const { text, icon, description, tasks, score, resources } = req.body;
 
@@ -85,7 +81,6 @@ exports.createSkill = async (req, res) => {
   }
 };
 
-// Actualizar una habilidad existente
 exports.updateSkill = async (req, res) => {
   const skillId = req.params.id;
   const { text, icon, description, tasks, score } = req.body;
@@ -105,7 +100,6 @@ exports.updateSkill = async (req, res) => {
   }
 };
 
-// Eliminar una habilidad
 exports.deleteSkill = async (req, res) => {
   const skillId = req.params.id;
 
@@ -121,4 +115,35 @@ exports.deleteSkill = async (req, res) => {
     console.error('Error al eliminar la skill:', err);
     res.status(500).json({ message: 'Error del servidor' });
   }
+};
+
+exports.updateEvidence = async (req, res) => {
+  try {
+
+    if (!req.user) {
+      return res.status(401).json({ error: 'Usuario no autenticado.' });
+    }
+
+    const { skillId, evidence } = req.body;
+    const userId = req.user._id; 
+
+    if (!evidence) {
+        return res.status(400).json({ error: 'La evidencia es obligatoria.' });
+    }
+
+    const newUserSkill = new UserSkill({
+      user: userId,
+      skill: skillId,
+      evidence: evidence,
+      completed: false,
+    });
+
+    await newUserSkill.save();
+
+    res.json({ message: 'Evidencia cargada exitosamente.', data: newUserSkill });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Ocurrió un error al actualizar la evidencia.' });
+  }
+
 };
