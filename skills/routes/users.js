@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/usermodel.js');
+const Badges = require('../models/badgemodel');
 
 /* GET */
 router.get('/', function(req, res, next) {
@@ -83,6 +84,7 @@ router.post('/register', async (req, res) => {
     
     console.log('Registration attempt:', { username, email }); // Debug log
 
+    // Validation checks
     if (password !== passwordConfirm) {
         return res.status(400).send('Las contraseñas no coinciden.');
     }
@@ -97,25 +99,32 @@ router.post('/register', async (req, res) => {
     }
 
     try {
+        // Check for existing user
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(400).send('El nombre de usuario o email ya está en uso.');
         }
 
-        // Let the schema handle the password hashing
+        // Check if this is the first user
+        const userCount = await User.countDocuments();
+        const isFirstUser = userCount === 0;
+
+        // Create new user with admin status based on whether they're first
         const newUser = new User({
             username,
             email,
-            password, // Pass the plain password, let the schema hash it
+            password, // Password hashing handled by schema
             score: 0,
-            admin: false,
+            admin: isFirstUser, // Set admin true if first user
             completedSkills: []
         });
 
         await newUser.save();
-        console.log('User registered successfully:', username); // Debug log
+        
+        console.log('User registered successfully:', username, 
+                    isFirstUser ? '(as admin)' : ''); // Enhanced debug log
 
-        res.redirect('/login');
+        res.redirect('/users/login');
     } catch (err) {
         console.error('Registration error:', err);
         res.status(500).send('Error del servidor.');
@@ -204,6 +213,57 @@ router.get('/logout', (req, res) => {
     } catch (err) {
         console.error('Logout error:', err);
         res.redirect('/users/login');
+    }
+});
+
+router.get('/leaderboard', async (req, res) => {
+    try {
+        // Get all users and sort by score
+        const users = await User.find({}).sort({ score: -1 });
+        
+        // Get all badges sorted by minimum points
+        const badges = await Badges.find({}).sort({ bitpoints_min: 1 });
+        
+        // Group users by badge level
+        const usersByBadge = {};
+        
+        // Initialize badge groups
+        badges.forEach(badge => {
+            usersByBadge[badge.rango] = {
+                badge: badge,
+                users: []
+            };
+        });
+        
+        // Assign users to their highest badge level
+        users.forEach(user => {
+            // Find the highest badge the user qualifies for
+            const qualifyingBadge = badges.filter(badge => 
+                user.score >= badge.bitpoints_min && 
+                user.score <= badge.bitpoints_max
+            ).pop();
+            
+            if (qualifyingBadge) {
+                usersByBadge[qualifyingBadge.rango].users.push({
+                    username: user.username,
+                    score: user.score,
+                    badge: qualifyingBadge
+                });
+            }
+        });
+
+        res.render('leaderboard', {
+            usersByBadge,
+            badges,
+            user: req.session.user
+        });
+
+    } catch (error) {
+        console.error('Error in leaderboard:', error);
+        res.status(500).render('error', { 
+            message: 'Error loading leaderboard',
+            error: { status: 500, stack: error.stack }
+        });
     }
 });
 
