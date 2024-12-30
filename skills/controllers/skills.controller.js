@@ -1,5 +1,6 @@
 const Skill = require('../models/skillmodel');
 const UserSkill = require('../models/userskillmodel');
+const User = require('../models/usermodel')
 
 exports.renderAddSkill = (req, res) => {
   res.render('add-skill', { title: 'New Skill' });
@@ -15,9 +16,20 @@ exports.getAllSkills = async (req, res) => {
       }
     });
 
+    const incompleteSkills = await UserSkill.find({ completed: false }).select('skill');
+    const incompleteSkillIds = incompleteSkills.map(us => us.skill.toString());
+
+    let completedSkills = [];
+    if (req.session.user) {
+      const user = await User.findById(req.session.user._id).populate('completedSkills');
+      completedSkills = user.completedSkills.map(skill => skill._id.toString());
+    }
+
     res.render('skills', {
       skills,
       isAdmin: req.session.user && req.session.user.admin,
+      completedSkills,
+      incompleteSkillIds,
     });
   } catch (err) {
     console.error('Error al obtener las habilidades:', err);
