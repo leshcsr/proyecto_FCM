@@ -6,6 +6,7 @@ const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 const { userInfo } = require('os');
 const skillRoutes = require('./skills');
 const User = require('../models/usermodel.js');
+const bcrypt = require('bcrypt');
 
 
 /* GET home page. */
@@ -33,9 +34,13 @@ router.use('/skills', skillRoutes);
 router.get('/badges', isAuthenticated, async (req, res) => {
   try {
     const badges = await Badge.find(); 
+    const users = await User.find(); 
+
+    res.locals.users = users;
+
     res.render('badges', { badges });
   } catch (err) {
-    console.error('Error al obtener las badges:', err);
+    console.error('Error al obtener la información:', err);
     res.status(500).send('Error del servidor');
   }
 });
@@ -117,22 +122,33 @@ router.get('/aboutus', (req, res) => {
 });
 
 /*USERS*/
+router.patch('/users/:username/change-password', isAuthenticated, isAdmin, async (req, res) => {
+  const { username } = req.params;
+  const { password } = req.body;
 
-//router.get('/manageusers', (req, res) => {
-//  res.render('manageusers');
-//});
+  if (!password) {
+      return res.status(400).json({ message: 'La contraseña es obligatoria.' });
+  }
 
-router.get('/manageusers', async (req, res) => {
-    try {
-        const users = await User.find(); 
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        res.locals.users = users;
+    const updatedUser = await User.findOneAndUpdate(
+        { username },
+        { password: hashedPassword },
+        { new: true }
+    );
 
-        res.render('manageusers');
-    } catch (err) {
-        console.error('Error al obtener usuarios:', err);
-        res.status(500).send('Error al obtener los usuarios.');
+    if (!updatedUser) {
+        return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
+
+    console.log('Usuario actualizado:', updatedUser);
+    res.status(200).json({ message: 'Contraseña cambiada exitosamente.' });
+} catch (error) {
+    console.error('Error al cambiar la contraseña:', error);
+    res.status(500).json({ message: 'Error del servidor.' });
+}
 });
 
 module.exports = router;
