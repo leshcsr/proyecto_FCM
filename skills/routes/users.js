@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/usermodel.js');
+const Badges = require('../models/badgemodel');
 
 /* GET */
 router.get('/', function(req, res, next) {
@@ -212,6 +213,57 @@ router.get('/logout', (req, res) => {
     } catch (err) {
         console.error('Logout error:', err);
         res.redirect('/users/login');
+    }
+});
+
+router.get('/leaderboard', async (req, res) => {
+    try {
+        // Get all users and sort by score
+        const users = await User.find({}).sort({ score: -1 });
+        
+        // Get all badges sorted by minimum points
+        const badges = await Badges.find({}).sort({ bitpoints_min: 1 });
+        
+        // Group users by badge level
+        const usersByBadge = {};
+        
+        // Initialize badge groups
+        badges.forEach(badge => {
+            usersByBadge[badge.rango] = {
+                badge: badge,
+                users: []
+            };
+        });
+        
+        // Assign users to their highest badge level
+        users.forEach(user => {
+            // Find the highest badge the user qualifies for
+            const qualifyingBadge = badges.filter(badge => 
+                user.score >= badge.bitpoints_min && 
+                user.score <= badge.bitpoints_max
+            ).pop();
+            
+            if (qualifyingBadge) {
+                usersByBadge[qualifyingBadge.rango].users.push({
+                    username: user.username,
+                    score: user.score,
+                    badge: qualifyingBadge
+                });
+            }
+        });
+
+        res.render('leaderboard', {
+            usersByBadge,
+            badges,
+            user: req.session.user
+        });
+
+    } catch (error) {
+        console.error('Error in leaderboard:', error);
+        res.status(500).render('error', { 
+            message: 'Error loading leaderboard',
+            error: { status: 500, stack: error.stack }
+        });
     }
 });
 
