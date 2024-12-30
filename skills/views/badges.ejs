@@ -47,6 +47,123 @@
 
 </div>
 
+<% if (user && user.admin) { %>
+<div class="container mt-4">
+  <!-- Header -->
+  <h1>Users</h1>
+
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% if (locals.users && locals.users.length > 0) { %>
+              <% locals.users.forEach(user => { %>
+                  <tr>
+                      <td><%= user.username %></td>
+                      <td><%= user.email %></td>
+                      <td><%= user.admin ? 'Yes' : 'No' %></td>
+                      <td><button 
+                        type="button" 
+                        class="btn btn-outline-secondary change-password-btn" 
+                        data-username="<%= user.username %>"
+                        >
+                            Cambiar contraseña
+                        </button>                       
+                      </td>
+                  </tr>
+              <% }) %>
+          <% } else { %>
+              <tr>
+                <td colspan="4">No se encontraron usuarios.</td>
+              </tr>
+          <% } %>
+      </tbody>
+  </table>
+
+  <!-- Formulario de cambio de contraseña -->
+  <div id="passwordChangeForm" class="d-none mt-4">
+    <h1>Cambiar contraseña</h1>
+    <h2 class="h5 text-start">Vas a cambiar la contraseña de: <strong> <span id="selectedUsername"></span>  </strong>  </h2>
+    <div class="mb-3 d-flex align-items-center">
+        <label for="password" class="form-label mb-0 me-2">Nueva Contraseña:</label>
+        <input 
+            type="password" 
+            class="form-control me-2" 
+            id="password" 
+            name="password" 
+            required 
+            style="max-width: 200px;"
+        >
+        <button 
+            type="submit" 
+            class="btn btn-primary" 
+            id="confirmPasswordChange"
+        >
+            Confirmar
+        </button>
+    </div>
+</div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const changePasswordButtons = document.querySelectorAll('.change-password-btn');
+      const passwordChangeForm = document.getElementById('passwordChangeForm');
+      const selectedUsernameSpan = document.getElementById('selectedUsername');
+      const confirmPasswordChangeButton = document.getElementById('confirmPasswordChange');
+      const passwordInput = document.getElementById('password');
+      let selectedUsername = null;
+
+      // Mostrar el formulario al presionar "Cambiar contraseña"
+      changePasswordButtons.forEach(button => {
+          button.addEventListener('click', function () {
+              selectedUsername = this.getAttribute('data-username');
+              selectedUsernameSpan.textContent = selectedUsername;
+              passwordChangeForm.classList.remove('d-none');
+              passwordInput.value = '';
+          });
+      });
+
+      // Enviar la nueva contraseña
+      confirmPasswordChangeButton.addEventListener('click', async function () {
+          const newPassword = passwordInput.value.trim();
+
+          if (!newPassword) {
+              alert('Por favor, ingresa una nueva contraseña.');
+              return;
+          }
+
+          try {
+              const response = await fetch(`/users/${selectedUsername}/change-password`, {
+                  method: 'PATCH',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ password: newPassword }),
+              });
+
+              if (response.ok) {
+                  alert(`La contraseña de ${selectedUsername} se cambió exitosamente.`);
+                  passwordChangeForm.classList.add('d-none');
+              } else {
+                  const error = await response.json();
+                  alert(`Error al cambiar la contraseña: ${error.message}`);
+              }
+          } catch (error) {
+              console.error('Error al cambiar la contraseña:', error);
+              alert('Hubo un problema al cambiar la contraseña.');
+          }
+      });
+  });
+</script>
+<% } %>
+
 <script>
   document.querySelectorAll('.delete-badge-button').forEach(button => {
     button.addEventListener('click', async (event) => {

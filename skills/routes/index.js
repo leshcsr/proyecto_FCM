@@ -5,6 +5,9 @@ const Badge = require('../models/badgemodel');
 const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 const { userInfo } = require('os');
 const skillRoutes = require('./skills');
+const User = require('../models/usermodel.js');
+const bcrypt = require('bcrypt');
+
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -31,18 +34,23 @@ router.use('/skills', skillRoutes);
 router.get('/badges', isAuthenticated, async (req, res) => {
   try {
     const badges = await Badge.find(); 
+    const users = await User.find(); 
+
+    res.locals.users = users;
+
     res.render('badges', { badges });
   } catch (err) {
-    console.error('Error al obtener las badges:', err);
+    console.error('Error al obtener la información:', err);
     res.status(500).send('Error del servidor');
   }
 });
 
-router.get('/badges/:rango', isAuthenticated, async (req, res) => {
-  const rango = req.params.rango;
+router.get('/badges/:id', isAuthenticated, async (req, res) => {
+  const id = req.params.id;
 
   try {
-    const badge = await Badge.findOne({ rango });
+
+    const badge = await Badge.findOne({ _id: id });
     if (badge) {
       res.render('edit-badge', { badge });
     } else {
@@ -115,8 +123,33 @@ router.get('/aboutus', (req, res) => {
 });
 
 /*USERS*/
-router.get('/manageusers', (req, res) => {
-  res.render('manageusers');
+router.patch('/users/:username/change-password', isAuthenticated, isAdmin, async (req, res) => {
+  const { username } = req.params;
+  const { password } = req.body;
+
+  if (!password) {
+      return res.status(400).json({ message: 'La contraseña es obligatoria.' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const updatedUser = await User.findOneAndUpdate(
+        { username },
+        { password: hashedPassword },
+        { new: true }
+    );
+
+    if (!updatedUser) {
+        return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
+
+    console.log('Usuario actualizado:', updatedUser);
+    res.status(200).json({ message: 'Contraseña cambiada exitosamente.' });
+} catch (error) {
+    console.error('Error al cambiar la contraseña:', error);
+    res.status(500).json({ message: 'Error del servidor.' });
+}
 });
 
 module.exports = router;
