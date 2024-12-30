@@ -29,8 +29,17 @@ exports.getSkillById = async (req, res) => {
   const skillId = req.params.id;
   try {
     const skill = await Skill.findById(skillId);
+
     if (skill) {
-      res.render('detail', { skill });
+      const userSkills = await UserSkill.find({ skill: skillId, completed: false })
+        .populate('user', 'username') // Puedes agregar más campos del usuario si los necesitas
+        .exec();
+
+      res.render('detail', { 
+        skill, 
+        isAdmin: req.session.user && req.session.user.admin,
+        userSkills,
+      });
     } else {
       res.status(404).send('Skill no encontrado');
     }

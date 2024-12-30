@@ -22,6 +22,7 @@
             <br>
         </form>
 
+        <% if (!isAdmin) { %>
         <div id="evidencia-form">
             <form id="evidence-form">
                 <label for="evidence">Sube tu evidencia:</label>
@@ -31,7 +32,36 @@
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>
-      </div>   <!--End Div container skill-->   
+        <% } %>
+
+        <% if (userSkills.length > 0) { %>
+            <h3 class="mb-3">Usuarios con evidencia pendiente</h3>
+            <div class="table-responsive" style="max-width: 80%; margin: 0 auto;">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>User</th>
+                            <th>Evidencia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% userSkills.forEach(userSkill => { %>
+                        <tr>
+                            <td><%= userSkill.user.username %></td>
+                            <td><%= userSkill.evidence %></td>
+                            <td>
+                                <button onclick="approveEvidence('<%= userSkill._id %>')" class="btn btn-success btn-sm">
+                                    Aprobar
+                                </button>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+     </div>   <!--End Div container skill-->   
 
       <!--Script para animación de confetti-->
       <script>
@@ -62,19 +92,17 @@
     <!--Script para subir la evidencia-->
     <script>
         async function submitEvidence(event) {
-            event.preventDefault(); // Evita que el formulario recargue la página
+            event.preventDefault(); 
     
             const form = document.getElementById('evidence-form');
             const formData = new FormData(form);
             
-            // Crear el objeto con los datos del formulario
             const evidenceData = {
                 evidence: formData.get('evidence'),
                 skillId: formData.get('skillId')
             };
     
             try {
-                // Enviar la solicitud POST al servidor
                 const response = await fetch('/skills/update-evidence', {
                     method: 'POST',
                     headers: {
@@ -84,7 +112,6 @@
                     body: JSON.stringify(evidenceData) 
                 });
     
-                // Comprobar si la respuesta es correcta
                 const data = await response.json();
                 if (response.ok) {
                     alert('Evidencia cargada exitosamente.');
@@ -98,7 +125,6 @@
             }
         }
     
-        // Asociar el evento de submit al formulario
         document.getElementById('evidence-form').addEventListener('submit', submitEvidence);
     </script>
     
