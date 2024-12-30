@@ -109,4 +109,6 @@ display: none;
 #evidencia-form {
   display: none;
 }
-
+.completed-skill {
+  fill: #b2f5b2;
+}
