@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-sm p-4" style="width: 350px;">
+            <h2 class="text-center mb-4">Registrate aquí</h2>
+            <form id="signInForm" action="/users/register" method="POST">
+                <!-- Name Field -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre(s)</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name"          
+                        class="form-control" 
+                        placeholder="Ingresa tu nombre" 
+                        required>
+                </div>
+
+                <!-- Last Name Field -->
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">Apellido(s)</label>
+                    <input 
+                        type="text" 
+                        id="lastname" 
+                        name="lastname"          
+                        class="form-control" 
+                        placeholder="Ingresa tus apellidos" 
+                        required>
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-control" 
+                        placeholder="Ingresa tu correo electrónico" 
+                        required>
+                    <div id="emailError" class="invalid-feedback">
+                        El correo electrónico no es válido.
+                    </div>
+                </div>
+
+                <!--House Field-->
+                <div class="mb-3">
+                    <label for="house" class="form-label">Casa</label>
+                    <select id="house" name="house" class="form-select" required>
+                        <option value="">Selecciona tu casa</option>
+                        <option value="Casa 1">Casa 1</option>
+                        <option value="Casa 2">Casa 2</option>
+                        <option value="Casa 3">Casa 3</option>
+                        <option value="Casa 4">Casa 4</option>
+                        <option value="Casa 5">Casa 5</option>
+                        <option value="Dirección">Dirección</option>
+                    </select>
+                </div>
+
+                <!--Career Field-->
+                <div class="mb-3">
+                    <label for="career" class="form-label">Carrera</label>
+                    <input type="text" id="career" name="career" class="form-control" placeholder="Ingresa tu carrera" required>
+                    <div id="careerError" class="invalid-feedback">Debe tener entre 2 y 100 caracteres.</div>
+                </div>
+            
+                <!--Birthday Field-->
+                <div class="mb-3">
+                    <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+                    <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+                    <div id="birthdateError" class="invalid-feedback">Debes tener entre 10 y 70 años.</div>
+                </div>
+
+                <!--Phone Field-->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Teléfono</label>
+                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Ingresa tu teléfono" required>
+                    <div id="phoneError" class="invalid-feedback">Debe ser un número de 10 dígitos.</div>
+                </div>
+
+                <!--Interest Field-->
+                <div class="mb-3">
+                    <label for="interests" class="form-label">Intereses</label>
+                    <textarea id="interests" name="interests" class="form-control" placeholder="Escribe tus intereses"></textarea>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control" 
+                        placeholder="Ingresa una contraseña" 
+                        required>
+                        <!--Mensaje de error-->
+                        <div id="passwordError" class="invalid-feedback"> <!--Mostrar mensaje de error debajo del recuadro-->
+                            La contraseña debe tener al menos 6 caracteres.
+                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="passwordConfirm" class="form-label">Confirma tu contraseña</label>
+                    <input 
+                        type="password" 
+                        id="passwordConfirm" 
+                        name="passwordConfirm" 
+                        class="form-control" 
+                        placeholder="Confirma tu contraseña" 
+                        required>
+                        <div id="passwordConfirmError" class="invalid-feedback">
+                            Las contraseñas no coinciden.
+                        </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                </div>
+            </form>
+
+            <!-- Register Link -->
+            <p class="mt-3 text-center">
+                ¿Ya tienes una cuenta? <a href="/login" class="text-decoration-none">Inicia sesión aquí</a>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional, for interactivity) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Formulario y contraseña-->
+    <script>
+        const form = document.getElementById('signInForm');
+        const password = document.getElementById('password');
+        const passwordConfirm = document.getElementById('passwordConfirm');
+        const passwordError = document.getElementById('passwordError');
+        const passwordConfirmError = document.getElementById('passwordConfirmError');
+        const career = document.getElementById('career');
+        const birthdate = document.getElementById('birthdate');
+        const phone = document.getElementById('phone');
+
+        form.addEventListener('submit', function(event){
+            password.classList.remove('is-invalid'); 
+            passwordConfirm.classList.remove('is-invalid');
+            passwordError.style.display = 'none';
+            passwordConfirmError.style.display = 'none';
+
+            let hasErrors = false;
+
+            const today = new Date();
+            const birthDate = new Date(birthdate.value);
+            const age = today.getFullYear() - birthDate.getFullYear();
+
+            if (career.value.length < 2 || career.value.length > 100) {
+                career.classList.add('is-invalid');
+                hasErrors = true;
+            } else {
+                career.classList.remove('is-invalid');
+            }
+            
+            if (age < 10 || age > 70) {
+                birthdate.classList.add('is-invalid');
+                hasErrors = true;
+            } else {
+                birthdate.classList.remove('is-invalid');
+            }
+            
+            if (!/^[0-9]{10}$/.test(phone.value)) {
+                phone.classList.add('is-invalid');
+                hasErrors = true;
+            } else {
+                phone.classList.remove('is-invalid');
+            }
+            
+            if (password.value.length < 6) {
+                password.classList.add('is-invalid');
+                hasErrors = true;
+            } else {
+                password.classList.remove('is-invalid');
+            }
+
+            //Las contraseñas coindicen
+            if (password.value !== passwordConfirm.value){
+                passwordConfirm.classList.add('is-invalid'); 
+                passwordConfirmError.style.display = 'block';
+                hasErrors = true;
+            }
+
+            if (password.value.length < 6){
+               password.classList.add('is-invalid');
+               passwordError.style.display = 'block';
+               hasErrors = true;
+            }
+
+            if (hasErrors) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->

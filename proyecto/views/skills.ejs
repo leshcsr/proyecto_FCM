@@ -1,0 +1,143 @@
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
+
+<div class="container mt-4"> <!--Contendor Principal-->
+
+  <h1>Skills</h1>
+  <% if (isAdmin) { %>
+    <div class="text-end mb-3">
+      <a href="/skills/add" type="button" class="btn btn-outline-primary">Añadir nueva skill</a>
+    </div>
+  <% } %>
+  
+
+  <div id="skills-container">
+    
+    <% skills.forEach(skill => { %>
+      <div class="svg-wrapper" data-id="<%= skill.id %>" data-description="<%= skill.description %>" data-custom="false">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+
+              <% if (incompleteSkillIds.includes(skill.id.toString())) { %>
+              <% if (isAdmin || completedSkills.includes(skill.id.toString()) ) { %>
+                <defs>
+                  <linearGradient id="gradienteRojo" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:red; stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:darkred; stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <circle cx="85" cy="10" r="8" fill="url(#gradienteRojo)"></circle>
+                <% } %>
+                <% } %>
+
+
+              <!-- Hexágono -->
+              <polygon 
+                points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" 
+                class="hexagon <%= completedSkills.includes(skill.id.toString()) ? 'completed-skill' : '' %>">
+              </polygon>
+
+
+              <!-- Texto de la habilidad -->
+              <text x="50%" y="20%" text-anchor="middle" fill="black">
+                <% if (skill.text) { %>
+                  <% 
+                    let lines = [];
+                    let line = skill.text;
+                    while (line.length > 15) {
+                      lines.push(line.slice(0, 15));
+                      line = line.slice(15);
+                    }
+                    lines.push(line);
+                  %>
+                  <% lines.forEach((line, index) => { %>
+                    <tspan x="50%" dy="1.2em"  font-size="8px">
+                      <%= line %>
+                    </tspan>
+                  <% }); %>
+                <% } else { %>
+                  <tspan x="50%" dy="1.2em" font-weight="bold">Sin texto</tspan>
+                <% } %>
+              </text>
+              
+    
+              <!-- Imagen de la skill -->
+              <image x="35%" y="60%" width="30" height="30" href="<%= skill.icon %>"></image>
+              <!-- Iconos de la skill -->
+              <% if (isAdmin) { %>
+                <image x="75%" y="80%" width="20" height="20" href="/assets/editar.png" class="icon-wrapper"  onclick="window.location.href='/skills/<%= skill.id %>/edit';"></image>
+              <% } %>
+              <image x="10%" y="80%" width="20" height="20" href="/assets/libro.png" class="icon-wrapper" data-id="<%= skill.id %>" ></image>
+            </svg>
+            <div class="icon-wrapper" style="display: none;">
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        
+ 
+
+  <!-- Contenedor de descripción -->
+  <div id="skill-description" class="yellow-border">
+    <p id="skill-description-text"></p>
+  </div>
+
+</div> <!--Contendor Principal-->
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const skillsContainer = document.getElementById('skills-container');
+      if (!skillsContainer) {
+        console.error('No se encontró el contenedor de habilidades.');
+        return;
+      }
+
+      const icons = document.querySelectorAll('.icon-wrapper');
+      const skills = document.querySelectorAll('.svg-wrapper');
+      console.log("eee:", skills);
+      if (skills.length === 0) {
+        console.error('No se encontraron elementos .svg-wrapper.');
+        return;
+      }
+
+      const descriptionContainer = document.getElementById('skill-description');
+      const descriptionText = document.getElementById('skill-description-text');
+      if (!descriptionContainer || !descriptionText) {
+        console.error('No se pudieron encontrar los elementos de descripción');
+        return;
+      }
+
+      icons.forEach(icon => {
+        icon.addEventListener('click', () => {
+          const skillId = icon.getAttribute('data-id');
+          if (skillId) {
+            window.location.href = `/skills/${skillId}`;
+          }
+        });
+      });
+      if (descriptionContainer && descriptionText && skills.length > 0) {
+      skills.forEach(skill => {
+        skill.addEventListener('mouseover', () => {
+          const description = skill.getAttribute('data-description');
+          
+          descriptionText.textContent = description;
+          descriptionContainer.style.display = 'block'; 
+        });
+
+        skill.addEventListener('mouseout', () => {
+          descriptionContainer.style.display = 'none';
+        });
+      });
+    } else {
+      console.error('No se pudieron encontrar los elementos necesarios');
+    }
+
+    });
+  </script>
+        
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->

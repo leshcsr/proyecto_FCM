@@ -1,0 +1,48 @@
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
+
+<div class="container mt-4">
+    <!-- Header -->
+    <h1>Users</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user._id %></td>
+                    <td><%= user.username %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.admin ? 'Sí' : 'No' %></td>
+                    <td>
+                        <form action="/users/update-password" method="POST">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="password" name="newPassword" placeholder="Nueva contraseña" required>
+                            <button type="submit">Cambiar contraseña</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+        
+    </table>
+
+    <h2 class="h5 text-start">Change Password</h2>
+    <div class="mb-3 d-flex align-items-center">
+        <label for="password" class="form-label mb-0 me-2">New Password:</label>
+        <input type="password" class="form-control me-2" id="password" name="password" required style="max-width: 200px;">
+        <button type="submit" class="btn btn-primary">Change Password</button>
+    </div>
+</div>
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->

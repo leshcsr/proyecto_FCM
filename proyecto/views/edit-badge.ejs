@@ -1,0 +1,192 @@
+<!-- Header -->
+<%- include('partials/header') %>
+<!-- Header -->
+
+<div class="container mt-4" style="max-width: 600px;">
+  <h1>Editar medalla</h1>
+
+  <form id="editarMedallaForm">
+    <input type="hidden" name="badgeId" value="<%= badge.id %>">
+
+    <div class="mb-3">
+      <label for="rango" class="form-label">Rango</label>
+      <input type="text" class="form-control" id="rango" name="rango" value="<%= badge.rango %>" required>
+      <div class="invalid-feedback">El rango debe tener entre 2 y 60 caracteres.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="bitpoints_min" class="form-label">Bitpoints Mínimos</label>
+      <input type="number" id="bitpoints_min" name="bitpoints_min" class="form-control" value="<%= badge.bitpoints_min %>" required>
+      <div class="invalid-feedback">Los Bitpoints mínimos deben ser un número entero positivo.</div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="bitpoints_max" class="form-label">Bitpoints Máximos</label>
+      <input type="number" id="bitpoints_max" name="bitpoints_max" class="form-control" value="<%= badge.bitpoints_max %>" required>
+      <div class="invalid-feedback">Los Bitpoints máximos deben ser un número entero positivo y mayores o iguales a los Bitpoints mínimos.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="png" class="form-label">Enlace de la Imagen</label>
+      <input type="url" id="png" name="png" class="form-control" value="<%= badge.png %>" required>
+      <div class="invalid-feedback">Por favor, ingresa una URL válida para la imagen.</div>
+    </div>
+    </div>
+
+    <br><br>
+
+    <div class="text-center">
+      <a class="btn btn-danger" href="/badges">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+  </form>
+
+  <div id="alertContainer" class="mt-4" style="display: none;"></div>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const badgeForm = document.getElementById('editarMedallaForm');
+
+    const rangoInput = document.getElementById('rango');
+    const bitpointsMinInput = document.getElementById('bitpoints_min');
+    const bitpointsMaxInput = document.getElementById('bitpoints_max');
+    const pngInput = document.getElementById('png');
+
+    // Validar longitud de texto
+    const validateLength = (input, min, max, errorMsg) => {
+      if (input.value.length < min || input.value.length > max) {
+        input.classList.add('is-invalid');
+        input.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        return true;
+      }
+    };
+
+    // Validar números enteros positivos
+    const validatePositiveInteger = (input, errorMsg) => {
+      const value = parseInt(input.value, 10);
+      if (isNaN(value) || value < 0 || !Number.isInteger(value)) {
+        input.classList.add('is-invalid');
+        input.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        return true;
+      }
+    };
+
+    // Validar rango entre dos números
+    const validateRange = (minInput, maxInput, errorMsg) => {
+      const min = parseInt(minInput.value, 10);
+      const max = parseInt(maxInput.value, 10);
+      if (max < min) {
+        maxInput.classList.add('is-invalid');
+        maxInput.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        maxInput.classList.remove('is-invalid');
+        maxInput.classList.add('is-valid');
+        return true;
+      }
+    };
+
+    // Validar URL
+    const validateUrl = (input, errorMsg) => {
+      const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)?$/;
+      if (!urlPattern.test(input.value)) {
+        input.classList.add('is-invalid');
+        input.nextElementSibling.textContent = errorMsg;
+        return false;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        return true;
+      }
+    };
+
+    // Validaciones en eventos de entrada
+    rangoInput.addEventListener('input', () =>
+      validateLength(rangoInput, 2, 60, 'El rango debe tener entre 2 y 60 caracteres.')
+    );
+    bitpointsMinInput.addEventListener('input', () =>
+      validatePositiveInteger(bitpointsMinInput, 'Los Bitpoints mínimos deben ser un número entero positivo.')
+    );
+    bitpointsMaxInput.addEventListener('input', () => {
+      validatePositiveInteger(bitpointsMaxInput, 'Los Bitpoints máximos deben ser un número entero positivo.');
+      validateRange(
+        bitpointsMinInput,
+        bitpointsMaxInput,
+        'Los Bitpoints máximos no pueden ser menores que los Bitpoints mínimos.'
+      );
+    });
+    pngInput.addEventListener('input', () =>
+      validateUrl(pngInput, 'Por favor, ingresa una URL válida.')
+    );
+
+    // Validar formulario completo
+    badgeForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const isRangoValid = validateLength(rangoInput, 2, 60, 'El rango debe tener entre 2 y 60 caracteres.');
+      const isBitpointsMinValid = validatePositiveInteger(
+        bitpointsMinInput,
+        'Los Bitpoints mínimos deben ser un número entero positivo.'
+      );
+      const isBitpointsMaxValid = validatePositiveInteger(
+        bitpointsMaxInput,
+        'Los Bitpoints máximos deben ser un número entero positivo.'
+      );
+      const isRangeValid = validateRange(
+        bitpointsMinInput,
+        bitpointsMaxInput,
+        'Los Bitpoints máximos no pueden ser menores que los Bitpoints mínimos.'
+      );
+      const isPngValid = validateUrl(pngInput, 'Por favor, ingresa una URL válida.');
+
+      if (isRangoValid && isBitpointsMinValid && isBitpointsMaxValid && isRangeValid && isPngValid) {
+        const formData = new FormData(badgeForm);
+        const badgeData = {
+          rango: formData.get('rango'),
+          bitpoints_min: parseInt(formData.get('bitpoints_min'), 10),
+          bitpoints_max: parseInt(formData.get('bitpoints_max'), 10),
+          png: formData.get('png'),
+        };
+        const badgeId = formData.get('badgeId');
+
+        try {
+          const response = await fetch(`/badges/${badgeId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(badgeData),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            alert('Medalla actualizada exitosamente');
+            window.location.href = '/badges';
+          } else {
+            const error = await response.json();
+            alert(error.message || 'Error al actualizar la medalla');
+          }
+        } catch (err) {
+          console.error('Error al actualizar la medalla:', err.message);
+          alert('Error del servidor al intentar actualizar la medalla.');
+        }
+      } else {
+        alert('Por favor, corrige los errores antes de enviar.');
+      }
+    });
+  });
+</script>
+
+<br><br><br><br><br><br><br><br><br><br>
+<br>
+<!-- Footer -->
+<%- include('partials/footer') %>
+<!-- Footer -->

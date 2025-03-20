@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4">Skills Leaderboard</h1>
+
+            <!-- Badge Sections -->
+            <% Object.entries(usersByBadge).reverse().forEach(([badgeRango, data]) => { %>
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <div class="d-flex align-items-center">
+                            <img src="<%= data.badge.png %>" alt="<%= badgeRango %>" style="width: 40px; height: 40px;" class="me-3">
+                            <div>
+                                <h5 class="mb-0"><%= badgeRango %></h5>
+                                <small class="text-muted">
+                                    Points needed: <%= data.badge.bitpoints_min %> - <%= data.badge.bitpoints_max %>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <% if (data.users.length > 0) { %>
+                            <div class="list-group">
+                                <% data.users.forEach((user, index) => { %>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="me-3"><%= index + 1 %>.</span>
+                                            <%= user.username %>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">
+                                            <%= user.score %> points
+                                        </span>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        <% } else { %>
+                            <p class="text-muted mb-0">No users in this range yet.</p>
+                        <% } %>
+                    </div>
+                </div>
+            <% }); %>
+
+            <!-- Range Explanations -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Range Explanations</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Range</th>
+                                    <th>Badge</th>
+                                    <th>Required Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% badges.forEach(badge => { %>
+                                    <tr>
+                                        <td><%= badge.rango %></td>
+                                        <td>
+                                            <img src="<%= badge.png %>" alt="<%= badge.rango %>" 
+                                                 style="width: 30px; height: 30px;">
+                                        </td>
+                                        <td><%= badge.bitpoints_min %> - <%= badge.bitpoints_max %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
