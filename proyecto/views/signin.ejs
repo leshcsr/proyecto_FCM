@@ -181,13 +181,6 @@
             } else {
                 phone.classList.remove('is-invalid');
             }
-            
-            if (password.value.length < 6) {
-                password.classList.add('is-invalid');
-                hasErrors = true;
-            } else {
-                password.classList.remove('is-invalid');
-            }
 
             //Las contraseñas coindicen
             if (password.value !== passwordConfirm.value){
