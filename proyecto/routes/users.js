@@ -1,8 +1,11 @@
-const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/usermodel.js');
 const Badges = require('../models/badgemodel');
+
+// routes/user.routes.js
+const express = require('express');
+const UserController = require('../controllers/user.controller.js');
+const router = express.Router();
 const { isAdmin, isAuthenticated } = require('../middlewares/auth.js');
 
 /* GET */
@@ -253,11 +256,7 @@ router.get('/leaderboard', isAdmin, isAuthenticated, async (req, res) => {
             }
         });
 
-        res.render('leaderboard', {
-            usersByBadge,
-            badges,
-            user: req.session.user
-        });
+
 
     } catch (error) {
         console.error('Error in leaderboard:', error);
