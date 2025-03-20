@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Skill = require('../models/skillmodel');
 const Badge = require('../models/badgemodel');
 const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 const { userInfo } = require('os');
