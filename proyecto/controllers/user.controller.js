@@ -67,8 +67,7 @@ exports.login = async (req, res) => {
       isAdmin: user.isAdmin,
     };
 
-
-    res.redirect('/skills'); // Replace with your desired redirect
+    res.redirect('/');
   } catch (err) {
     console.error('Login error:', err);
     res.render('login', { error: 'Error del servidor. Por favor, inténtelo de nuevo.', correo });

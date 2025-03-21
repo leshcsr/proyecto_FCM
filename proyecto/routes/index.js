@@ -3,14 +3,13 @@ const router = express.Router();
 const Badge = require('../models/badgemodel');
 const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 const { userInfo } = require('os');
-const skillRoutes = require('./skills');
 const User = require('../models/usermodel.js');
 const bcrypt = require('bcrypt');
 
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  res.render('login', { title: 'Skills App' });
+router.get('/', isAuthenticated, (req, res) => {
+  res.render('inicio', { title: 'Inicio' });
 });
 
 /* GET Login */
@@ -24,9 +23,6 @@ router.get('/login', (req, res) => {
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
 });
-
-/*SKILLS*/
-router.use('/skills', skillRoutes);
 
 /*Badges*/
 

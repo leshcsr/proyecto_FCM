@@ -44,7 +44,7 @@ exports.getSkillById = async (req, res) => {
 
     if (skill) {
       const userSkills = await UserSkill.find({ skill: skillId, completed: false })
-        .populate('user', 'username') // Puedes agregar más campos del usuario si los necesitas
+        .populate('user', 'username') 
         .exec();
 
       res.render('detail', { 
