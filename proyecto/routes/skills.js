@@ -5,7 +5,7 @@ const skillController = require('../controllers/skills.controller');
 
 
 router.get('/add', isAuthenticated, isAdmin, skillController.renderAddSkill);
-router.get('/', isAuthenticated, skillController.getAllSkills);
+router.get('/');
 router.get('/:id', isAuthenticated, skillController.getSkillById);
 router.get('/:id/edit', isAuthenticated, isAdmin, skillController.renderEditSkill);
 

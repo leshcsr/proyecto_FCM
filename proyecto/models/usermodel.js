@@ -33,7 +33,7 @@ exports.createUser = async (userData) => {
   }
 };
 
-export const getUserById = async (id) => {
+exports.getUserById = async (id) => {
   try {
     const userRef = doc(db, collectionName, id);
     const userDoc = await getDoc(userRef);
@@ -47,10 +47,10 @@ export const getUserById = async (id) => {
   }
 };
 
-exports.getUserByEmail = async (email) => {
+exports.getUserByEmail = async (correo) => {
   try {
     const usersRef = collection(db, collectionName);
-    const q = query(usersRef, where('correo', '==', email));
+    const q = query(usersRef, where('correo', '==', correo));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
       return querySnapshot.docs[0].data();
@@ -62,7 +62,7 @@ exports.getUserByEmail = async (email) => {
   }
 };
 
-export const getAllUsers = async () => {
+exports.getAllUsers = async () => {
   try {
     const querySnapshot = await getDocs(collection(db, collectionName));
     const users = [];
@@ -75,7 +75,7 @@ export const getAllUsers = async () => {
   }
 };
 
-export const updateUser = async (id, userData) => {
+exports.updateUser = async (id, userData) => {
   try {
     const userRef = doc(db, collectionName, id);
     await updateDoc(userRef, userData);
@@ -85,7 +85,7 @@ export const updateUser = async (id, userData) => {
   }
 };
 
-export const deleteUser = async (id) => {
+exports.deleteUser = async (id) => {
   try {
     const userRef = doc(db, collectionName, id);
     await deleteDoc(userRef);

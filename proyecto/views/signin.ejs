@@ -18,7 +18,7 @@
                     <input 
                         type="text" 
                         id="name" 
-                        name="name"          
+                        name="nombre"          
                         class="form-control" 
                         placeholder="Ingresa tu nombre" 
                         required>
@@ -30,7 +30,7 @@
                     <input 
                         type="text" 
                         id="lastname" 
-                        name="lastname"          
+                        name="apellidos"          
                         class="form-control" 
                         placeholder="Ingresa tus apellidos" 
                         required>
@@ -42,7 +42,7 @@
                     <input 
                         type="email" 
                         id="email" 
-                        name="email" 
+                        name="correo" 
                         class="form-control" 
                         placeholder="Ingresa tu correo electrónico" 
                         required>
@@ -54,7 +54,7 @@
                 <!--House Field-->
                 <div class="mb-3">
                     <label for="house" class="form-label">Casa</label>
-                    <select id="house" name="house" class="form-select" required>
+                    <select id="house" name="casa" class="form-select" required>
                         <option value="">Selecciona tu casa</option>
                         <option value="Casa 1">Casa 1</option>
                         <option value="Casa 2">Casa 2</option>
@@ -68,28 +68,28 @@
                 <!--Career Field-->
                 <div class="mb-3">
                     <label for="career" class="form-label">Carrera</label>
-                    <input type="text" id="career" name="career" class="form-control" placeholder="Ingresa tu carrera" required>
+                    <input type="text" id="career" name="carrera" class="form-control" placeholder="Ingresa tu carrera" required>
                     <div id="careerError" class="invalid-feedback">Debe tener entre 2 y 100 caracteres.</div>
                 </div>
             
                 <!--Birthday Field-->
                 <div class="mb-3">
                     <label for="birthdate" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+                    <input type="date" id="birthdate" name="fecha_nac" class="form-control" required>
                     <div id="birthdateError" class="invalid-feedback">Debes tener entre 10 y 70 años.</div>
                 </div>
 
                 <!--Phone Field-->
                 <div class="mb-3">
                     <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Ingresa tu teléfono" required>
+                    <input type="text" id="phone" name="telefono" class="form-control" placeholder="Ingresa tu teléfono" required>
                     <div id="phoneError" class="invalid-feedback">Debe ser un número de 10 dígitos.</div>
                 </div>
 
                 <!--Interest Field-->
                 <div class="mb-3">
                     <label for="interests" class="form-label">Intereses</label>
-                    <textarea id="interests" name="interests" class="form-control" placeholder="Escribe tus intereses"></textarea>
+                    <textarea id="interests" name="intereses" class="form-control" placeholder="Escribe tus intereses"></textarea>
                 </div>
 
                 <!-- Password Field -->
@@ -98,7 +98,7 @@
                     <input 
                         type="password" 
                         id="password" 
-                        name="password" 
+                        name="contraseña" 
                         class="form-control" 
                         placeholder="Ingresa una contraseña" 
                         required>
@@ -199,6 +199,9 @@
                 event.preventDefault();
             }
         });
+
+        console.log("Email recibido en la view:", email);
+        console.log("Contraseña recibida en la view:", password);
     </script>
 
 <!--Footer-->

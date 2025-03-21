@@ -3,17 +3,26 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const { db } = require('./firebase.js');
+const { collection, getDocs } = require('firebase/firestore');
 require('dotenv').config();
-const connectDB = require('./db'); // Your database connection
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
 
-// Connect to MongoDB
-connectDB();
+// Verificar conexión a Firebase
+async function checkDatabaseConnection() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    console.log("Conexión a la base de datos de Firebase exitosa");
+  } catch (error) {
+    console.error("Error al conectar a la base de datos de Firebase:", error);
+  }
+}
+
+checkDatabaseConnection();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,21 +35,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session configuration with MongoDB store
+// Session configuration
 app.use(session({
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
-    collectionName: 'sessions',
-    ttl: 24 * 60 * 60,
-    autoRemove: 'native'
-}),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // HTTP, change in production to true
+    secure: false, // Cambiar a true en producción (HTTPS)
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    maxAge: 1000 * 60 * 60 * 24 // 24 horas
   }
 }));
 
@@ -62,11 +65,9 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

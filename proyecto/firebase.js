@@ -1,21 +1,21 @@
 // firebase.js
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"; // Importa getFirestore
+const { initializeApp } = require("firebase/app");
+const { getFirestore } = require("firebase/firestore");
+require('dotenv').config();
 
-// Tu configuración de Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyC559oE9Jqi1Ft1k-9XtRxxm-oh78XwB30",
-  authDomain: "fcmproject-fcm.firebaseapp.com",
-  projectId: "fcmproject-fcm",
-  storageBucket: "fcmproject-fcm.firebasestorage.app",
-  messagingSenderId: "708780263575",
-  appId: "1:708780263575:web:91b9cae948cc5f999841d2",
-  measurementId: "G-12D9EHJS05",
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
-export { db };
+console.log("Firebase inicializado correctamente");
+
+module.exports = { db };
