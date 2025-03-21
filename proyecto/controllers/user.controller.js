@@ -175,3 +175,10 @@ exports.deleteUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.home = (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/users/login');
+    }
+    res.render('home', { user: req.session.user });
+};
