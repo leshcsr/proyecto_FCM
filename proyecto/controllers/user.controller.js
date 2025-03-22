@@ -1,5 +1,6 @@
 // controllers/user.controller.js
 const UserModel = require('../models/usermodel.js');
+const fetch = require('node-fetch');
 
 exports.register = async (req, res) => {
     const {
@@ -176,9 +177,27 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-exports.home = (req, res) => {
+exports.home = async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/users/login');
     }
-    res.render('home', { user: req.session.user });
+
+try {
+    const response = await fetch('https://zenquotes.io/api/random');
+    const data = await response.json();
+    const quote = data[0]; 
+
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const birthdays = await UserModel.getBirthdaysByMonth(month);
+
+    res.render('home', {
+      user: req.session.user,
+      quote,
+      birthdays,
+    });
+  } catch (err) {
+    console.error('Error en Home:', err);
+    res.render('home', { error: 'Error al cargar datos.', user: req.session.user });
+  }
 };

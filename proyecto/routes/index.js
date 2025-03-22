@@ -5,12 +5,11 @@ const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 const { userInfo } = require('os');
 const User = require('../models/usermodel.js');
 const bcrypt = require('bcrypt');
+const UserController = require('../controllers/user.controller');
 
 
 /* GET home page. */
-router.get('/', isAuthenticated, (req, res) => {
-  res.render('inicio', { title: 'Inicio' });
-});
+router.get('/', isAuthenticated, UserController.home);
 
 /* GET Login */
 router.get('/login', (req, res) => {
@@ -20,6 +19,7 @@ router.get('/login', (req, res) => {
     username: ''
   });
 });
+
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
 });
@@ -70,46 +70,6 @@ router.delete('/badges/:rango', isAuthenticated, isAdmin, async(req, res) => {
     console.error('Error eliminando la medalla: ', error);
     res.status(500).json({message: 'Error interno del servidor'});
   }
-});
-
-router.put('/badges/:id', isAdmin, isAuthenticated, async (req, res) => {
-  const badgeId = req.params.id;
-  const { rango, bitpoints_min, bitpoints_max, png } = req.body;
-
-  // Validación extra (opcional)
-  if (bitpoints_min > bitpoints_max) {
-    return res.status(400).json({ message: 'Bitpoints mínimos no pueden ser mayores que los máximos' });
-  }
-  
-    // Validación de la URL (png)
-    const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)(:\d+)?(\/[^\s]*)+\.(jpg|png)$/i;
-    if (png && !urlPattern.test(png)) {
-    return res.status(400).json({ message: 'El enlace de la imagen no es válido' });
-  } else {
-    console.log('URL válida:', png); 
-  }
-
-  try {
-    const updatedData = { rango, bitpoints_min, bitpoints_max, png };
-
-    const updatedBadge = await Badge.findByIdAndUpdate(badgeId, updatedData, {
-      new: true,
-      runValidators: true,
-      context: 'query',
-    });
-
-    if (updatedBadge) {
-      res.status(200).json({ message: 'Medalla actualizada exitosamente', badge: updatedBadge });
-    } else {
-      res.status(404).json({ message: 'Medalla no encontrada' });
-    }
-  } catch (err) {
-    console.error('Error al actualizar la medalla:', err.message);
-        if (err.name === 'ValidationError') {
-            return res.status(400).json({ message: err.message });
-        }
-        res.status(500).json({ message: 'Error del servidor' });
-    }
 });
 
 /*ABOUT US*/

@@ -98,3 +98,36 @@ exports.deleteUser = async (id) => {
 exports.comparePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
+
+exports.getBirthdaysByMonth = async (month) => {
+  try {
+    const usersRef = collection(db, 'users');
+    const usersSnapshot = await getDocs(usersRef);
+
+    const birthdays = usersSnapshot.docs
+      .map(doc => doc.data())
+      .filter(user => {
+        if (!user.fecha_nac) return false;
+        
+        let fechaNacimiento;
+
+        if (typeof user.fecha_nac === 'object' && user.fecha_nac.toDate) {
+          fechaNacimiento = user.fecha_nac.toDate();
+        } else if (typeof user.fecha_nac === 'string') {
+          fechaNacimiento = new Date(user.fecha_nac);
+        } else {
+          return false;
+        }
+
+        const userMonth = fechaNacimiento.getMonth() + 1;
+        return userMonth === month;
+      });
+
+    console.log("Cumpleaños del mes:", birthdays);
+    
+    return birthdays;
+  } catch (error) {
+    console.error('Error obteniendo cumpleaños:', error);
+    return [];
+  }
+};
