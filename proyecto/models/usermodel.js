@@ -122,8 +122,6 @@ exports.getBirthdaysByMonth = async (month) => {
         const userMonth = fechaNacimiento.getMonth() + 1;
         return userMonth === month;
       });
-
-    console.log("Cumpleaños del mes:", birthdays);
     
     return birthdays;
   } catch (error) {

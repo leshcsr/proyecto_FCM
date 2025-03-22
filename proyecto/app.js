@@ -6,6 +6,8 @@ const session = require('express-session');
 const { db } = require('./firebase.js');
 const { collection, getDocs } = require('firebase/firestore');
 require('dotenv').config();
+const FirebaseStore = require('connect-session-firebase')(session);
+
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -43,7 +45,7 @@ app.use(session({
   cookie: {
     secure: false, // Cambiar a true en producción (HTTPS)
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 // 24 horas
+    maxAge: 1000 * 60 * 60 * 24 * 7,
   }
 }));
 

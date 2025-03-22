@@ -75,15 +75,15 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error destroying session:', err);
-      return res.redirect('/skills');
-    }
+exports.logout = async (req, res) => {
+  try {
+    await req.session.destroy();
     res.clearCookie('connect.sid');
     res.redirect('/users/login');
-  });
+  } catch (err) {
+    console.error('Error destroying session:', err);
+    res.redirect('/');
+  }
 };
 
 exports.sessionTest = (req, res) => {
