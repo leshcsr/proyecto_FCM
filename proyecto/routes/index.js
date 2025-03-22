@@ -20,56 +20,9 @@ router.get('/login', (req, res) => {
   });
 });
 
+/* GET Sign In */
 router.get('/signin', (req, res) => {
   res.render('signin', { title: 'Registrate' });
-});
-
-/*Badges*/
-
-router.get('/badges', isAuthenticated, async (req, res) => {
-  try {
-    const badges = await Badge.find(); 
-    const users = await User.find(); 
-
-    res.locals.users = users;
-
-    res.render('badges', { badges });
-  } catch (err) {
-    console.error('Error al obtener la información:', err);
-    res.status(500).send('Error del servidor');
-  }
-});
-
-router.get('/badges/:id', isAuthenticated, async (req, res) => {
-  const id = req.params.id;
-
-  try {
-
-    const badge = await Badge.findOne({ _id: id });
-    if (badge) {
-      res.render('edit-badge', { badge });
-    } else {
-      res.status(404).send('Medalla no encontrada');
-    }
-  } catch (err) {
-    console.error('Error al obtener la badge:', err);
-    res.status(500).send('Error del servidor');
-  }
-});
-
-router.delete('/badges/:rango', isAuthenticated, isAdmin, async(req, res) => {
-  const {rango} = req.params;
-  try {
-    const deletedBadge = await Badge.findOneAndDelete({ rango });
-    if (!deletedBadge){
-      console.error(`No se encontró una medalla con rango: ${rango}`);
-      return res.status(400).json({ message: 'No se encontró la medalla para eliminar' });
-    }
-    res.status(200).json({message: 'Medalla eliminada correctamente'});
-  } catch (error) {
-    console.error('Error eliminando la medalla: ', error);
-    res.status(500).json({message: 'Error interno del servidor'});
-  }
 });
 
 /*ABOUT US*/
