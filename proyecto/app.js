@@ -11,6 +11,8 @@ const FirebaseStore = require('connect-session-firebase')(session);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const newsRouter = require('./routes/news');
+
 
 const app = express();
 
@@ -58,6 +60,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/news', newsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

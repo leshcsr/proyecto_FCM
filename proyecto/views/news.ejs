@@ -1,0 +1,34 @@
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
+
+<div class="container mt-4"> <!--Contendor Principal-->
+
+  <!-- Switch Noticias/Galería -->
+    <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group" role="group" aria-label="Switch Noticias/Galería">
+            <a href="/news" class="btn btn-outline-primary <%= (currentView === 'news' ? 'active' : '') %>">Noticias</a>
+            <a href="/news/gallery" class="btn btn-outline-primary <%= (currentView === 'gallery' ? 'active' : '') %>">Galería</a>
+        </div>
+    </div>
+
+    <!-- Contenido Dinámico -->
+    <% if (currentView === 'news') { %>
+        <h1>Noticias</h1>
+        <p>Bienvenido a la página de noticias.</p>
+    <% } else if (currentView === 'gallery') { %>
+        <h1>Galería</h1>
+        <p>Bienvenido a la página de galería.</p>
+    <% } %>
+
+
+
+
+</div> <!--Fin Contendor Principal-->
+
+
+        
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->
