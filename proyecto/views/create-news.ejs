@@ -1,0 +1,80 @@
+<!--Header-->
+<%- include('partials/header') %>
+<!--Header-->
+
+<div class="container mt-4"> <!--Contendor Principal-->
+    <h1> 📢 Comparte algo con la communidad!</h1>
+
+    <!-- Formulario Crear Noticia -->
+    <form action="/news/create" method="POST" enctype="multipart/form-data">
+        <!-- Título -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        
+        <!-- Destinatario -->
+        <div class="mb-3">
+            <label for="recipient" class="form-label">Destinatario</label>
+            <select class="form-select" id="recipient" name="recipient" required>
+                <option value="Todos" selected>Todos</option>
+                <option value="Casa 1">Casa 1</option>
+                <option value="Casa 2">Casa 2</option>
+                <option value="Casa 3">Casa 3</option>
+                <option value="Casa 3">Casa 4</option>            
+                <option value="Casa 3">Casa 5</option>           
+            </select>
+        </div>
+
+        <!-- Subir Imágenes -->
+        <div class="mb-3">
+            <label for="images" class="form-label">Imágenes (Máx. 15, 5MB c/u)</label>
+            <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple>
+            <small class="text-muted">Puedes subir hasta 15 imágenes.</small>
+        </div>
+
+        <!-- Agregar al Calendario -->
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="addToCalendar">
+            <label class="form-check-label" for="addToCalendar">
+                Agregar al calendario
+            </label>
+        </div>
+
+        <!-- Fecha y Hora -->
+        <div id="calendarFields" class="d-none">
+            <div class="mb-3">
+                <label for="eventDate" class="form-label">Fecha del evento</label>
+                <input type="date" class="form-control" id="eventDate" name="eventDate" min="">
+            </div>
+            <div class="mb-3">
+                <label for="eventTime" class="form-label">Hora del evento</label>
+                <input type="time" class="form-control" id="eventTime" name="eventTime">
+            </div>
+        </div>
+
+
+        <!-- Botón Publicar -->
+        <button type="submit" class="btn btn-primary">Publicar</button>
+    </form>
+
+</div> <!--Fin Contendor Principal-->
+
+<!--Footer-->
+<%- include('partials/footer') %>
+<!--Footer-->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addToCalendarCheckbox = document.getElementById("addToCalendar");
+        const calendarFields = document.getElementById("calendarFields");
+        const eventDate = document.getElementById("eventDate");
+
+        addToCalendarCheckbox.addEventListener("change", function () {
+            calendarFields.classList.toggle("d-none", !this.checked);
+        });
+
+        const today = new Date().toISOString().split("T")[0];
+        eventDate.setAttribute("min", today);
+    });
+</script>

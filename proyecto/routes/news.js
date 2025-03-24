@@ -11,5 +11,8 @@ router.get('/gallery', (req, res) => {
     res.render('gallery', { currentView: 'gallery' });
 });
 
+router.get('/create', (req, res) => {
+    res.render('create-news');
+});
 
 module.exports = router;
