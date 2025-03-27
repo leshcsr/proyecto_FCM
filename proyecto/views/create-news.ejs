@@ -3,7 +3,7 @@
 <!--Header-->
 
 <div class="container mt-4"> <!--Contendor Principal-->
-    <h1> 📢 Comparte algo con la communidad!</h1>
+    <h1> 📢 Comparte algo con la comunidad!</h1>
 
     <!-- Formulario Crear Noticia -->
     <form action="/news/create" method="POST" enctype="multipart/form-data">
@@ -12,7 +12,7 @@
             <label for="title" class="form-label">Título</label>
             <input type="text" class="form-control" id="title" name="title" required>
         </div>
-        
+
         <!-- Destinatario -->
         <div class="mb-3">
             <label for="recipient" class="form-label">Destinatario</label>
@@ -50,6 +50,10 @@
             <div class="mb-3">
                 <label for="eventTime" class="form-label">Hora del evento</label>
                 <input type="time" class="form-control" id="eventTime" name="eventTime">
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Ubicación</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Ej. Salón de eventos">
             </div>
         </div>
 
