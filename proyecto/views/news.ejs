@@ -4,7 +4,7 @@
 
 <div class="container mt-4"> <!--Contendor Principal-->
 
-  <!-- Switch Noticias/Galería -->
+    <!-- Switch Noticias/Galería -->
     <div class="d-flex justify-content-center mb-4">
         <div class="btn-group" role="group" aria-label="Switch Noticias/Galería">
             <a href="/news" class="btn btn-outline-primary <%= (currentView === 'news' ? 'active' : '') %>">Noticias</a>
@@ -12,20 +12,52 @@
         </div>
     </div>
 
-    <!-- Contenido Dinámico -->
-    <% if (currentView === 'news') { %>
-        <h1>Noticias</h1>
-        <p>Bienvenido a la página de noticias.</p>
-    <% } else if (currentView === 'gallery') { %>
-        <h1>Galería</h1>
-        <p>Bienvenido a la página de galería.</p>
+    <!-- Contenido Noticias -->
+    <% if (news.length > 0) { %>
+        <div class="row justify-content-center"> <!--Contendor de Noticia-->
+            <% news.forEach((noticia, index) => { %> 
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="card shadow-sm border-light rounded">
+                        <div class="card-body">
+                            <p class="card-title"><%= noticia.userId.nombre %> <%= noticia.userId.apellidos %></p>
+                            <p class="text-muted">Publicado el <%= new Date(noticia.createdAt).toLocaleDateString() %></p>
+                            <h5 class="card-text"><%= noticia.title %></h5>
+    
+                            <!-- Carrusel de imágenes -->
+                            <% if (noticia.images && noticia.images.length > 0) { %>
+                                <div id="carousel-<%= index %>" class="carousel slide" data-bs-interval="false">
+                                    <div class="carousel-inner">
+                                        <% noticia.images.forEach((image, imgIndex) => { %>
+                                            <div class="carousel-item <%= imgIndex === 0 ? 'active' : '' %>">
+                                                <img src="<%= image %>" class="d-block w-100"
+                                                    alt="Imagen Noticia"
+                                                    style="max-height: 300px; object-fit: contain; background: #f8f9fa;">
+                                            </div>
+                                        <% }); %>
+                                    </div>
+    
+                                    <!-- Controles del carrusel (solo si hay más de 1 imagen) -->
+                                    <% if (noticia.images.length > 1) { %>
+                                        <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carousel-<%= index %>" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carousel-<%= index %>" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        </button>
+                                    <% } %>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div><!--Fin Contendor de Noticia-->
+    <% } else { %>
+        <p class="text-center">No hay noticias disponibles.</p>
     <% } %>
-
-
-
-
-
-
+  
 </div> <!--Fin Contendor Principal-->
 
 <!-- Botón Flotante para Crear Noticia -->
@@ -61,5 +93,73 @@
             height: 50px;
             font-size: 20px;
         }
+    }
+
+    .card {
+        border: 0;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #6c757d;
+        text-align: left;
+    }
+    .text-muted {
+        text-align: left;
+        font-size: 0.875rem;
+    }
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .card-body .d-flex {
+        margin-top: 10px;
+    }
+    .row.justify-content-center {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Para dar espacio entre las cards */
+    }
+    .carousel {
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        background: #f8f9fa;
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        padding: 10px;
+    }
+    .carousel-item img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: contain; 
+        background-color: #f8f9fa;
     }
 </style>

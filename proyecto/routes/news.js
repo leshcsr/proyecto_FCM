@@ -8,18 +8,16 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.get('/', (req, res) => {
-    res.render('news', { currentView: 'news' });
-});
+router.get('/', NewsController.getNews);
 
 router.get('/gallery', (req, res) => {
     res.render('gallery', { currentView: 'gallery' });
 });
 
-router.get('/create', (req, res) => {
+router.get('/create',  isAuthenticated, (req, res) => {
     res.render('create-news');
 });
 
-router.post('/create', upload.array('images', 15), NewsController.createNews);
+router.post('/create', isAuthenticated, upload.array('images', 15), NewsController.createNews);
 
 module.exports = router;

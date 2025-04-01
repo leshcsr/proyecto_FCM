@@ -1,5 +1,5 @@
 const { db, storage } = require('../firebase');
-const { collection, addDoc, doc, getDocs, updateDoc, deleteDoc, query, where } = require('firebase/firestore');
+const { collection, orderBy, addDoc, doc, getDocs, updateDoc, deleteDoc, query, where } = require('firebase/firestore');
 const { getStorage, ref, uploadBytes, getDownloadURL } = require('firebase/storage');
 const { v4: uuidv4 } = require('uuid');
 
@@ -51,7 +51,7 @@ exports.createNews = async (newsData, files, userId) => {
             title: newsData.title,
             recipient: newsData.recipient,
             createdAt: new Date().toISOString(),
-            userId: userId.id,
+            userId: userId,
             images: [],
         };
 
@@ -92,6 +92,24 @@ exports.createNews = async (newsData, files, userId) => {
     } catch (error) {
         console.error("Error al crear la noticia:", error);
         return { success: false, error };
+    }
+};
+
+
+exports.getAllNews = async () => {
+    try {
+        const newsRef = collection(db, "news");
+        const q = query(newsRef, orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+        const news = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        return news;
+    } catch (error) {
+        console.error("Error al obtener noticias:", error);
+        throw error;
     }
 };
 
