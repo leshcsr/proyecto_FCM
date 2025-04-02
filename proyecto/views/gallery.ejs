@@ -12,23 +12,78 @@
         </div>
     </div>
 
-    <!-- Contenido Dinámico -->
-    <% if (currentView === 'news') { %>
-        <h1>Noticias</h1>
-        <p>Bienvenido a la página de noticias.</p>
-    <% } else if (currentView === 'gallery') { %>
-        <h1>Galería</h1>
-        <p>Bienvenido a la página de galería.</p>
-    <% } %>
-
-
+    <!-- Galería estilo Pinterest -->
+    <div class="gallery">
+        <% if (images.length > 0) { %>
+            <% images.forEach(image => { %>
+                <div class="gallery-item">
+                    <img src="<%= image.imageUrl %>" alt="Imagen de galería">
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p class="text-center">No hay imágenes disponibles.</p>
+        <% } %>
+    </div>
 
 
 </div> <!--Fin Contendor Principal-->
 
 
-        
-
 <!--Footer-->
 <%- include('partials/footer') %>
 <!--Footer-->
+
+
+<style>
+    .gallery {
+        column-count: 5;
+        column-gap: 10px;
+    }
+
+    .gallery-item {
+        width: 100%;
+        margin-bottom: 10px;
+        break-inside: avoid;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        display: block;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    /* Para tabletas */
+    @media (max-width: 992px) {
+        .gallery {
+            column-count: 4;
+        }
+    }
+
+    /* Para móviles */
+    @media (max-width: 576px) {
+        .gallery {
+            column-count: 3; /* Mantener dos columnas en móviles */
+        }
+
+        .gallery-item {
+            margin-bottom: 5px; /* Reducir el espacio entre imágenes */
+            border-radius: 6px;
+        }
+
+        .gallery-item img {
+            border-radius: 6px;
+        }
+    }
+
+    /* Para pantallas muy pequeñas */
+    @media (max-width: 400px) {
+        .gallery {
+            column-count: 2; /* Una sola columna en pantallas muy pequeñas */
+        }
+    }
+</style>

@@ -10,10 +10,6 @@ const upload = multer({ storage: storage });
 
 router.get('/', NewsController.getNews);
 
-router.get('/gallery', (req, res) => {
-    res.render('gallery', { currentView: 'gallery' });
-});
-
 router.get('/create',  isAuthenticated, (req, res) => {
     res.render('create-news');
 });
